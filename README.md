@@ -5,4 +5,4 @@
 	<li>JD</li>
 </ul>
 
-<p>Welcome To battle nations</p>
+<p>Welcome to battle Nations!</p>
