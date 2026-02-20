@@ -6,19 +6,3 @@
 </ul>
 
 <p>Welcome to battle Nations!</p> 
-<style> 
-	h1 {
-	color: purple;
-	font-size: 28px;
-	border-bottom: 2px solid #000
-
-	}
-	
-	
-	li {
-	font-weight: bold;
-
-	}
-
-
-</style>
