@@ -9,7 +9,7 @@ import java.util.List;
 import static java.awt.Color.*;
 
 public class Region {
-    private List<Territory> territories = new ArrayList<>();
+    private List<Territory> territories = new ArrayList<>(1);
 
     // cant have a region without at least 1 territory
     public Region(Territory territory) {
@@ -43,7 +43,15 @@ public class Region {
         territories.remove(territory);
     }
     // TODO: write test code for both single territory init, and multiple territories init
+    public boolean testSingleTerritoryInit() {
+        boolean passed = true;
+        Player player = new Player("t1", BLUE);
+        Territory t1 = new Territory(player, TerrainType.Terrain.DESERT, 20);
+        Region region = new Region(t1);
 
+        return false;
+
+    }
     // TODO: finish test code for Add Territory
     public boolean testAddTerritory() {
         Player player = new Player("t1", BLUE);
