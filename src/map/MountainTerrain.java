@@ -1,6 +1,6 @@
 package map;
 
-public class MountainTerrain extends TerrainType {
+public class MountainTerrain extends Terrain {
     private static final double ATTACK_BONUS = 0;
     private static final double DEFENSE_BONUS = .1;
     private static final int TROOP_BONUS = 0;

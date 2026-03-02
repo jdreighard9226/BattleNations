@@ -1,6 +1,6 @@
 package map;
 
-public class DesertTerrain extends TerrainType {
+public class DesertTerrain extends Terrain {
     private static final double ATTACK_BONUS = .15;
     private static final double DEFENSE_BONUS = 0;
     private static final int TROOP_BONUS = 0;
