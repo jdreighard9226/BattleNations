@@ -15,6 +15,9 @@ public class Player {
     private String name;
     private Color color;
     private int troopsToPlace;
+    private double attackBonusMultiplier;
+    private double defenseBonusMultiplier;
+    private int troopBonus;
 
     /**
      * Constructor for player
@@ -26,6 +29,17 @@ public class Player {
         this.color = color;
     }
 
+    public double getAttackBonusMultiplier() {
+        return attackBonusMultiplier;
+    }
+
+    public double getDefenseBonusMultiplier() {
+        return defenseBonusMultiplier;
+    }
+
+    public int getTroopBonus() {
+        return troopBonus;
+    }
     /**
      * get amount of troops the player can place
      * @return troupsToPlace
@@ -56,6 +70,17 @@ public class Player {
      */
     public void setTroopsToPlace(int troopsToPlace) {
         this.troopsToPlace = troopsToPlace;
+    }
+    public void setAttackBonusMultiplier(double attackBonusMultiplier) {
+        this.attackBonusMultiplier = attackBonusMultiplier;
+    }
+
+    public void setDefenseBonusMultiplier(double defenseBonusMultiplier) {
+        this.defenseBonusMultiplier = defenseBonusMultiplier;
+    }
+
+    public void setTroopBonus(int troopBonus) {
+        this.troopBonus = troopBonus;
     }
 }
 
