@@ -8,22 +8,26 @@ public class Territory extends Polygon implements Comparable<Territory> {
     private Player player;
     private final Terrain terrainType;
     private int troopAmount;
-    private int identifier = 1;
+    //TODO: figure out unique identifier code for territory
+    // private int identifier = 1;
+    private boolean isPlayerOwned;
 
 
     public Territory(Player player, TerrainType terrainType, int troopAmount, int[] xCoords, int[] yCoords) {
         this.player = player;
         this.terrainType = TerrainType.create(terrainType);
         this.troopAmount = troopAmount;
-        this.identifier = getIdentifier();
-        incrementIdentifier();
+        // this.identifier = getIdentifier();
+       // incrementIdentifier();
         super.xpoints = xCoords;
         super.ypoints = yCoords;
+        this.isPlayerOwned = true;
     }
     public Territory(TerrainType terrainType, int[] xCoords, int[] yCoords) {
         this.terrainType = TerrainType.create(terrainType);
         super.xpoints = xCoords;
         super.ypoints = yCoords;
+        this.isPlayerOwned = false;
     }
 
     public int getTroopAmount() {
@@ -38,12 +42,18 @@ public class Territory extends Polygon implements Comparable<Territory> {
         return player;
     }
 
+    /*
     public int getIdentifier() {
         return identifier;
     }
+     */
 
     public Terrain getTerrainType() {
         return terrainType;
+    }
+
+    public boolean getIsPlayerOwned() {
+        return isPlayerOwned;
     }
 
     public void setPlayer(Player player) {
@@ -54,9 +64,22 @@ public class Territory extends Polygon implements Comparable<Territory> {
         this.troopAmount = troopAmount;
     }
 
+    public void setIsPlayerOwned(boolean isPlayerOwned) {
+        this.isPlayerOwned = isPlayerOwned;
+    }
+
+    public void Draw(Graphics g) {
+        g.setColor(this.getCurrentColor());
+        g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
+        g.fillPolygon(super.xpoints, super.ypoints, super.xpoints.length);
+    }
+
+
+    /*
     public void incrementIdentifier() {
         identifier++;
     }
+     */
 
     @Override
     public int compareTo(Territory other) {
@@ -71,6 +94,6 @@ public class Territory extends Polygon implements Comparable<Territory> {
 
     @Override
     public String toString() {
-        return("Territory ID: " + identifier + " Player: " + player.getName() + " Troop Count: " + troopAmount);
+        return("Territory ID: " + "add id" + " Player: " + player.getName() + " Troop Count: " + troopAmount);
     }
 }
