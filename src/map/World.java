@@ -1,4 +1,8 @@
 package map;
 
-public class World {
+import java.util.List;
+
+public interface World {
+    List<Region> getRegions();
+    boolean isGameOver();
 }
