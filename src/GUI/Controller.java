@@ -29,7 +29,13 @@ public class Controller {
     }
 
     public void displaySettingsPage() {
-        settings.addSettingsPage(display);
+        ActionListener backToStart = new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                settings.removeSettingsPage(display);
+                displayStartMenu();
+            }
+        };
+        settings.addSettingsPage(display, backToStart);
     }
 
     public static void main(String[] args) {

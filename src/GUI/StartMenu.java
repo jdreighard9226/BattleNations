@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 
 public class StartMenu {
     // Main frame
-    private ImagePanel startMenu;
-    private JButton startGame;
-    private JButton settings;
-    private JButton quit;
+    private final ImagePanel startMenu;
+    private final JButton startGame;
+    private final JButton settings;
+    private final JButton quit;
 
 
     public StartMenu() {
