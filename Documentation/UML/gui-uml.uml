@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>GUI</OriginalElement>
+  <nodes>
+    <node x="-3.0" y="232.5">GUI.Controller</node>
+    <node x="200.5" y="-319.5">GUI.ImagePanel</node>
+    <node x="224.0" y="-75.5">GUI.SettingsPage</node>
+    <node x="-177.0" y="-87.5">GUI.StartMenu</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="GUI.SettingsPage" target="GUI.ImagePanel" relationship="TO_ONE">
+      <point x="-60.0" y="-92.5" />
+      <point x="284.0" y="-143.0" />
+      <point x="264.0" y="-143.0" />
+      <point x="264.0" y="-183.0" />
+      <point x="262.25" y="-183.0" />
+      <point x="-61.75" y="56.5" />
+    </edge>
+    <edge source="GUI.StartMenu" target="GUI.ImagePanel" relationship="CREATE">
+      <point x="80.5" y="-104.5" />
+      <point x="64.5" y="-163.0" />
+      <point x="384.0" y="-163.0" />
+      <point x="384.0" y="-183.0" />
+      <point x="385.75" y="-183.0" />
+      <point x="61.75" y="56.5" />
+    </edge>
+    <edge source="GUI.SettingsPage" target="GUI.ImagePanel" relationship="CREATE">
+      <point x="60.0" y="-92.5" />
+      <point x="404.0" y="-163.0" />
+      <point x="384.0" y="-163.0" />
+      <point x="384.0" y="-183.0" />
+      <point x="385.75" y="-183.0" />
+      <point x="61.75" y="56.5" />
+    </edge>
+    <edge source="GUI.Controller" target="GUI.StartMenu" relationship="CREATE">
+      <point x="53.5" y="-104.5" />
+      <point x="157.5" y="197.0" />
+      <point x="164.0" y="197.0" />
+      <point x="164.0" y="-123.0" />
+      <point x="64.5" y="-123.0" />
+      <point x="80.5" y="-104.5" />
+    </edge>
+    <edge source="GUI.StartMenu" target="GUI.ImagePanel" relationship="TO_ONE">
+      <point x="-80.5" y="-104.5" />
+      <point x="-96.5" y="-143.0" />
+      <point x="264.0" y="-143.0" />
+      <point x="264.0" y="-183.0" />
+      <point x="262.25" y="-183.0" />
+      <point x="-61.75" y="56.5" />
+    </edge>
+    <edge source="GUI.Controller" target="GUI.SettingsPage" relationship="CREATE">
+      <point x="53.5" y="-104.5" />
+      <point x="157.5" y="197.0" />
+      <point x="164.0" y="197.0" />
+      <point x="164.0" y="177.0" />
+      <point x="484.0" y="177.0" />
+      <point x="484.0" y="-103.0" />
+      <point x="404.0" y="-103.0" />
+      <point x="60.0" y="-92.5" />
+    </edge>
+    <edge source="GUI.Controller" target="GUI.SettingsPage" relationship="TO_ONE">
+      <point x="-53.5" y="-104.5" />
+      <point x="50.5" y="197.0" />
+      <point x="44.0" y="197.0" />
+      <point x="44.0" y="137.0" />
+      <point x="204.0" y="137.0" />
+      <point x="204.0" y="-103.0" />
+      <point x="284.0" y="-103.0" />
+      <point x="-60.0" y="-92.5" />
+    </edge>
+    <edge source="GUI.Controller" target="GUI.StartMenu" relationship="TO_ONE">
+      <point x="-53.5" y="-104.5" />
+      <point x="50.5" y="197.0" />
+      <point x="44.0" y="197.0" />
+      <point x="44.0" y="137.0" />
+      <point x="-196.0" y="137.0" />
+      <point x="-196.0" y="-123.0" />
+      <point x="-96.5" y="-123.0" />
+      <point x="-80.5" y="-104.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.4283887468030692" showDependencies="true" x="372.2300805729633" y="-54.09937332139663" />
+  <SelectedNodes>
+    <node>GUI.ImagePanel</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
