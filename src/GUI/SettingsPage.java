@@ -41,9 +41,5 @@ public class SettingsPage {
         parent.repaint();
     }
 
-    public static void main(String[] args) {
-        new Controler();
-
-    }
 }
 

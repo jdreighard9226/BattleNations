@@ -50,12 +50,4 @@ public class StartMenu {
         parent.repaint();
     }
 
-
-    public static void main(String[] args) {
-        JFrame display = new JFrame();
-        display.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        display.setUndecorated(true); //Might want to use this later so we have full control over how everything looks
-
-
-    }
 }

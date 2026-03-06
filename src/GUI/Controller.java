@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Controler {
+public class Controller {
     final JFrame display;
     final StartMenu start;
     final SettingsPage settings;
 
-    public Controler() {
+    public Controller() {
         display = new JFrame();
         display.setExtendedState(JFrame.MAXIMIZED_BOTH);
         display.setUndecorated(true);
@@ -34,6 +34,6 @@ public class Controler {
 
     public static void main(String[] args) {
          //Might want to use this later so we have full control over how everything looks
-        Controler myControler = new Controler();
+        Controller myController = new Controller();
     }
 }
