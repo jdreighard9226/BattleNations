@@ -37,6 +37,12 @@ public class Region {
         this.territories = territories;
     }
 
+    public void addTerritories(List<Territory> territories) {
+        for (Territory territory : territories) {
+            addTerritory(territory);
+        }
+    }
+
     public void removeTerritory(Territory territory) {
         territories.remove(territory);
     }

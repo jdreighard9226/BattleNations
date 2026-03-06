@@ -9,24 +9,24 @@
 package map;
 
 public abstract class Terrain {
-    protected final double attackBonus;
-    protected final double defenseBonus;
+    protected final double attackBonusPercentage;
+    protected final double defenseBonusPercentage;
     protected final int troopBonus;
     protected final String imageFile;
 
-    public Terrain(double attackBonus, double defenseBonus, String imageFile, int troopBonus) {
-        this.attackBonus = attackBonus;
-        this.defenseBonus = defenseBonus;
+    public Terrain(double attackBonusPercentage, double defenseBonusPercentage, String imageFile, int troopBonus) {
+        this.attackBonusPercentage = attackBonusPercentage;
+        this.defenseBonusPercentage = defenseBonusPercentage;
         this.troopBonus = troopBonus;
         this.imageFile = imageFile;
     }
 
     public double getAttackBonus() {
-        return attackBonus;
+        return attackBonusPercentage;
     }
 
     public double getDefenseBonus() {
-        return defenseBonus;
+        return defenseBonusPercentage;
     }
 
     public int getTroopBonus() {

@@ -8,8 +8,6 @@ public class Territory extends Polygon implements Comparable<Territory> {
     private Player player;
     private final Terrain terrainType;
     private int troopAmount;
-    //TODO: figure out unique identifier code for territory
-    // private int identifier = 1;
     private boolean isPlayerOwned;
 
 
@@ -42,12 +40,6 @@ public class Territory extends Polygon implements Comparable<Territory> {
         return player;
     }
 
-    /*
-    public int getIdentifier() {
-        return identifier;
-    }
-     */
-
     public Terrain getTerrainType() {
         return terrainType;
     }
@@ -73,13 +65,6 @@ public class Territory extends Polygon implements Comparable<Territory> {
         g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
         g.fillPolygon(super.xpoints, super.ypoints, super.xpoints.length);
     }
-
-
-    /*
-    public void incrementIdentifier() {
-        identifier++;
-    }
-     */
 
     @Override
     public int compareTo(Territory other) {
