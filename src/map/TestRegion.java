@@ -132,8 +132,6 @@ public class TestRegion {
             System.err.println("Regions size did not grow properly when adding a territory");
         }
 
-
-
         return false;
     }
 }
