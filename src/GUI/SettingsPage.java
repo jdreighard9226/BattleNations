@@ -11,10 +11,8 @@ public class SettingsPage {
     JCheckBox music;
     JButton quit;
 
-    public SettingsPage(JFrame parent) {
+    public SettingsPage() {
         settingsPage = new ImagePanel("src/Images/SettingsImage.png");
-        parent.add(settingsPage);
-        parent.repaint();
 
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         settingsPage.setLayout(null);
@@ -36,10 +34,11 @@ public class SettingsPage {
             }
         });
         settingsPage.add(quit);
+    }
 
-
-
-
+    public void addSettingsPage(JFrame parent) {
+        parent.add(settingsPage);
+        parent.repaint();
     }
 
     public static void main(String[] args) {

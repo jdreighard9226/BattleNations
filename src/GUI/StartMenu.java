@@ -13,7 +13,7 @@ public class StartMenu {
     private JButton quit;
 
 
-    public StartMenu(JFrame parent) {
+    public StartMenu() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         startMenu = new ImagePanel("src/Images/BattleNationsHomeScreen.png");
         startMenu.setLayout(null);
@@ -26,13 +26,6 @@ public class StartMenu {
 
         settings = new JButton("Settings");
         settings.setBounds(screen.width/2 - 100, screen.height/2, 200, 50);
-        settings.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                parent.remove(startMenu);
-                parent.repaint();
-                new SettingsPage(parent);
-            }
-        });
         startMenu.add(settings);
 
         quit = new JButton("Quit");
@@ -44,9 +37,17 @@ public class StartMenu {
         });
         startMenu.add(quit);
 
+    }
 
+    public void addStartMenu(JFrame parent, ActionListener listener) {
         parent.add(startMenu);
         parent.setVisible(true);
+        settings.addActionListener(listener);
+    }
+
+    public void removeFromParent(JFrame parent) {
+        parent.remove(startMenu);
+        parent.repaint();
     }
 
 
@@ -54,7 +55,7 @@ public class StartMenu {
         JFrame display = new JFrame();
         display.setExtendedState(JFrame.MAXIMIZED_BOTH);
         display.setUndecorated(true); //Might want to use this later so we have full control over how everything looks
-        StartMenu myStart = new StartMenu(display);
+
 
     }
 }
