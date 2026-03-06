@@ -5,9 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller {
-    final JFrame display;
-    final StartMenu start;
-    final SettingsPage settings;
+    private final JFrame display;
+    private final StartMenu start;
+    private final SettingsPage settings;
 
     public Controller() {
         display = new JFrame();

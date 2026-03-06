@@ -6,10 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SettingsPage {
-    ImagePanel settingsPage;
-    JCheckBox sound;
-    JCheckBox music;
-    JButton quit;
+    private ImagePanel settingsPage;
+    private JCheckBox sound;
+    private JCheckBox music;
+    private JButton quit;
 
     public SettingsPage() {
         settingsPage = new ImagePanel("src/Images/SettingsImage.png");
