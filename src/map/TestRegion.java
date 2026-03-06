@@ -35,7 +35,7 @@ public class TestRegion {
         System.out.print("testing Initializer when Adding 1 Territory: ");
         boolean passed = true;
         Player player = new Player("t1", BLUE);
-        Territory t1 = new Territory(player, TerrainType.DESERT, 20,
+        Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1,2,3,4,5,6},
                 new int[]{1,2,3,4,5,6});
         Region region = new Region(t1);
@@ -62,19 +62,19 @@ public class TestRegion {
         System.out.print("Testing Initializer with multiple territores as paramater: ");
         // setting up all required elements for a region
         Player player = new Player("t1", BLUE);
-        Territory t1 = new Territory(player, TerrainType.DESERT, 20,
+        Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1,2,3,4,5,6},
                 new int[]{1,2,3,4,5,6});
-        Territory t2 = new Territory(player, TerrainType.MOUNTAIN, 10,
+        Territory t2 = new Territory(player, TerrainType.MOUNTAIN.getTerrain(), 10,
                 new int[]{1,2,3,4,5,6},
                 new int[]{1,2,3,4,5,6});
-        Territory t3 = new Territory(player, TerrainType.DESERT, 30,
+        Territory t3 = new Territory(player, TerrainType.DESERT.getTerrain(), 30,
                 new int[]{1,2,3,4,5,6},
                 new int[]{1,2,3,4,5,6});
-        Territory t4 = new Territory(player, TerrainType.MOUNTAIN, 50,
+        Territory t4 = new Territory(player, TerrainType.MOUNTAIN.getTerrain(), 50,
                 new int[]{1,2,3,4,5,6},
                 new int[]{1,2,3,4,5,6});
-        Territory t5 = new Territory(player, TerrainType.CITY, 20,
+        Territory t5 = new Territory(player, TerrainType.CITY.getTerrain(), 20,
                 new int[]{1,2,3,4,5,6},
                 new int[]{1,2,3,4,5,6});
         List<Territory> temp = new ArrayList<>();
@@ -112,7 +112,7 @@ public class TestRegion {
         boolean passed = true;
         System.out.print("testing addTerritory Method: ");
         Player player = new Player("t1", BLUE);
-        Territory t1 = new Territory(player, TerrainType.DESERT, 20,
+        Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1,2,3,4,5,6},
                 new int[]{1,2,3,4,5,6});
 
@@ -122,7 +122,7 @@ public class TestRegion {
             System.err.println("Error has occured in region initalizer. Test cannot be ran");
             return false;
         }
-        Territory t2 = new Territory(player, TerrainType.MOUNTAIN, 20,
+        Territory t2 = new Territory(player, TerrainType.MOUNTAIN.getTerrain(), 20,
                 new int[]{1,2,3,4,5,6},
                 new int[]{1,2,3,4,5,6});
         region.addTerritory(t2);

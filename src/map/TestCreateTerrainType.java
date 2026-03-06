@@ -5,9 +5,9 @@ public class TestCreateTerrainType {
     private static boolean testCreateTerrainType() {
         System.out.print("testing create() method: ");
         boolean passed = true;
-        Terrain city = TerrainType.create(TerrainType.CITY);
-        Terrain mountain = TerrainType.create(TerrainType.MOUNTAIN);
-        Terrain desert = TerrainType.create(TerrainType.DESERT);
+        Terrain city = TerrainType.CITY.getTerrain();
+        Terrain mountain = TerrainType.MOUNTAIN.getTerrain();
+        Terrain desert = TerrainType.DESERT.getTerrain();
         if (!city.getClass().equals(CityTerrain.class)) {
             passed = false;
             System.err.println("Error In City TerrainType");

@@ -6,23 +6,21 @@ import java.awt.*;
 
 public class Territory extends Polygon implements Comparable<Territory> {
     private Player player;
-    private final Terrain terrainType;
+    private final Terrain terrain;
     private int troopAmount;
     private boolean isPlayerOwned;
 
 
-    public Territory(Player player, TerrainType terrainType, int troopAmount, int[] xCoords, int[] yCoords) {
+    public Territory(Player player, Terrain terrain, int troopAmount, int[] xCoords, int[] yCoords) {
         this.player = player;
-        this.terrainType = TerrainType.create(terrainType);
+        this.terrain = terrain;
         this.troopAmount = troopAmount;
-        // this.identifier = getIdentifier();
-       // incrementIdentifier();
         super.xpoints = xCoords;
         super.ypoints = yCoords;
         this.isPlayerOwned = true;
     }
-    public Territory(TerrainType terrainType, int[] xCoords, int[] yCoords) {
-        this.terrainType = TerrainType.create(terrainType);
+    public Territory(Terrain terrain, int[] xCoords, int[] yCoords) {
+        this.terrain = terrain;
         super.xpoints = xCoords;
         super.ypoints = yCoords;
         this.isPlayerOwned = false;
@@ -40,8 +38,8 @@ public class Territory extends Polygon implements Comparable<Territory> {
         return player;
     }
 
-    public Terrain getTerrainType() {
-        return terrainType;
+    public Terrain getTerrain() {
+        return terrain;
     }
 
     public boolean getIsPlayerOwned() {
