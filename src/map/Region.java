@@ -99,6 +99,13 @@ public class Region {
     }
 
     /**
+     * Clears a regions territories.
+     */
+    public void clearRegion() {
+        this.territories.clear();
+    }
+
+    /**
      * Returns the number of territories in the region.
      *
      * @return the size of the region

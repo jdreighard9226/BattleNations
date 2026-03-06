@@ -93,7 +93,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
      */
     public Color getCurrentColor() {
         if (player == null) {
-            return Color.BLUE;
+            return null;
         }
         return player.getColor();
     }
