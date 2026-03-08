@@ -10,6 +10,8 @@ public class SettingsPage {
     private final JCheckBox sound;
     private final JCheckBox music;
     private final JButton back;
+    private JFrame parent;
+    private StartController startController;
 
     public SettingsPage() {
         settingsPage = new ImagePanel("src/Images/SettingsImage.png");
@@ -28,19 +30,22 @@ public class SettingsPage {
 
         back = new JButton("Back To Start");
         back.setBounds(screen.width/2 - 100, 2 * screen.height/3, 200, 50);
+        back.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                parent.remove(settingsPage);
+                startController.displayStartMenuPage();
+            }
+        });
         settingsPage.add(back);
     }
 
-    public void addSettingsPage(JFrame parent, ActionListener listener) {
+    public void addSettingsPage(StartController startController) {
+        this.parent = startController.getDisplay();
+        this.startController = startController;
         parent.add(settingsPage);
-        back.addActionListener(listener);
         parent.repaint();
     }
 
-    public void removeSettingsPage(JFrame parent) {
-        parent.remove(settingsPage);
-        parent.repaint();
-    }
 
 }
 
