@@ -1,9 +1,9 @@
 package map;
 
-public class TestCreateTerrainType {
+public class TestTerrainType {
 
     private static boolean testCreateTerrainType() {
-        System.out.print("testing create() method: ");
+        System.out.print("testing enumerators getTerrain() method: ");
         boolean passed = true;
         Terrain city = TerrainType.CITY.getTerrain();
         Terrain mountain = TerrainType.MOUNTAIN.getTerrain();
