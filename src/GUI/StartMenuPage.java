@@ -21,6 +21,12 @@ public class StartMenuPage {
 
         JButton startGame = new JButton("Start Game");
         startGame.setBounds(screen.width/2 - 100, screen.height/3, 200, 50);
+        startGame.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                parent.remove(startMenuPage);
+                startController.displayMapDisplay();
+            }
+        });
         startMenuPage.add(startGame);
 
         JButton settings = new JButton("Settings");

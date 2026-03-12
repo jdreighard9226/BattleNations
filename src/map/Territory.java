@@ -158,8 +158,9 @@ public class Territory extends Polygon implements Comparable<Territory> {
      * @param g the graphics context used for rendering
      */
     public void Draw(Graphics g) {
-        g.setColor(this.getCurrentColor());
+        g.setColor(Color.LIGHT_GRAY);
         g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
+        g.setColor(Color.DARK_GRAY);
         g.fillPolygon(super.xpoints, super.ypoints, super.xpoints.length);
     }
 

@@ -8,6 +8,7 @@ public class StartController {
     private final JFrame display;
     private final StartMenuPage start;
     private final SettingsPage settings;
+    private final MapDisplay map;
 
     public StartController() {
         display = new JFrame();
@@ -15,6 +16,7 @@ public class StartController {
         display.setUndecorated(true);
         start = new StartMenuPage();
         settings = new SettingsPage();
+        map = new MapDisplay();
         display.setVisible(true);
         displayStartMenuPage();
     }
@@ -27,6 +29,7 @@ public class StartController {
         settings.addSettingsPage(this);
     }
 
+    public void displayMapDisplay() {map.addMapDisplay(this);}
     public JFrame getDisplay() {
         return display;
     }
