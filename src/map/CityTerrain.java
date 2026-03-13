@@ -33,7 +33,7 @@ public class CityTerrain extends Terrain {
     /**
      * Image file used to represent city terrain on the map.
      */
-    private static final String ICON_FILENAME = "PlaceHolder";
+    private static final String ICON_FILENAME = "src/gameImages/CityTerrain.png";
 
     /**
      * Constructs a CityTerrain object with predefined terrain bonuses.

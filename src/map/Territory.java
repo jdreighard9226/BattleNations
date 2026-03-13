@@ -2,6 +2,7 @@ package map;
 
 import player.Player;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -158,10 +159,26 @@ public class Territory extends Polygon implements Comparable<Territory> {
      * @param g the graphics context used for rendering
      */
     public void Draw(Graphics g) {
-        g.setColor(Color.LIGHT_GRAY);
+        if (this.getCurrentColor() != null) {
+            g.setColor(this.getCurrentColor());
+        } else {
+            g.setColor(Color.DARK_GRAY);
+        }
         g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
-        g.setColor(Color.DARK_GRAY);
+        if (this.getCurrentColor() != null) {
+            g.setColor(this.getCurrentColor().brighter());
+        } else {
+            g.setColor(Color.LIGHT_GRAY);
+        }
+
         g.fillPolygon(super.xpoints, super.ypoints, super.xpoints.length);
+        ImageIcon watermarkIcon = new ImageIcon(this.getTerrain().getImageFile());
+        Image watermark = watermarkIcon.getImage();
+        int xLeft = super.xpoints[1];
+        int xRight = super.xpoints[2];
+        int yTop = super.ypoints[2];
+        int yBottom = super.ypoints[5];
+        g.drawImage(watermark, xLeft, yTop, xRight-xLeft,yBottom-yTop,  g.getColor(), null);
     }
 
     /**

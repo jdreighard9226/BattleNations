@@ -34,7 +34,7 @@ public class DesertTerrain extends Terrain {
     /**
      * Image file used to represent desert terrain on the map.
      */
-    private static final String ICON_FILENAME = "PlaceHolder";
+    private static final String ICON_FILENAME = "src/gameImages/DesertTerrain.png";
 
     public DesertTerrain() {
         super(ATTACK_BONUS_PERCENTAGE, DEFENSE_BONUS_PERCENTAGE, ICON_FILENAME, TROOP_BONUS);
