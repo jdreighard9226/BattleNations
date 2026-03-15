@@ -37,7 +37,11 @@ public enum TerrainType {
     /**
      * Represents a mountain terrain type.
      */
-    MOUNTAIN(new MountainTerrain());
+    MOUNTAIN(new MountainTerrain()),
+    /**
+     * Represents a water terrain type.
+     */
+    WATER(new WaterTerrain());
 
     /** The terrain instance associated with this terrain type. */
     private final Terrain terrain;

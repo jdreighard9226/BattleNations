@@ -48,7 +48,7 @@ public class StartController {
         display.setExtendedState(JFrame.MAXIMIZED_BOTH);
         display.setUndecorated(true);
 
-        // Initialize pages
+        // Initialize pages3
         start = new StartMenuPage();
         settings = new SettingsPage();
         map = new MapDisplay();

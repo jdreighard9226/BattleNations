@@ -161,9 +161,18 @@ public class MapDisplay {
 
                 // Assign terrain type to hex
                 switch (terrainTypes[i][j]) {
-                    case "M" -> territories[i][j] = new Territory(TerrainType.MOUNTAIN.getTerrain(), xPoints, yPoints);
-                    case "D" -> territories[i][j] = new Territory(TerrainType.DESERT.getTerrain(), xPoints, yPoints);
-                    case "C" -> territories[i][j] = new Territory(TerrainType.CITY.getTerrain(), xPoints, yPoints);
+                    case "M":
+                        territories[i][j] = new Territory(TerrainType.MOUNTAIN.getTerrain(), xPoints, yPoints);
+                        break;
+                    case "D":
+                        territories[i][j] = new Territory(TerrainType.DESERT.getTerrain(), xPoints, yPoints);
+                        break;
+                    case "C":
+                        territories[i][j] = new Territory(TerrainType.CITY.getTerrain(), xPoints, yPoints);
+                        break;
+                    case "W":
+                        territories[i][j] = new Territory(TerrainType.WATER.getTerrain(), xPoints, yPoints);
+                        break;
                 }
 
                 // Move to next hex horizontally

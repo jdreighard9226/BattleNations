@@ -1,10 +1,11 @@
-9 4
-D D D M
-C D M
-D D D M
-C M M
-M M M M
-M M M
-D D D D
-D M D
-D D D D
+10 5
+D D D M W
+C D M W
+D D D M W
+C M M W
+M M M M W
+M M M W
+D D D D W
+D M D W
+D D D D W
+W W W W

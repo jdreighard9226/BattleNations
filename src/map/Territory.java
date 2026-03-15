@@ -168,7 +168,11 @@ public class Territory extends Polygon implements Comparable<Territory> {
         if (this.getCurrentColor() != null) {
             g.setColor(this.getCurrentColor().brighter());
         } else {
-            g.setColor(Color.LIGHT_GRAY);
+            if (this.getTerrain() instanceof WaterTerrain){
+                g.setColor(Color.BLUE);
+            } else {
+                g.setColor(Color.LIGHT_GRAY);
+            }
         }
 
         g.fillPolygon(super.xpoints, super.ypoints, super.xpoints.length);
