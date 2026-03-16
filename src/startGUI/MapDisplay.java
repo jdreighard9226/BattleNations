@@ -1,6 +1,6 @@
 package startGUI; //rename packages
 
-import map.TerrainType;
+import terrain.TerrainType;
 import map.Territory;
 
 import javax.swing.*;

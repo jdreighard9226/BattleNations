@@ -1,4 +1,4 @@
-package map;
+package terrain;
 
 /**
  * Represents a terrain type used by territories in Battle Nations.

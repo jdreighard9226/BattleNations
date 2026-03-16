@@ -1,4 +1,4 @@
-package map;
+package terrain;
 
 public class WaterTerrain extends Terrain {
     /**

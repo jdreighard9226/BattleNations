@@ -1,4 +1,4 @@
-package map;
+package terrain;
 
 /**
  * Represents city terrain in Battle Nations.

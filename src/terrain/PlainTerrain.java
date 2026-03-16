@@ -1,6 +1,6 @@
-package map;
+package terrain;
 
-public class PlainTerrain extends Terrain{
+public class PlainTerrain extends Terrain {
     /**
      * Attack bonus percentage provided by mountain terrain.
      */
