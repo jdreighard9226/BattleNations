@@ -1,6 +1,7 @@
 package map;
 
 import player.Player;
+import terrain.TerrainType;
 
 import java.util.ArrayList;
 import java.util.Collections;

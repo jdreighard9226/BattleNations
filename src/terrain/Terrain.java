@@ -54,6 +54,7 @@ public abstract class Terrain {
     }
 
     /**
+     * gets the attack bonus percentage
      * @return the terrain's attack bonus percentage
      */
     public double getAttackBonus() {

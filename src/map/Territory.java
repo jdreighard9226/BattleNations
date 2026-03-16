@@ -1,6 +1,8 @@
 package map;
 
 import player.Player;
+import terrain.Terrain;
+import terrain.WaterTerrain;
 
 import javax.swing.*;
 import java.awt.*;
