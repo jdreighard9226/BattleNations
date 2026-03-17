@@ -6,6 +6,8 @@ import terrain.WaterTerrain;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 /**
  * Represents a territory in Battle Nations.
@@ -45,6 +47,8 @@ public class Territory extends Polygon implements Comparable<Territory> {
      */
     private boolean isPlayerOwned;
 
+    private boolean isCapital;
+
 
     /**
      * Constructs a territory owned by a player.
@@ -55,13 +59,14 @@ public class Territory extends Polygon implements Comparable<Territory> {
      * @param xCoords     the x-coordinates defining the polygon shape
      * @param yCoords     the y-coordinates defining the polygon shape
      */
-    public Territory(Player player, Terrain terrain, int troopAmount, int[] xCoords, int[] yCoords) {
+    public Territory(Player player, Terrain terrain, int troopAmount, int[] xCoords, int[] yCoords, boolean isCapital) {
         this.player = player;
         this.terrain = terrain;
         this.troopAmount = troopAmount;
         super.xpoints = xCoords;
         super.ypoints = yCoords;
         this.isPlayerOwned = true;
+        this.isCapital = isCapital;
     }
 
     /**
@@ -71,11 +76,12 @@ public class Territory extends Polygon implements Comparable<Territory> {
      * @param xCoords the x-coordinates defining the polygon shape
      * @param yCoords the y-coordinates defining the polygon shape
      */
-    public Territory(Terrain terrain, int[] xCoords, int[] yCoords) {
+    public Territory(Terrain terrain, int[] xCoords, int[] yCoords, boolean isCapital) {
         this.terrain = terrain;
         super.xpoints = xCoords;
         super.ypoints = yCoords;
         this.isPlayerOwned = false;
+        this.isCapital = isCapital;
     }
 
     /**
@@ -126,6 +132,10 @@ public class Territory extends Polygon implements Comparable<Territory> {
      */
     public boolean getIsPlayerOwned() {
         return isPlayerOwned;
+    }
+
+    public boolean getIsCaptial() {
+        return isCapital;
     }
 
     /**
