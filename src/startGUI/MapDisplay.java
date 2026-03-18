@@ -74,7 +74,7 @@ public class MapDisplay {
         displayHeight = screen.height;
 
         // Load map from file and generate territories
-        makeTerritories("src/mapTextFiles/Map1");
+        makeTerritories("src/mapTextFiles/funny_land");
 
         // Initialize the panel that displays the map
         mapDisplay = new MapPanel(territories);
@@ -173,6 +173,8 @@ public class MapDisplay {
                     case "W":
                         territories[i][j] = new Territory(TerrainType.WATER.getTerrain(), xPoints, yPoints, false);
                         break;
+                    case "P":
+                        territories[i][j] = new Territory(TerrainType.PLAIN.getTerrain(), xPoints, yPoints);
                 }
 
                 // Move to next hex horizontally
