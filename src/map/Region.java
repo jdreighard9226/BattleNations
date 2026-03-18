@@ -1,5 +1,7 @@
 package map;
 
+import player.Player;
+
 import java.util.ArrayList;
 import java.awt.Color;
 import java.util.List;
@@ -80,6 +82,13 @@ public class Region {
         return true;
     }
 
+    public Player getPlayerConqueredRegion() {
+        if (isRegionConquered()) {
+            return territories.get(0).getPlayer();
+        }
+        return null;
+    }
+
     /**
      * Adds a territory to the region.
      *
@@ -121,6 +130,15 @@ public class Region {
      */
     public List<Territory> getTerritories() {
         return territories;
+    }
+
+    public Territory getCapitalTerritory() {
+        for (Territory territory : territories) {
+            if (territory.isCapital()) {
+                return territory;
+            }
+        }
+        return null;
     }
 
     /**

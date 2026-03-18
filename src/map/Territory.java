@@ -134,7 +134,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
         return isPlayerOwned;
     }
 
-    public boolean getIsCaptial() {
+    public boolean isCapital() {
         return isCapital;
     }
 
