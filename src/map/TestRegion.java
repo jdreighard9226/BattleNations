@@ -63,7 +63,7 @@ public class TestRegion {
         Player player = new Player("p1", BLUE);
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6});
+                new int[]{1, 2, 3, 4, 5, 6}, false);
         Region region = new Region(t1);
 
         if (region.getSize() != 1) {
@@ -95,19 +95,19 @@ public class TestRegion {
         Player player = new Player("p1", BLUE);
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6});
+                new int[]{1, 2, 3, 4, 5, 6}, false);
         Territory t2 = new Territory(player, TerrainType.MOUNTAIN.getTerrain(), 10,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6});
+                new int[]{1, 2, 3, 4, 5, 6}, false);
         Territory t3 = new Territory(player, TerrainType.DESERT.getTerrain(), 30,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6});
+                new int[]{1, 2, 3, 4, 5, 6}, false);
         Territory t4 = new Territory(player, TerrainType.MOUNTAIN.getTerrain(), 50,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6});
+                new int[]{1, 2, 3, 4, 5, 6}, false);
         Territory t5 = new Territory(player, TerrainType.CITY.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6});
+                new int[]{1, 2, 3, 4, 5, 6}, false);
         List<Territory> temp = new ArrayList<>();
         Collections.addAll(temp, t1, t2, t3, t4, t5);
         int regionSize = temp.size();
@@ -150,7 +150,7 @@ public class TestRegion {
         Player player = new Player("p1", BLUE);
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6});
+                new int[]{1, 2, 3, 4, 5, 6}, false);
 
         Region region = new Region(t1);
         int size = region.getSize();
@@ -160,7 +160,7 @@ public class TestRegion {
         }
         Territory t2 = new Territory(player, TerrainType.MOUNTAIN.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6});
+                new int[]{1, 2, 3, 4, 5, 6}, false);
         region.addTerritory(t2);
         size++;
         if (region.getSize() != size) {
@@ -171,7 +171,7 @@ public class TestRegion {
         for (int i = 0; i < 100; i++) {
             Territory temp = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                     new int[]{1, 2, 3, 4, 5, 6},
-                    new int[]{1, 2, 3, 4, 5, 6});
+                    new int[]{1, 2, 3, 4, 5, 6}, false);
             region.addTerritory(temp);
             size++;
             if (region.getSize() != size) {
@@ -206,7 +206,7 @@ public class TestRegion {
         Player bluePlayer = new Player("p1", BLUE);
         Territory t1 = new Territory(bluePlayer, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6});
+                new int[]{1, 2, 3, 4, 5, 6}, false);
 
         Region region = new Region(t1);
         if (!region.isRegionConquered()) {
@@ -218,7 +218,7 @@ public class TestRegion {
         for (int i = 0; i < 100; i++) {
             Territory temp = new Territory(redPlayer, TerrainType.DESERT.getTerrain(), 20,
                     new int[]{1, 2, 3, 4, 5, 6},
-                    new int[]{1, 2, 3, 4, 5, 6});
+                    new int[]{1, 2, 3, 4, 5, 6}, false);
             region.addTerritory(temp);
 
             if (region.isRegionConquered()) {
