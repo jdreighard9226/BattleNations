@@ -1,4 +1,4 @@
-package map;
+package terrain;
 
 /**
  * Represents mountain terrain in Battle Nations.
@@ -33,7 +33,7 @@ public class MountainTerrain extends Terrain {
     /**
      * Image file used to represent mountain terrain on the map.
      */
-    private static final String ICON_FILENAME = "PlaceHolder";
+    private static final String ICON_FILENAME = "src/gameImages/MountainTerrain.png";
 
     /**
      * Constructs a MountainTerrain object with predefined terrain bonuses.

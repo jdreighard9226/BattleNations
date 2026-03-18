@@ -1,4 +1,4 @@
-package map;
+package terrain;
 
 /**
  * Represents a terrain type used by territories in Battle Nations.
@@ -54,6 +54,7 @@ public abstract class Terrain {
     }
 
     /**
+     * gets the attack bonus percentage
      * @return the terrain's attack bonus percentage
      */
     public double getAttackBonus() {

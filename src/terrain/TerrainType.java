@@ -1,4 +1,4 @@
-package map;
+package terrain;
 
 /**
  * Defines the available terrain types used in Battle Nations.
@@ -37,8 +37,15 @@ public enum TerrainType {
     /**
      * Represents a mountain terrain type.
      */
-    MOUNTAIN(new MountainTerrain());
+    MOUNTAIN(new MountainTerrain()),
+    /**
+     * Represents a water terrain type.
+     */
+    WATER(new WaterTerrain()),
 
+    PLAIN(new PlainTerrain()),
+
+    WATERROUTE(new WaterRouteTerrain());
     /** The terrain instance associated with this terrain type. */
     private final Terrain terrain;
 
