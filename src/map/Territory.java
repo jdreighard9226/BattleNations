@@ -6,8 +6,6 @@ import terrain.WaterTerrain;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 /**
  * Represents a territory in Battle Nations.
@@ -42,10 +40,6 @@ public class Territory extends Polygon implements Comparable<Territory> {
      * The number of troops stationed in the territory.
      */
     private int troopAmount;
-    /**
-     * Indicates whether the territory currently belongs to a player.
-     */
-    private boolean isPlayerOwned;
 
     private boolean isCapital;
 
@@ -60,13 +54,9 @@ public class Territory extends Polygon implements Comparable<Territory> {
      * @param yCoords     the y-coordinates defining the polygon shape
      */
     public Territory(Player player, Terrain terrain, int troopAmount, int[] xCoords, int[] yCoords, boolean isCapital) {
+        this(terrain, xCoords, yCoords, isCapital);
         this.player = player;
-        this.terrain = terrain;
         this.troopAmount = troopAmount;
-        super.xpoints = xCoords;
-        super.ypoints = yCoords;
-        this.isPlayerOwned = true;
-        this.isCapital = isCapital;
     }
 
     /**
@@ -80,8 +70,9 @@ public class Territory extends Polygon implements Comparable<Territory> {
         this.terrain = terrain;
         super.xpoints = xCoords;
         super.ypoints = yCoords;
-        this.isPlayerOwned = false;
         this.isCapital = isCapital;
+        this.player = null;
+        this.troopAmount = 0;
     }
 
     /**
@@ -125,14 +116,6 @@ public class Territory extends Polygon implements Comparable<Territory> {
         return terrain;
     }
 
-    /**
-     * Indicates whether the territory is currently owned by a player.
-     *
-     * @return true if the territory has an owner, false otherwise
-     */
-    public boolean getIsPlayerOwned() {
-        return isPlayerOwned;
-    }
 
     public boolean isCapital() {
         return isCapital;
@@ -156,14 +139,6 @@ public class Territory extends Polygon implements Comparable<Territory> {
         this.troopAmount = troopAmount;
     }
 
-    /**
-     * Updates whether the territory is owned by a player.
-     *
-     * @param isPlayerOwned true if the territory is owned, false otherwise
-     */
-    public void setIsPlayerOwned(boolean isPlayerOwned) {
-        this.isPlayerOwned = isPlayerOwned;
-    }
 
     /**
      * Draws the territory polygon onto the game map.
@@ -180,7 +155,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
         if (this.getCurrentColor() != null) {
             g.setColor(this.getCurrentColor().brighter());
         } else {
-            if (this.getTerrain() instanceof WaterTerrain){
+            if (this.getTerrain() instanceof WaterTerrain) {
                 g.setColor(Color.BLUE);
             } else {
                 g.setColor(Color.LIGHT_GRAY);
@@ -194,7 +169,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
         int xRight = super.xpoints[2];
         int yTop = super.ypoints[2];
         int yBottom = super.ypoints[5];
-        g.drawImage(watermark, xLeft, yTop, xRight-xLeft,yBottom-yTop,  g.getColor(), null);
+        g.drawImage(watermark, xLeft, yTop, xRight - xLeft, yBottom - yTop, g.getColor(), null);
     }
 
     /**
@@ -215,7 +190,6 @@ public class Territory extends Polygon implements Comparable<Territory> {
         }
     }
 
-
     /**
      * Returns a string representation of the territory.
      *
@@ -223,6 +197,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
      */
     @Override
     public String toString() {
-        return ("Territory ID: " + "add id" + " Player: " + player.getName() + " Troop Count: " + troopAmount);
+        return "Player: " + (player != null ? player.getName() : "None")
+                + " Troop Count: " + troopAmount;
     }
 }
