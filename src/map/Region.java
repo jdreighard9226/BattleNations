@@ -3,7 +3,6 @@ package map;
 import player.Player;
 
 import java.util.ArrayList;
-import java.awt.Color;
 import java.util.List;
 
 /**
@@ -30,17 +29,7 @@ public class Region {
     /**
      * The list of territories that belong to this region.
      */
-    private List<Territory> territories = new ArrayList<>();
-
-    /**
-     * Constructs a region with a single starting territory.
-     * A region must contain at least one territory.
-     *
-     * @param territory the initial territory belonging to the region
-     */
-    public Region(Territory territory) {
-        territories.add(territory);
-    }
+    private List<Territory> territories;
 
     /**
      * Constructs a region with a predefined list of territories.
@@ -48,23 +37,26 @@ public class Region {
      * @param territories the territories that make up the region
      */
     public Region(List<Territory> territories) {
-        this.territories = territories;
+        this.territories = new ArrayList<>(territories);
+        ensureSingleCapitalTerritory();
     }
 
-    /**
-     * Constructs an empty region.
-     *
-     * <p>This constructor is useful when territories will be added
-     * to the region later, such as when loading map data from a file
-     * or building a region incrementally.</p>
-     */
-    public Region() {
+    private void ensureSingleCapitalTerritory() {
+        int capitalCount = 0;
+        for (Territory territory : territories) {
+            if (territory.isCapital()) {
+                capitalCount++;
+            }
+        }
+        if (capitalCount != 1) {
+            throw new IllegalStateException("Region should always have 1 and only 1 capital territory");
+        }
     }
 
     /**
      * Determines whether the region has been conquered by a single player.
      *
-     * <p>A region is conquered when all territories share the same owner color.</p>
+     * <p>A region is conquered when all territories are owned by the same player.</p>
      *
      * @return true if all territories in the region are owned by the same player,
      * false otherwise
@@ -73,12 +65,17 @@ public class Region {
         if (territories.isEmpty()) {
             return false;
         }
-        Color firstColor = territories.get(0).getCurrentColor();
+        Player firstPlayer = territories.get(0).getPlayer();
+        if (firstPlayer == null) {
+            return false;
+        }
+
         for (int i = 1; i < territories.size(); i++) {
-            if (!firstColor.equals(territories.get(i).getCurrentColor())) {
+            if (!firstPlayer.equals(territories.get(i).getPlayer())) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -96,6 +93,7 @@ public class Region {
      */
     public void addTerritory(Territory territory) {
         territories.add(territory);
+        ensureSingleCapitalTerritory();
     }
 
     /**
