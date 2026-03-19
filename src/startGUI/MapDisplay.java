@@ -174,7 +174,7 @@ public class MapDisplay {
                         territories[i][j] = new Territory(TerrainType.WATER.getTerrain(), xPoints, yPoints, false);
                         break;
                     case "P":
-                        territories[i][j] = new Territory(TerrainType.PLAIN.getTerrain(), xPoints, yPoints);
+                        territories[i][j] = new Territory(TerrainType.PLAIN.getTerrain(), xPoints, yPoints, false);
                 }
 
                 // Move to next hex horizontally

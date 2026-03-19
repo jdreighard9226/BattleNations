@@ -6,10 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractWorld implements World {
-    protected final ArrayList<Region> regions;
+    protected final List<Region> regions;
 
-    public AbstractWorld(ArrayList<Region> regions) {
+    public AbstractWorld(List<Region> regions) {
         this.regions = regions;
+    }
+
+    public AbstractWorld() {
+        this.regions = new ArrayList<>();
     }
 
    public List<Region> getRegions() {

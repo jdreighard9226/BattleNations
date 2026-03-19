@@ -11,6 +11,10 @@ public class PartialDominationWorld extends AbstractWorld {
         super(regions);
     }
 
+    public PartialDominationWorld() {
+        super();
+    }
+
     @Override
     public boolean isGameWon(List<Player> players) {
         return false;

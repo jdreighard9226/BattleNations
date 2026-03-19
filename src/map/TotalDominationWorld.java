@@ -10,6 +10,10 @@ public class TotalDominationWorld extends AbstractWorld {
         super(regions);
     }
 
+    public TotalDominationWorld() {
+        super();
+    }
+
     @Override
     public boolean isGameWon(List<Player> players) {
         for (Player player : players) {
