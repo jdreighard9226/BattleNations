@@ -17,14 +17,13 @@ public class CapitalDominationWorld extends AbstractWorld {
 
     @Override
     public boolean isGameWon(List<Player> players) {
-
+        int totalCapitals = getCapitalTerritoriesCount();
         for (Player player : players) {
-            int playerTerritoryCount = getCapitalTerritoriesCountOwnedByPlayer(player);
-            if (playerTerritoryCount != 6 && getCapitalTerritoriesCountOwnedByPlayer(player) != 0) {
-                return false;
+            if (getCapitalTerritoriesCountOwnedByPlayer(player) == totalCapitals) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private int getCapitalTerritoriesCountOwnedByPlayer(Player player) {
