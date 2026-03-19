@@ -9,7 +9,7 @@ public abstract class AbstractWorld implements World {
     protected final List<Region> regions;
 
     public AbstractWorld(List<Region> regions) {
-        this.regions = regions;
+        this.regions = new ArrayList<>(regions);
     }
 
     public AbstractWorld() {
@@ -21,11 +21,9 @@ public abstract class AbstractWorld implements World {
    }
 
     public List<Territory> getAllTerritories() {
-        List<Territory> temp;
         List<Territory> territories = new ArrayList<>();
         for (Region region : regions) {
-            temp = region.getTerritories();
-            territories.addAll(temp);
+            territories.addAll(region.getTerritories());
         }
         return territories;
     }
@@ -47,14 +45,15 @@ public abstract class AbstractWorld implements World {
     }
 
     public List<Territory> getTerritoriesOwnedByPlayer(Player player) {
-            List<Territory> allTerritories = getAllTerritories();
-            List<Territory> playerTerritories = new ArrayList<>();
-            for (Territory territory: allTerritories) {
-                if (territory.getPlayer().equals(player)) {
-                    playerTerritories.add(territory);
-                }
+        List<Territory> allTerritories = getAllTerritories();
+        List<Territory> playerTerritories = new ArrayList<>();
+
+        for (Territory territory : allTerritories) {
+            if (player.equals(territory.getPlayer())) {
+                playerTerritories.add(territory);
             }
-            return playerTerritories;
+        }
+        return playerTerritories;
     }
 
     public int getTerritoryCountOwnedByPlayer(Player player) {
@@ -79,10 +78,9 @@ public abstract class AbstractWorld implements World {
     }
 
     public boolean isRegionControlledByPlayer(Region region, Player player) {
-        if (region.getPlayerConqueredRegion().equals(player)) {
-            return true;
-        }
-        return false;
+        Player controllingPlayer = region.getPlayerConqueredRegion();
+        return (controllingPlayer != null && controllingPlayer.equals(player));
+
     }
 
     public abstract boolean isGameWon(List<Player> players);
