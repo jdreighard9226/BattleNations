@@ -1,14 +1,10 @@
 package startGUI; //rename packages
 
-import map.MapLoader;
-import terrain.TerrainType;
+import map.MapLoaderService;
 import map.Territory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  * Represents the main map display in Battle Nations.
@@ -65,7 +61,7 @@ public class MapDisplay {
      */
     private JFrame parent;
 
-    MapLoader loader;
+    MapLoaderService loader;
 
     /**
      * Constructs a MapDisplay object, initializes the screen size,
@@ -75,7 +71,7 @@ public class MapDisplay {
         screen = Toolkit.getDefaultToolkit().getScreenSize();
         displayWidth = screen.width;
         displayHeight = screen.height;
-        loader = new MapLoader();
+        loader = new MapLoaderService();
         territories = loader.loadTerritories("src/mapTextFiles/funny_land", screen);
         // Initialize the panel that displays the map
         mapDisplay = new MapPanel(territories);

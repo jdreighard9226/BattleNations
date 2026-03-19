@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class MapLoader {
+public class MapLoaderService {
     public Territory[][] loadTerritories(String fileName, Dimension screen) {
         File mapFile = new File(fileName);
         int numberRows;
