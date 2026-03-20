@@ -70,6 +70,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
         this.terrain = terrain;
         super.xpoints = xCoords;
         super.ypoints = yCoords;
+        super.npoints = xCoords.length;
         this.isCapital = isCapital;
         this.player = null;
         this.troopAmount = 0;

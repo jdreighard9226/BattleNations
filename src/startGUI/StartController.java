@@ -1,5 +1,7 @@
 package startGUI;
 
+import gameGUI.GameSetupPage;
+
 import javax.swing.*;
 
 /**
@@ -46,6 +48,11 @@ public class StartController {
     private final MapDisplay map;
 
     /**
+     * The game setup page.
+     */
+    private final GameSetupPage gameSetupPage;
+
+    /**
      * Constructs a StartController, initializes all pages, and displays the start menu.
      */
     public StartController() {
@@ -53,11 +60,12 @@ public class StartController {
         display.setExtendedState(JFrame.MAXIMIZED_BOTH);
         display.setUndecorated(true);
 
-        // Initialize pages3
+        // Initialize pages
         start = new StartMenuPage();
         settings = new SettingsPage();
         map = new MapDisplay();
         mapChoice = new MapChoicePage();
+        gameSetupPage = new GameSetupPage();
 
         display.setVisible(true);
 
@@ -84,6 +92,10 @@ public class StartController {
      */
     public void displayMapDisplay() {
         map.addMapDisplay(this);
+    }
+
+    public void displayGameSetupPage() {
+        gameSetupPage.addGameSetupPage(this);
     }
 
     public void displayMapChoicePage() {mapChoice.addMapChoicePage(this);}

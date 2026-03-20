@@ -4,6 +4,8 @@ import map.Territory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * A custom JPanel that renders a 2D grid of territories on the map.
@@ -34,6 +36,27 @@ public class MapPanel extends JPanel {
      */
     public MapPanel(Territory[][] territories) {
         this.territories = territories;
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                getTerritoryClicked(e.getPoint());
+            }
+        });
+    }
+
+    private void getTerritoryClicked(Point point) {
+        for (Territory[] row : territories) {
+            for (Territory territory : row) {
+                if (territory != null && territory.contains(point)) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Clicked territory with terrain: " + territory.getTerrain()
+                    );
+                    return;
+                }
+            }
+        }
     }
 
     /**

@@ -72,7 +72,7 @@ public class MapDisplay {
         displayWidth = screen.width;
         displayHeight = screen.height;
         loader = new MapLoaderService();
-        territories = loader.loadTerritories("src/mapTextFiles/funny_land", screen).getTerritories();
+        territories = loader.loadTerritories("src/mapTextFiles/funny_land", screen).territories();
         // Initialize the panel that displays the map
         mapDisplay = new MapPanel(territories);
         mapDisplay.setLayout(null);

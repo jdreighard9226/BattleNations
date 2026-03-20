@@ -1,12 +1,10 @@
 package map;
 
 import player.Player;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class TotalDominationWorld extends AbstractWorld {
-    public TotalDominationWorld(ArrayList<Region> regions) {
+    public TotalDominationWorld(List<Region> regions) {
         super(regions);
     }
 
