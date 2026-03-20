@@ -4,6 +4,7 @@ import map.Territory;
 import map.World;
 import player.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameLogic {
@@ -15,13 +16,13 @@ public class GameLogic {
 
     public GameLogic(World world, List<Player> players, AttackService attackService, ReinforcementService reinforcementService, FortifyService fortifyService) {
         this.world = world;
-        this.players = players;
+        this.players = new ArrayList<>(players);
         this.attackService = attackService;
         this.reinforcementService = reinforcementService;
         this.fortifyService = fortifyService;
     }
-    public void attack(Territory attackingTerritory, Territory defendingTerritory) {
-        attackService.attack(attackingTerritory, defendingTerritory);
+    public boolean attack(Territory attackingTerritory, Territory defendingTerritory) {
+        return attackService.attack(attackingTerritory, defendingTerritory);
     }
 
 }
