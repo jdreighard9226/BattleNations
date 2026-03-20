@@ -57,7 +57,7 @@ public class StartMenuPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 parent.remove(startMenuPanel);
-                startController.displayMapDisplay();
+                startController.displayGameSetupPage();
             }
         });
         startMenuPanel.add(startGame);
