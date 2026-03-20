@@ -19,7 +19,9 @@ public class MapChoicePage {
         mapChoicePanel.setBounds(0, 0, screen.width, screen.height);
 
         ImageIcon map1 = new ImageIcon("src/gameImages/FunnyLandMapImage");
-        
+        JButton map1bt = new JButton(map1);
+        map1bt.setBounds((int) screen.getWidth()/4, (int) screen.getHeight()/4, (int) screen.getWidth()/6, (int) screen.getHeight()/6);
+        mapChoicePanel.add(map1bt);
     }
 
     public void addMapChoicePage(StartController startController) {
