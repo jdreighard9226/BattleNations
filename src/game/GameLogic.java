@@ -35,7 +35,7 @@ public class GameLogic {
         reinforcementService.reinforce(player, territory, troopsToAdd);
     }
 
-    public int calculateReinforcement(Player player, World world) {
+    public int calculateReinforcement(Player player) {
         return reinforcementService.calculateReinforcements(player, world);
     }
 
@@ -43,10 +43,14 @@ public class GameLogic {
         if (currentPhase == TurnPhase.REINFORCEMENT) {
             currentPhase = TurnPhase.ATTACK;
         } else if (currentPhase == TurnPhase.ATTACK) {
-            currentPhase = TurnPhase.REINFORCEMENT;
-        } else {
             currentPhase = TurnPhase.FORTIFY;
+        } else {
+            currentPhase = TurnPhase.REINFORCEMENT;
         }
+    }
+
+    public TurnPhase getCurrentPhase() {
+        return currentPhase;
     }
 
     public World getWorld() {
