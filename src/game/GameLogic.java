@@ -25,4 +25,7 @@ public class GameLogic {
         return attackService.attack(attackingTerritory, defendingTerritory);
     }
 
+    public void fortify(Territory territoryToTakeTroopsFrom, Territory territoryToAddTroopsTo, int troopsBeingMoved) {
+        fortifyService.fortify(territoryToTakeTroopsFrom, territoryToAddTroopsTo, troopsBeingMoved);
+    }
 }
