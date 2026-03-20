@@ -5,13 +5,17 @@ import terrain.TerrainType;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MapLoaderService {
-    public Territory[][] loadTerritories(String fileName, Dimension screen) {
+    public MapLoaderData loadTerritories(String fileName, Dimension screen) {
         File mapFile = new File(fileName);
         int numberRows;
         int numberColumns;
+        int numberRegions;
+        List<Region> regions = new ArrayList<Region>();
         String[][] terrainTypes;
         Scanner fileReader = null;
 
@@ -19,6 +23,7 @@ public class MapLoaderService {
             fileReader = new Scanner(mapFile);
             numberRows = fileReader.nextInt();
             numberColumns = fileReader.nextInt();
+            numberRegions = fileReader.nextInt();
             terrainTypes = new String[numberRows][numberColumns];
 
             // Read terrain types from file
@@ -26,10 +31,23 @@ public class MapLoaderService {
                 int alternator = (i % 2 != 0) ? 1 : 0;
                 for (int j = 0; j < numberColumns - alternator; j++) {
                     terrainTypes[i][j] = fileReader.next();
+                    if (!terrainTypes[i][j].equals("W")) {
+                        String region = fileReader.next();
+                        if (terrainTypes[i][j].equals("C")) {
+                            terrainTypes[i][j] += " " + region + " " + fileReader.next();
+                        }
+                        else {
+                            terrainTypes[i][j] += " " + region;
+                        }
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < numberRegions; i++) {
+            regions.add(new Region());
         }
 
         // Calculate hex size based on screen dimensions
@@ -77,21 +95,26 @@ public class MapLoaderService {
                 }
 
                 // Assign terrain type to hex
-                switch (terrainTypes[i][j]) {
+                switch (terrainTypes[i][j].substring(0,1)) {
                     case "M":
                         territories[i][j] = new Territory(TerrainType.MOUNTAIN.getTerrain(), xPoints, yPoints, false);
+                        regions.get(Integer.parseInt(terrainTypes[i][j].substring(2)) - 1).addTerritory(territories[i][j]);
                         break;
                     case "D":
                         territories[i][j] = new Territory(TerrainType.DESERT.getTerrain(), xPoints, yPoints, false);
+                        regions.get(Integer.parseInt(terrainTypes[i][j].substring(2)) - 1).addTerritory(territories[i][j]);
                         break;
                     case "C":
-                        territories[i][j] = new Territory(TerrainType.CITY.getTerrain(), xPoints, yPoints, false);
+                        boolean isCapital = terrainTypes[i][j].substring(4).equals("T");
+                        territories[i][j] = new Territory(TerrainType.CITY.getTerrain(), xPoints, yPoints, isCapital);
+                        regions.get(Integer.parseInt(terrainTypes[i][j].substring(2,3)) - 1).addTerritory(territories[i][j]);
                         break;
                     case "W":
                         territories[i][j] = new Territory(TerrainType.WATER.getTerrain(), xPoints, yPoints, false);
                         break;
                     case "P":
                         territories[i][j] = new Territory(TerrainType.PLAIN.getTerrain(), xPoints, yPoints, false);
+                        regions.get(Integer.parseInt(terrainTypes[i][j].substring(2)) - 1).addTerritory(territories[i][j]);
                 }
 
                 // Move to next hex horizontally
@@ -101,6 +124,6 @@ public class MapLoaderService {
             // Move to next hex row
             yLocation += sinValue * length;
         }
-        return territories;
+        return new MapLoaderData(territories, regions);
     }
 }
