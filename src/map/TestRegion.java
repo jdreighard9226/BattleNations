@@ -41,7 +41,6 @@ public class TestRegion {
     public static void main(String[] args) {
         boolean passed = true;
         System.out.println("Testing Methods");
-        if (!testSingleTerritoryInit()) passed = false;
         if (!testMultipleTerritoriesInit()) passed = false;
         if (!testAddTerritory()) passed = false;
         if (!testIsRegionConquered()) passed = false;
@@ -52,36 +51,6 @@ public class TestRegion {
         }
     }
 
-    /**
-     * Tests that a Region initializes correctly with a single territory.
-     *
-     * @return true if the test passes, false otherwise
-     */
-    private static boolean testSingleTerritoryInit() {
-        System.out.print("testing Initializer when Adding 1 Territory: ");
-        boolean passed = true;
-        Player player = new Player("p1", BLUE);
-        Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
-                new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6}, false);
-        Region region = new Region(t1);
-
-        if (region.getSize() != 1) {
-            System.err.println("Fail: The size of region was not 1");
-            passed = false;
-        }
-
-        if (!region.hasTerritory(t1)) {
-            System.err.println("Fail: The region does not contain the proper territory");
-            passed = false;
-        }
-        if (passed) {
-            System.out.println("Passed");
-        } else {
-            System.out.println("Failed");
-        }
-        return passed;
-    }
 
     /**
      * Tests that a Region initializes correctly with multiple territories.
@@ -95,7 +64,7 @@ public class TestRegion {
         Player player = new Player("p1", BLUE);
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6}, false);
+                new int[]{1, 2, 3, 4, 5, 6}, true);
         Territory t2 = new Territory(player, TerrainType.MOUNTAIN.getTerrain(), 10,
                 new int[]{1, 2, 3, 4, 5, 6},
                 new int[]{1, 2, 3, 4, 5, 6}, false);
@@ -150,9 +119,11 @@ public class TestRegion {
         Player player = new Player("p1", BLUE);
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6}, false);
+                new int[]{1, 2, 3, 4, 5, 6}, true);
 
-        Region region = new Region(t1);
+        List<Territory> territories = new ArrayList<>();
+        territories.add(t1);
+        Region region = new Region(territories);
         int size = region.getSize();
         if (size != 1) {
             System.err.println("Error has occurred in region initializer. Test cannot be ran");
@@ -206,9 +177,11 @@ public class TestRegion {
         Player bluePlayer = new Player("p1", BLUE);
         Territory t1 = new Territory(bluePlayer, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
-                new int[]{1, 2, 3, 4, 5, 6}, false);
+                new int[]{1, 2, 3, 4, 5, 6}, true);
 
-        Region region = new Region(t1);
+        List<Territory> territories = new ArrayList<>();
+        territories.add(t1);
+        Region region = new Region(territories);
         if (!region.isRegionConquered()) {
             passed = false;
             System.err.println("Region was not conquered when there was only 1 territory in the region");
@@ -257,6 +230,10 @@ public class TestRegion {
      * @return false until implemented
      */
     private static boolean testHasTerritory() {
+        return false;
+    }
+
+    private static boolean testSingleCapitalTerritory() {
         return false;
     }
 }
