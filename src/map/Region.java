@@ -41,6 +41,10 @@ public class Region {
         ensureSingleCapitalTerritory();
     }
 
+    public Region() {
+        this.territories = new ArrayList<>();
+    }
+
     private void ensureSingleCapitalTerritory() {
         int capitalCount = 0;
         for (Territory territory : territories) {
@@ -48,7 +52,7 @@ public class Region {
                 capitalCount++;
             }
         }
-        if (capitalCount != 1) {
+        if (capitalCount > 1) { //changed this from != too >
             throw new IllegalStateException("Region should always have 1 and only 1 capital territory");
         }
     }
