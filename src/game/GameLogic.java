@@ -1,5 +1,6 @@
 package game;
 
+import map.Territory;
 import map.World;
 import player.Player;
 
@@ -19,4 +20,8 @@ public class GameLogic {
         this.reinforcementService = reinforcementService;
         this.fortifyService = fortifyService;
     }
+    public void attack(Territory attackingTerritory, Territory defendingTerritory) {
+        attackService.attack(attackingTerritory, defendingTerritory);
+    }
+
 }

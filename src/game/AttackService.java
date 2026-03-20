@@ -43,4 +43,15 @@ public class AttackService {
         int troopsLostInBattle = (int)(Math.random() * (troopAmount + 1));
         return troopAmount - troopsLostInBattle - 1;
     }
+
+    private void validateAttack(Territory attackingTerritory, Territory defendingTerritory) {
+        if (attackingTerritory.getPlayer() == null || defendingTerritory.getPlayer() == null) {
+            throw new NullPointerException("Both territories must have a player set");
+        } else if (attackingTerritory.getPlayer().equals(defendingTerritory.getPlayer())) {
+            throw new IllegalArgumentException("Both territories cannot be controlled by the same player");
+        } else if (attackingTerritory.getTroopAmount() <= 1) {
+            throw new IllegalArgumentException("Attacking territory must have at least 2 troops");
+        }
+
+    }
 }
