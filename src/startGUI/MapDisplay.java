@@ -120,9 +120,9 @@ public class MapDisplay {
         double angleRadians = Math.toRadians(60);
         double cosValue = Math.cos(angleRadians);
         double sinValue = Math.sin(angleRadians);
-        double length1 = (screen.getWidth() / (2 * numberColumns)) / (cosValue + 1);
-        double length2 = (screen.getHeight() / (sinValue * (numberRows + 1)));
-        double length = Math.min(length1, length2);
+        double xLimitLength = (screen.getWidth() / (2 * numberColumns)) / (cosValue + 1);
+        double yLimitLength = (screen.getHeight() / (sinValue * (numberRows + 1)));
+        double length = Math.min(xLimitLength, yLimitLength);
 
         // Starting coordinates for hex grid
         double xLocation = 0;
@@ -133,8 +133,15 @@ public class MapDisplay {
 
         // Generate hexagonal territories
         for (int i = 0; i < numberRows; i++) {
-            int alternator = (i % 2 != 0) ? 1 : 0;
-            xLocation = (alternator == 0) ? 0 : cosValue * length + length;
+            int alternator = 0;
+            if (i % 2 != 0){
+                alternator = 1;
+            }
+            xLocation = 0;
+            if (alternator != 0) {
+                xLocation = cosValue * length + length;
+            }
+
 
             for (int j = 0; j < numberColumns - alternator; j++) {
                 // Compute hexagon vertices
@@ -174,7 +181,7 @@ public class MapDisplay {
                         territories[i][j] = new Territory(TerrainType.WATER.getTerrain(), xPoints, yPoints, false);
                         break;
                     case "P":
-                        territories[i][j] = new Territory(TerrainType.PLAIN.getTerrain(), xPoints, yPoints);
+                        territories[i][j] = new Territory(TerrainType.PLAIN.getTerrain(), xPoints, yPoints, false);
                 }
 
                 // Move to next hex horizontally

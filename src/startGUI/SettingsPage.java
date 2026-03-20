@@ -26,7 +26,7 @@ public class SettingsPage {
     /**
      * Background panel displaying the settings image.
      */
-    private final ImagePanel settingsPage;
+    private final ImagePanel settingsPanel;
 
     /**
      * Checkbox for enabling/disabling sound effects.
@@ -58,22 +58,22 @@ public class SettingsPage {
      */
     public SettingsPage() {
         // Initialize background panel with image
-        settingsPage = new ImagePanel("src/gameImages/SettingsImage.png");
+        settingsPanel = new ImagePanel("src/gameImages/SettingsImage.png");
 
         // Get screen dimensions
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        settingsPage.setLayout(null);
-        settingsPage.setBounds(0, 0, screen.width, screen.height);
+        settingsPanel.setLayout(null);
+        settingsPanel.setBounds(0, 0, screen.width, screen.height);
 
         // Initialize sound checkbox
         sound = new JCheckBox("Sound Affects", true);
         sound.setBounds(screen.width / 2 - 100, screen.height / 2, 200, 40);
-        settingsPage.add(sound);
+        settingsPanel.add(sound);
 
         // Initialize music checkbox
         music = new JCheckBox("Music", true);
         music.setBounds(screen.width / 2 - 100, screen.height / 2 + 80, 200, 40);
-        settingsPage.add(music);
+        settingsPanel.add(music);
 
         // Initialize back button
         back = new JButton("Back To Start");
@@ -82,11 +82,11 @@ public class SettingsPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Remove settings page and return to start menu
-                parent.remove(settingsPage);
+                parent.remove(settingsPanel);
                 startController.displayStartMenuPage();
             }
         });
-        settingsPage.add(back);
+        settingsPanel.add(back);
     }
 
     /**
@@ -97,7 +97,7 @@ public class SettingsPage {
     public void addSettingsPage(StartController startController) {
         this.parent = startController.getDisplay();
         this.startController = startController;
-        parent.add(settingsPage);
+        parent.add(settingsPanel);
         parent.repaint();
     }
 }

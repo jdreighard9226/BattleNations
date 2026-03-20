@@ -29,7 +29,7 @@ public class StartMenuPage {
     /**
      * The main panel displaying the start menu background and buttons.
      */
-    private final ImagePanel startMenuPage;
+    private final ImagePanel startMenuPanel;
 
     /**
      * Parent JFrame that contains this start menu panel.
@@ -46,9 +46,9 @@ public class StartMenuPage {
      */
     public StartMenuPage() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        startMenuPage = new ImagePanel("src/gameImages/BattleNationsHomeScreen.png");
-        startMenuPage.setLayout(null);
-        startMenuPage.setBounds(0, 0, screen.width, screen.height);
+        startMenuPanel = new ImagePanel("src/gameImages/BattleNationsHomeScreen.png");
+        startMenuPanel.setLayout(null);
+        startMenuPanel.setBounds(0, 0, screen.width, screen.height);
 
         // Start Game button
         JButton startGame = new JButton("Start Game");
@@ -56,11 +56,11 @@ public class StartMenuPage {
         startGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.remove(startMenuPage);
+                parent.remove(startMenuPanel);
                 startController.displayMapDisplay();
             }
         });
-        startMenuPage.add(startGame);
+        startMenuPanel.add(startGame);
 
         // Settings button
         JButton settings = new JButton("Settings");
@@ -68,11 +68,11 @@ public class StartMenuPage {
         settings.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.remove(startMenuPage);
+                parent.remove(startMenuPanel);
                 startController.displaySettingsPage();
             }
         });
-        startMenuPage.add(settings);
+        startMenuPanel.add(settings);
 
         // Quit button
         JButton quit = new JButton("Quit");
@@ -83,7 +83,7 @@ public class StartMenuPage {
                 System.exit(0);
             }
         });
-        startMenuPage.add(quit);
+        startMenuPanel.add(quit);
     }
 
     /**
@@ -94,7 +94,7 @@ public class StartMenuPage {
     public void addStartMenuPage(StartController startController) {
         this.startController = startController;
         this.parent = startController.getDisplay();
-        parent.add(startMenuPage);
+        parent.add(startMenuPanel);
         parent.repaint();
     }
 }

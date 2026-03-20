@@ -36,6 +36,11 @@ public class StartController {
     private final SettingsPage settings;
 
     /**
+     *  The Map Choice Page.
+     */
+    private final MapChoicePage mapChoice;
+
+    /**
      * The map display page.
      */
     private final MapDisplay map;
@@ -52,6 +57,7 @@ public class StartController {
         start = new StartMenuPage();
         settings = new SettingsPage();
         map = new MapDisplay();
+        mapChoice = new MapChoicePage();
 
         display.setVisible(true);
 
@@ -79,6 +85,8 @@ public class StartController {
     public void displayMapDisplay() {
         map.addMapDisplay(this);
     }
+
+    public void displayMapChoicePage() {mapChoice.addMapChoicePage(this);}
 
     /**
      * Returns the main JFrame used for the GUI.
