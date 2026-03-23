@@ -21,6 +21,8 @@ public class PlayerPage {
      */
     private final JTextField playerName;
 
+
+    private final JComboBox<String> playerColor;
     /**
      * Add player button
      */
@@ -68,8 +70,15 @@ public class PlayerPage {
         gameSetupPanel.add(nameLabel);
 
         playerName = new JTextField();
-        playerName.setBounds(screen.width / 2 - 100, 200, 200, 30);
+        playerName.setBounds(screen.width / 3, 200, 200, 30);
         gameSetupPanel.add(playerName);
+
+        String[] colorList = {"None","Red","Cyan", "Green","Yellow","Orange","Pink"};
+        playerColor = new JComboBox<>(colorList);
+        playerColor.setSelectedIndex(0);
+        //Color[] colors = {Color.RED, Color.CYAN, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.PINK};
+        playerColor.setBounds(screen.width/3+250, 200, 200, 30);
+        gameSetupPanel.add(playerColor);
 
         addPlayer = new JButton("Add Player");
         addPlayer.setFont(new Font("Arial", Font.BOLD, 18));
@@ -111,6 +120,40 @@ public class PlayerPage {
 
     private void addPlayer() {
         String name = playerName.getText().trim();
+        String color = (String) playerColor.getSelectedItem();
+        Color playersColor;
+        //{"None","Red","Cyan", "Green","Yellow","Orange","Pink"};
+        switch (color) {
+            case "Red":
+                playersColor = Color.RED;
+                break;
+            case "Cyan":
+                playersColor = Color.CYAN;
+                break;
+            case "Green":
+                playersColor = Color.GREEN;
+                break;
+            case "Yellow":
+                playersColor = Color.YELLOW;
+                break;
+            case "Orange":
+                playersColor = Color.ORANGE;
+                break;
+            case "Pink":
+                playersColor = Color.PINK;
+                break;
+            default:
+                JOptionPane.showMessageDialog(parent, "Select a player color.");
+                return;
+        }
+
+        for (Player p: players) {
+            if (p.getColor().equals(playersColor)) {
+                JOptionPane.showMessageDialog(parent, "Color already used");
+                return;
+            }
+        }
+
 
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(parent, "Enter a player name.");
@@ -130,8 +173,8 @@ public class PlayerPage {
         }
 
         // color is a placeholder for now, until I can add the Selecting color logic
-        players.add(new Player(name, Color.GRAY));
-        playerListModel.addElement(name);
+        players.add(new Player(name, playersColor));
+        playerListModel.addElement("Player: " + name + " | Color: " + color);
 
         playerName.setText("");
 
