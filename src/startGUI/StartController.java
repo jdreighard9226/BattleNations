@@ -1,5 +1,7 @@
 package startGUI;
 
+import setUpGUI.SetUpController;
+
 import javax.swing.*;
 
 /**
@@ -40,12 +42,13 @@ public class StartController {
      */
     private final MapChoicePage mapChoice;
 
+    private final TerritoryTroopPlacementOptionPage placementChoice;
 
 
     /**
      * The game setup page.
      */
-    private final GameSetupPage gameSetupPage;
+    private final PlayerPage playerPage;
 
     private SetUpData gameSetUpData = new SetUpData();
 
@@ -61,8 +64,10 @@ public class StartController {
         start = new StartMenuPage();
         settings = new SettingsPage();
         mapChoice = new MapChoicePage();
-        gameSetupPage = new GameSetupPage();
+        playerPage = new PlayerPage();
+        placementChoice = new TerritoryTroopPlacementOptionPage();
 
+        display.setVisible(true);
         // Show the start menu by default
         displayStartMenuPage();
     }
@@ -83,11 +88,14 @@ public class StartController {
 
 
     public void displayGameSetupPage() {
-        gameSetupPage.addGameSetupPage(this);
+        playerPage.addGameSetupPage(this);
     }
 
     public void displayMapChoicePage() {mapChoice.addMapChoicePage(this);}
 
+    public void displayTerritoryTroopPlacementOptionPage() {
+        placementChoice.addTerritoryTroopPlacementOptionPage(this);
+    }
     /**
      * Returns the main JFrame used for the GUI.
      *
@@ -117,6 +125,10 @@ public class StartController {
 
     public SetUpData getGameSetUpData() {
         return gameSetUpData;
+    }
+
+    public void changeToSetUpController() {
+        new SetUpController(this.display, this.gameSetUpData);
     }
 
     /**

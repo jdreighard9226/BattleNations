@@ -1,6 +1,7 @@
 package startGUI;
 
 import player.Player;
+import setUpGUI.SetUpController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class GameSetupPage {
+public class PlayerPage {
 
     /**
      * Background panel
@@ -47,7 +48,7 @@ public class GameSetupPage {
     private JFrame parent;
     private StartController startController;
 
-    public GameSetupPage() {
+    public PlayerPage() {
         players = new ArrayList<>();
 
         gameSetupPanel = new ImagePanel("src/gameImages/OptionScreen.png");
@@ -88,12 +89,13 @@ public class GameSetupPage {
         scroll.setBounds(screen.width / 2 - 150, 300, 300, 150);
         gameSetupPanel.add(scroll);
 
-        startGame = new JButton("Begin Game");
+        startGame = new JButton("Continue");
         startGame.setBounds(screen.width / 2 - 100, 480, 200, 50);
         startGame.setEnabled(false);
         startGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                startController.getGameSetUpData().setPlayers(players);
                 startGame();
             }
         });
@@ -140,6 +142,6 @@ public class GameSetupPage {
 
     private void startGame() {
         parent.remove(gameSetupPanel);
-        startController.displayMapDisplay();
+        startController.displayTerritoryTroopPlacementOptionPage();
     }
 }

@@ -20,6 +20,7 @@ public class MapLoaderService {
         Scanner fileReader = null;
 
         try {
+            System.out.println(mapFile);
             fileReader = new Scanner(mapFile);
             numberRows = fileReader.nextInt();
             numberColumns = fileReader.nextInt();

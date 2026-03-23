@@ -51,7 +51,7 @@ public class MapChoicePage {
             public void actionPerformed(ActionEvent e) {
                 map1bt.setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
                 map2bt.setBorder(null);
-                mapLocation = "src/gameImages/FunnyLandMapImage.jpg";
+                mapLocation = "src/mapTextFiles/funny_land";
             }
         });
 
@@ -60,7 +60,7 @@ public class MapChoicePage {
             public void actionPerformed(ActionEvent e) {
                 map2bt.setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
                 map1bt.setBorder(null);
-                mapLocation = "src/gameImages/GlenmouthMapImage.jpg";
+                mapLocation = "src/mapTextFiles/glenmouth_map";
             }
         });
 
