@@ -1,7 +1,5 @@
 package startGUI;
 
-import gameGUI.GameSetupPage;
-
 import javax.swing.*;
 
 /**
@@ -42,15 +40,14 @@ public class StartController {
      */
     private final MapChoicePage mapChoice;
 
-    /**
-     * The map display page.
-     */
-    private final MapDisplay map;
+
 
     /**
      * The game setup page.
      */
     private final GameSetupPage gameSetupPage;
+
+    private SetUpData gameSetUpData = new SetUpData();
 
     /**
      * Constructs a StartController, initializes all pages, and displays the start menu.
@@ -63,11 +60,8 @@ public class StartController {
         // Initialize pages
         start = new StartMenuPage();
         settings = new SettingsPage();
-        map = new MapDisplay();
         mapChoice = new MapChoicePage();
         gameSetupPage = new GameSetupPage();
-
-        display.setVisible(true);
 
         // Show the start menu by default
         displayStartMenuPage();
@@ -87,12 +81,6 @@ public class StartController {
         settings.addSettingsPage(this);
     }
 
-    /**
-     * Displays the map display page on the main display.
-     */
-    public void displayMapDisplay() {
-        map.addMapDisplay(this);
-    }
 
     public void displayGameSetupPage() {
         gameSetupPage.addGameSetupPage(this);
@@ -125,6 +113,10 @@ public class StartController {
      */
     public SettingsPage getSettings() {
         return settings;
+    }
+
+    public SetUpData getGameSetUpData() {
+        return gameSetUpData;
     }
 
     /**

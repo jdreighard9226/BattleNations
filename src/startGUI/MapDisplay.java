@@ -72,7 +72,8 @@ public class MapDisplay {
         displayWidth = screen.width;
         displayHeight = screen.height;
         loader = new MapLoaderService();
-        territories = loader.loadTerritories("src/mapTextFiles/funny_land", screen).territories();
+        //startController.getGameSetUpData().getMap()
+        territories = loader.loadTerritories(startController.getGameSetUpData().getMap(), screen).territories();
         // Initialize the panel that displays the map
         mapDisplay = new MapPanel(territories);
         mapDisplay.setLayout(null);
