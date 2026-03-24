@@ -1,8 +1,7 @@
-package startGUI; //rename packages
+package map; //rename packages
 
-import map.MapLoaderService;
-import map.Territory;
 import setUpGUI.SetUpController;
+import startGUI.SetUpData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,31 +52,27 @@ public class MapDisplay {
     private Territory[][] territories;
 
     /**
-     * Controller used to manage GUI interactions.
-     */
-    private final SetUpController setUpController;
-
-    /**
      * Parent JFrame that contains the map display.
      */
     private JFrame parent;
 
     MapLoaderService loader;
 
+
+
     /**
      * Constructs a MapDisplay object, initializes the screen size,
      * loads the map file, and creates the territory grid.
      */
-    public MapDisplay(SetUpController setUpController) {
-        this.setUpController = setUpController;
+    public MapDisplay(SetUpData setUpData, SetUpController setUpController) {
         screen = Toolkit.getDefaultToolkit().getScreenSize();
         displayWidth = screen.width;
         displayHeight = screen.height;
         loader = new MapLoaderService();
         //startController.getGameSetUpData().getMap()
-        territories = loader.loadTerritories(setUpController.getGameSetUpData().getMap(), screen).territories();
+        territories = loader.loadTerritories(setUpData.getMap(), screen).territories();
         // Initialize the panel that displays the map
-        mapDisplay = new MapPanel(territories);
+        mapDisplay = new MapPanel(territories, setUpController);
         mapDisplay.setLayout(null);
         mapDisplay.setBounds(0, 0, displayWidth, displayHeight);
         mapDisplay.repaint();
@@ -88,9 +83,12 @@ public class MapDisplay {
      *
      *
      */
-    public void addMapDisplay() {
-        this.parent = setUpController.getDisplay();
+    public void addMapDisplay(JFrame parent) {
         parent.add(mapDisplay);
         parent.repaint();
+    }
+
+    public Territory[][] getTerritories() {
+        return territories;
     }
 }

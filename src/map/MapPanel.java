@@ -1,6 +1,7 @@
-package startGUI;
+package map;
 
-import map.Territory;
+import gameGUI.GameController;
+import setUpGUI.SetUpController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,35 +30,40 @@ public class MapPanel extends JPanel {
      */
     private final Territory[][] territories;
 
+    private SetUpController setUpController;
+
+    private GameController gameController;
+
+    private String activeController;
+
     /**
      * Constructs a MapPanel with the specified grid of territories.
      *
      * @param territories a 2D array of Territory objects to render
      */
-    public MapPanel(Territory[][] territories) {
+    public MapPanel(Territory[][] territories, SetUpController setUpController) {
         this.territories = territories;
+        this.setUpController = setUpController;
+        this.activeController = "Set Up";
+
+
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                getTerritoryClicked(e.getPoint());
+                if (activeController.equals("Set Up"))
+                    setUpController.getTerritoryClicked(e.getPoint());
+                    repaint();
+
             }
         });
     }
 
-    private void getTerritoryClicked(Point point) {
-        for (Territory[] row : territories) {
-            for (Territory territory : row) {
-                if (territory != null && territory.contains(point)) {
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Clicked territory with terrain: " + territory.getTerrain()
-                    );
-                    return;
-                }
-            }
-        }
+    public void switchToGameController(GameController gameController) {
+        this.gameController = gameController;
+        this.activeController = "Game";
     }
+
 
     /**
      * Paints the component by drawing all territories in the grid.
