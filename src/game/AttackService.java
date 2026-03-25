@@ -6,8 +6,11 @@ public class AttackService {
     public AttackService() {
     }
 
-    public boolean attack(Territory territoryAttacking, Territory territoryDefending) {
-        validateAttack(territoryAttacking, territoryDefending);
+    public ValidationResult attack(Territory territoryAttacking, Territory territoryDefending) {
+        ValidationResult validationResult = (territoryAttacking, territoryDefending);
+        if (validationResult.isValid() == false) {
+            return validationResult;
+        }
         double attackStrength = calculateEffectiveAttackStrength(territoryAttacking);
         double defenseStrength = calculateEffectiveDefenseStrength(territoryDefending);
 
@@ -24,7 +27,7 @@ public class AttackService {
             territoryDefending.setPlayer(territoryAttacking.getPlayer());
             territoryDefending.setTroopAmount(survivingAttackingTroops);
 
-            return true;
+            validationResult.message();
         } else {
             int originalAttackingTroops = territoryAttacking.getTroopAmount();
             int newTroops = calculateNewTroopAmount(originalAttackingTroops);
@@ -53,16 +56,17 @@ public class AttackService {
         }
     }
 
-    private void validateAttack(Territory attackingTerritory, Territory defendingTerritory) {
+    private ValidationResult validateAttack(Territory attackingTerritory, Territory defendingTerritory) {
         if (attackingTerritory == null || defendingTerritory == null) {
-            throw new IllegalArgumentException("Territories cannot be null");
+            return new ValidationResult(false, "Territories cannot be null");
         } else if (attackingTerritory.getPlayer() == null || defendingTerritory.getPlayer() == null) {
-            throw new IllegalArgumentException("Both territories must have a player set");
+            return new ValidationResult(false, "Both territories must have a player set");
         } else if (attackingTerritory.getPlayer().equals(defendingTerritory.getPlayer())) {
-            throw new IllegalArgumentException("Both territories cannot be controlled by the same player");
+            return new ValidationResult(false,"Both territories cannot be controlled by the same player");
         } else if (attackingTerritory.getTroopAmount() <= 1) {
-            throw new IllegalArgumentException("Attacking territory must have at least 2 troops");
+            return new ValidationResult(false,"Attacking territory must have at least 2 troops");
+        } else {
+            return new ValidationResult(true, "Valid Attack");
         }
     }
-
 }
