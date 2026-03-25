@@ -9,6 +9,7 @@ import terrain.WaterTerrain;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Random;
 
 public class SetUpController {
     private final JFrame display;
@@ -37,7 +38,13 @@ public class SetUpController {
 
         players = gameSetUpData.getPlayers();
         activePlayer = players.getFirst();
+
         displayMapDisplay();
+
+        if (gameSetUpData.isRandomTerritories()){
+            randomlyAssigningTerritories();
+        }
+
     }
 
     public JFrame getDisplay() {
@@ -70,7 +77,7 @@ public class SetUpController {
     public void assigningTerritory(Territory territory) {
         if (territory.getPlayer() == null) {
             if (territory.getTerrain() instanceof WaterTerrain) {
-                JOptionPane.showMessageDialog(display, "Cannot select water Territoy");
+                JOptionPane.showMessageDialog(display, "Cannot select water Territory");
             } else {
                 territory.setPlayer(activePlayer);
                 playerTurn++;
@@ -78,10 +85,53 @@ public class SetUpController {
                     playerTurn = 0;
                 }
                 activePlayer = players.get(playerTurn);
+                if (!unownedTerritory()) {
+                    placeTroopFaze();
+                }
             }
         } else {
             JOptionPane.showMessageDialog(display, "Territory already owned");
         }
+
+    }
+
+    public boolean unownedTerritory() {
+        for (Territory[] row : territories) {
+            for (Territory territory : row) {
+                if (territory.getPlayer() == null && !(territory instanceof WaterTerrain)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void randomlyAssigningTerritories() {
+        Random random = new Random();
+        while (unownedTerritory()) {
+            int row = random.nextInt(territories.length);
+            int col = random.nextInt(territories[row].length);
+            if (territories[row][col] != null && territories[row][col].getPlayer() == null) {
+                territories[row][col].setPlayer(activePlayer);
+                playerTurn++;
+                if (playerTurn >= players.size()) {
+                    playerTurn = 0;
+                }
+                activePlayer = players.get(playerTurn);
+            }
+        }
+        placeTroopFaze();
+    }
+
+    public void placeTroopFaze() {
+        if (gameSetUpData.isRandomTroopPlacement()) {
+            randomlyPlaceTroops();
+        } else {
+            faze = "Troop";
+        }
+    }
+
+    public void randomlyPlaceTroops() {
 
     }
 
