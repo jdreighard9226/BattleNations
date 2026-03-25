@@ -5,6 +5,7 @@ import startGUI.SetUpData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 /**
  * Represents the main map display in Battle Nations.
@@ -56,7 +57,11 @@ public class MapDisplay {
      */
     private JFrame parent;
 
-    MapLoaderService loader;
+    private MapLoaderService loader;
+
+    private MapLoaderData mapData;
+
+    private List<Region> regions;
 
 
 
@@ -70,7 +75,11 @@ public class MapDisplay {
         displayHeight = screen.height;
         loader = new MapLoaderService();
         //startController.getGameSetUpData().getMap()
-        territories = loader.loadTerritories(setUpData.getMap(), screen).territories();
+
+        mapData = loader.loadTerritories(setUpData.getMap(), screen);
+        territories = mapData.territories();
+        regions = mapData.regions();
+
         // Initialize the panel that displays the map
         mapDisplay = new MapPanel(territories, setUpController);
         mapDisplay.setLayout(null);
@@ -91,4 +100,6 @@ public class MapDisplay {
     public Territory[][] getTerritories() {
         return territories;
     }
+
+    public List<Region> getRegions() {return regions;}
 }
