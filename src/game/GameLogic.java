@@ -23,7 +23,7 @@ public class GameLogic {
         this.fortifyService = fortifyService;
         this.currentPhase = TurnPhase.REINFORCEMENT;
     }
-    public boolean attack(Territory attackingTerritory, Territory defendingTerritory) {
+    public ValidationResult attack(Territory attackingTerritory, Territory defendingTerritory) {
         return attackService.attack(attackingTerritory, defendingTerritory);
     }
 
