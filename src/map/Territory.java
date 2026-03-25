@@ -172,6 +172,15 @@ public class Territory extends Polygon implements Comparable<Territory> {
         int yBottom = super.ypoints[5];
         g.drawImage(watermark, xLeft, yTop, xRight - xLeft, yBottom - yTop, g.getColor(), null);
 
+        if (this.getPlayer()!=null) {
+            int xCenter = (xRight + xLeft) / 2;
+            int yCenter = (yTop + yBottom) / 2;
+            int radius = (xRight - xLeft) / 4;
+            g.setColor(player.getColor().darker());
+            g.fillOval(xCenter - radius, yCenter - radius, 2*radius, 2*radius);
+            g.setColor(Color.WHITE);
+            g.drawString(String.valueOf(this.troopAmount), xCenter, yCenter);
+        }
         //Compute middle, then draw circle of color, then draw string in middle of circle.
 
     }
