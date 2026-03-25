@@ -27,12 +27,12 @@ public class GameLogic {
         return attackService.attack(attackingTerritory, defendingTerritory);
     }
 
-    public void fortify(Territory territoryToTakeTroopsFrom, Territory territoryToAddTroopsTo, int troopsBeingMoved) {
-        fortifyService.fortify(territoryToTakeTroopsFrom, territoryToAddTroopsTo, troopsBeingMoved);
+    public ValidationResult fortify(Territory territoryToTakeTroopsFrom, Territory territoryToAddTroopsTo, int troopsBeingMoved) {
+       return fortifyService.fortify(territoryToTakeTroopsFrom, territoryToAddTroopsTo, troopsBeingMoved);
     }
 
-    public void reinforce(Player player, Territory territory, int troopsToAdd) {
-        reinforcementService.reinforce(player, territory, troopsToAdd);
+    public ValidationResult reinforce(Player player, Territory territory, int troopsToAdd) {
+        return reinforcementService.reinforce(player, territory, troopsToAdd);
     }
 
     public int calculateReinforcement(Player player) {

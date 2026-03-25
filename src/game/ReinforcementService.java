@@ -24,23 +24,29 @@ public class ReinforcementService {
 
     }
 
-    public void reinforce(Player player, Territory territory, int troopsToAdd) {
-        validateReinforce(player, territory, troopsToAdd);
+    public ValidationResult reinforce(Player player, Territory territory, int troopsToAdd) {
+        ValidationResult result = validateReinforce(player, territory, troopsToAdd);
+        if (!result.isValid()) {
+            return result;
+        }
         player.setTroopsToPlace(player.getTroopsToPlace() - troopsToAdd);
         territory.setTroopAmount(territory.getTroopAmount() + troopsToAdd);
+        return new ValidationResult(true, "Territory has been reinforced");
     }
 
-    private void validateReinforce(Player player, Territory territory, int troopsToAdd) {
+    private ValidationResult validateReinforce(Player player, Territory territory, int troopsToAdd) {
         if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
+            return new ValidationResult(false, "Player cannot be null");
         } else if (territory == null) {
-            throw new IllegalArgumentException("Territory cannot be null");
+            return new ValidationResult(false, "Territory cannot be null");
         } else if (territory.getPlayer() == null || !territory.getPlayer().equals(player)) {
-            throw new IllegalArgumentException("territory must be owned by player");
+            return new ValidationResult(false, "territory must be owned by player");
         } else if (troopsToAdd <= 0) {
-            throw new IllegalArgumentException("Troops to add must be at least 1");
+            return new ValidationResult(false, "Troops to add must be at least 1");
         } else if (player.getTroopsToPlace() < troopsToAdd) {
-            throw new IllegalArgumentException("Player doesn't have enough troops to place");
+            return new ValidationResult(false, "Player doesn't have enough troops to place");
         }
+
+        return new ValidationResult(true, "Valid Reinforcement Move");
     }
 }

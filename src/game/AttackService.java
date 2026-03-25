@@ -8,7 +8,7 @@ public class AttackService {
 
     public ValidationResult attack(Territory territoryAttacking, Territory territoryDefending) {
         ValidationResult validationResult = validateAttack(territoryAttacking, territoryDefending);
-        if (validationResult.isValid() == false) {
+        if (!validationResult.isValid()) {
             return validationResult;
         }
         double attackStrength = calculateEffectiveAttackStrength(territoryAttacking);

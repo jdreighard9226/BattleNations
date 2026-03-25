@@ -7,21 +7,27 @@ public class FortifyService {
     public FortifyService() {
     }
 
-    public void fortify(Territory territoryToTakeTroopsFrom, Territory territoryToAddTroopsTo, int troopsBeingMoved) {
-        validateFortify(territoryToTakeTroopsFrom, territoryToAddTroopsTo, troopsBeingMoved);
+    public ValidationResult fortify(Territory territoryToTakeTroopsFrom, Territory territoryToAddTroopsTo, int troopsBeingMoved) {
+
+        ValidationResult result = validateFortify(territoryToTakeTroopsFrom, territoryToAddTroopsTo, troopsBeingMoved);
+        if (!result.isValid()) {
+            return result;
+        }
         territoryToTakeTroopsFrom.setTroopAmount(territoryToTakeTroopsFrom.getTroopAmount() - troopsBeingMoved);
         territoryToAddTroopsTo.setTroopAmount(territoryToAddTroopsTo.getTroopAmount() + troopsBeingMoved);
+        return new ValidationResult(true, "Fortify Move made.");
     }
 
-    public void validateFortify(Territory territoryToTakeTroopsFrom, Territory territoryToAddTroopsTo, int troopsBeingMoved) {
+    public ValidationResult validateFortify(Territory territoryToTakeTroopsFrom, Territory territoryToAddTroopsTo, int troopsBeingMoved) {
         if (territoryToTakeTroopsFrom.getPlayer() == null || territoryToAddTroopsTo.getPlayer() == null) {
-            throw new IllegalArgumentException("Territories cannot have null player");
+            return new ValidationResult(false, "Territories cannot be null");
         } else if (!territoryToTakeTroopsFrom.getPlayer().equals(territoryToAddTroopsTo.getPlayer())) {
-            throw new IllegalArgumentException("Player must own both territories to move troops");
+            return new ValidationResult(false, "Player must own both territories to move troops");
         } else if (territoryToTakeTroopsFrom.getTroopAmount() <= troopsBeingMoved) {
-            throw new IllegalArgumentException("Too many troops were being moved out of a territory");
+            return new ValidationResult(false, "Not enough troops to move");
         } else if (troopsBeingMoved < 1) {
-            throw new IllegalArgumentException("At least 1 troop must be moved");
+            return new ValidationResult(false, "At least 1 troop Must be moved");
         }
+        return new ValidationResult(true, "Valid Fortify Move Has been made");
     }
 }
