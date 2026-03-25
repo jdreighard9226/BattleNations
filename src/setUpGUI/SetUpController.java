@@ -1,7 +1,10 @@
 package setUpGUI;
 
+import gameGUI.GameController;
 import map.MapDisplay;
+import map.Region;
 import map.Territory;
+import map.TotalDominationWorld;
 import player.Player;
 import startGUI.*;
 import terrain.WaterTerrain;
@@ -26,9 +29,11 @@ public class SetUpController {
 
     private final List<Player> players;
 
+    private final List<Region> regions;
+
     private int playerTurn = 0;
 
-    private int troopsToPlace = 0;
+    private int troopsToPlace = 3;
 
     public SetUpController(JFrame display, SetUpData setUpData) {
         this.display = display;
@@ -37,6 +42,7 @@ public class SetUpController {
 
         mapDisplay = new MapDisplay(gameSetUpData, this);
         territories = mapDisplay.getTerritories();
+        regions = mapDisplay.getRegions();
 
         players = gameSetUpData.getPlayers();
         activePlayer = players.getFirst();
@@ -68,7 +74,7 @@ public class SetUpController {
                     if (faze.equals("Territory")) {
                         assigningTerritory(territory);
                     }
-                    if (faze.equals("Troop")){
+                    else if (faze.equals("Troop")){
                         placeTroop(territory);
                     }
                 }
@@ -82,6 +88,7 @@ public class SetUpController {
                 JOptionPane.showMessageDialog(display, "Cannot select water Territory");
             } else {
                 territory.setPlayer(activePlayer);
+                territory.setTroopAmount(1);
                 playerTurn++;
                 if (playerTurn >= players.size()) {
                     playerTurn = 0;
@@ -115,6 +122,7 @@ public class SetUpController {
             int col = random.nextInt(territories[row].length);
             if (territories[row][col] != null && territories[row][col].getPlayer() == null && !(territories[row][col].getTerrain() instanceof WaterTerrain)) {
                 territories[row][col].setPlayer(activePlayer);
+                territories[row][col].setTroopAmount(1);
                 playerTurn++;
                 if (playerTurn >= players.size()) {
                     playerTurn = 0;
@@ -126,7 +134,7 @@ public class SetUpController {
     }
 
     public void placeTroopFaze() {
-        giveTroopsToPlace(120);
+        giveTroopsToPlace(60);
         if (gameSetUpData.isRandomTroopPlacement()) {
             randomlyPlaceTroops();
         } else {
@@ -146,28 +154,37 @@ public class SetUpController {
     }
 
     public void placeTroop(Territory territory) {
-        if (territory.getPlayer() != activePlayer) {
+        if (territory.getPlayer() == activePlayer) {
             if (!(territory.getTerrain() instanceof WaterTerrain)) {
-                territory.setTroopAmount(territory.getTroopAmount()+1);
-                activePlayer.setTroopsToPlace(activePlayer.getTroopsToPlace() - 1);
-                troopsToPlace--;
+                if (activePlayer.getTroopsToPlace() > 0) {
+                    territory.setTroopAmount(territory.getTroopAmount() + 1);
+                    activePlayer.setTroopsToPlace(activePlayer.getTroopsToPlace() - 1);
+                    troopsToPlace--;
+                }
                 if (troopsToPlace <= 0) {
                     playerTurn++;
+                    if (playerTurn >= players.size()) {
+                        playerTurn = 0;
+                    }
+                    activePlayer = players.get(playerTurn);
                     if (activePlayer.getTroopsToPlace() > 3) {
                         troopsToPlace = 3;
                     } else {
                         troopsToPlace = activePlayer.getTroopsToPlace();
                     }
                 }
-                if (playerTurn >= players.size()) {
-                    playerTurn = 0;
-                }
-                activePlayer = players.get(playerTurn);
-
             }
         } else {
-            JOptionPane.showMessageDialog(display, "Territory not owned by" + activePlayer.getName());
+            JOptionPane.showMessageDialog(display, "Territory not owned by " + activePlayer.getName());
         }
+        if (!playersHaveTroopsToPlace()) {
+            passToGameController();
+        }
+    }
+
+    public  void passToGameController() {
+        TotalDominationWorld world = new TotalDominationWorld(regions);
+        new GameController(world,players,display);
     }
 
     public boolean playersHaveTroopsToPlace() {
