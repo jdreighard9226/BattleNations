@@ -171,6 +171,9 @@ public class Territory extends Polygon implements Comparable<Territory> {
         int yTop = super.ypoints[2];
         int yBottom = super.ypoints[5];
         g.drawImage(watermark, xLeft, yTop, xRight - xLeft, yBottom - yTop, g.getColor(), null);
+
+        //Compute middle, then draw circle of color, then draw string in middle of circle.
+
     }
 
     /**
