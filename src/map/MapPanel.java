@@ -51,9 +51,12 @@ public class MapPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (activeController.equals("Set Up"))
-                    setUpController.getTerritoryClicked(e.getPoint());
+                if (activeController.equals("Set Up")){
+                    setUpController.getTerritoryClicked(e.getPoint());}
+                    else {
+                        gameController.getTerritoryClicked(e.getPoint());}
                     repaint();
+
 
             }
         });

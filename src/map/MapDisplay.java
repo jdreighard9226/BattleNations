@@ -102,4 +102,6 @@ public class MapDisplay {
     }
 
     public List<Region> getRegions() {return regions;}
+
+    public MapPanel getMapDisplay() {return mapDisplay;}
 }

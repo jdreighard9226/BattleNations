@@ -1,10 +1,7 @@
 package setUpGUI;
 
 import gameGUI.GameController;
-import map.MapDisplay;
-import map.Region;
-import map.Territory;
-import map.TotalDominationWorld;
+import map.*;
 import player.Player;
 import startGUI.*;
 import terrain.WaterTerrain;
@@ -184,7 +181,8 @@ public class SetUpController {
 
     public  void passToGameController() {
         TotalDominationWorld world = new TotalDominationWorld(regions);
-        new GameController(world,players,display);
+        MapPanel mapPanel = mapDisplay.getMapDisplay();
+        new GameController(world,players,display, mapPanel);
     }
 
     public boolean playersHaveTroopsToPlace() {

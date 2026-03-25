@@ -33,7 +33,7 @@ public class WaterRouteTerrain extends Terrain {
     /**
      * Image file used to represent water route terrain on the map.
      */
-    private static final String ICON_FILENAME = "temp";
+    private static final String ICON_FILENAME = "src/gameImages/WaterRouteTerrain.png";
 
     /**
      * Constructs a WaterRouteTerrain object with predefined terrain values.
