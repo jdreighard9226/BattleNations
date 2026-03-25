@@ -15,18 +15,22 @@ package terrain;
  *
  */
 public class CityTerrain extends Terrain {
+
     /**
      * Attack bonus percentage provided by city terrain.
      */
     private static final double ATTACK_BONUS_PERCENTAGE = .12;
+
     /**
      * Defense bonus percentage provided by city terrain.
      */
     private static final double DEFENSE_BONUS_PERCENTAGE = 0;
+
     /**
      * Additional troops granted by city terrain.
      */
     private static final int TROOP_BONUS = 1;
+
     /**
      * Image file used to represent city terrain on the map.
      */

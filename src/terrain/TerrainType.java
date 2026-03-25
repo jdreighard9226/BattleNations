@@ -20,40 +20,55 @@ package terrain;
  * 'public enum Planet' example in the Oracle documentation to see how to
  * structure the constructor and variables. My TerrainType design was inspired
  * by the 'public enum Planet' example.</p>
- *
- * @author J.D. Reighard
- * @version 1.0
- * @since 2026-03-04
  */
 public enum TerrainType {
     /**
      * Represents a city terrain type.
      */
     CITY(new CityTerrain()),
+
     /**
      * Represents a desert terrain type.
      */
+
     DESERT(new DesertTerrain()),
+
     /**
      * Represents a mountain terrain type.
      */
     MOUNTAIN(new MountainTerrain()),
+
     /**
      * Represents a water terrain type.
+     *
      */
     WATER(new WaterTerrain()),
 
+    /**
+     * Represents a plain terrain.
+     */
     PLAIN(new PlainTerrain()),
 
+    /**
+     * Represents a water route terrain.
+     */
     WATERROUTE(new WaterRouteTerrain());
+
     /** The terrain instance associated with this terrain type. */
     private final Terrain terrain;
 
+    /**
+     * Constructs a TerrainType with its associated terrain instance.
+     *
+     * @param terrain the terrain object represented by this enum constant
+     */
     TerrainType(Terrain terrain) {
         this.terrain = terrain;
     }
+
     /**
      * Returns the terrain associated with this terrain type.
+     *
      * @return the terrain instance represented by this enum constant
      */
     public Terrain getTerrain() {
