@@ -7,7 +7,7 @@ public class AttackService {
     }
 
     public ValidationResult attack(Territory territoryAttacking, Territory territoryDefending) {
-        ValidationResult validationResult = (territoryAttacking, territoryDefending);
+        ValidationResult validationResult = validateAttack(territoryAttacking, territoryDefending);
         if (validationResult.isValid() == false) {
             return validationResult;
         }
@@ -27,13 +27,13 @@ public class AttackService {
             territoryDefending.setPlayer(territoryAttacking.getPlayer());
             territoryDefending.setTroopAmount(survivingAttackingTroops);
 
-            validationResult.message();
+            return new ValidationResult(true, "Attacker Wins");
         } else {
             int originalAttackingTroops = territoryAttacking.getTroopAmount();
             int newTroops = calculateNewTroopAmount(originalAttackingTroops);
             territoryAttacking.setTroopAmount(newTroops);
 
-            return false;
+            return new ValidationResult(true, "Attacker Lost");
         }
     }
 
