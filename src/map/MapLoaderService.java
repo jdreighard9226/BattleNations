@@ -55,12 +55,13 @@ public class MapLoaderService {
         double angleRadians = Math.toRadians(60);
         double cosValue = Math.cos(angleRadians);
         double sinValue = Math.sin(angleRadians);
-        double length1 = (screen.getWidth() / (2 * numberColumns)) / (cosValue + 1);
+        double length1 = (screen.getWidth() / (2*numberColumns*(cosValue+1)-1));
         double length2 = (screen.getHeight() / (sinValue * (numberRows + 1)))*0.8;
         double length = Math.min(length1, length2);
 
+        double offset = (screen.getWidth() - (length * (2*numberColumns*(cosValue+1)-1)))/2;
         // Starting coordinates for hex grid
-        double xLocation = 0;
+        double xLocation = offset;
         double yLocation = sinValue * length;
 
         Territory[][] territories = new Territory[numberRows][numberColumns];
@@ -70,7 +71,7 @@ public class MapLoaderService {
         // Generate hexagonal territories
         for (int i = 0; i < numberRows; i++) {
             int alternator = (i % 2 != 0) ? 1 : 0;
-            xLocation = (alternator == 0) ? 0 : cosValue * length + length;
+            xLocation = (alternator == 0) ? 0 + offset: cosValue * length + length + offset;
 
             for (int j = 0; j < numberColumns - alternator; j++) {
                 // Compute hexagon vertices

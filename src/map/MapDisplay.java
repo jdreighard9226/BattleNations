@@ -84,6 +84,7 @@ public class MapDisplay {
         mapDisplay = new MapPanel(territories, setUpController);
         mapDisplay.setLayout(null);
         mapDisplay.setBounds(0, 0, displayWidth, displayHeight);
+        //mapDisplay.setBackground(Color.BLUE);
         mapDisplay.repaint();
     }
 

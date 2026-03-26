@@ -73,7 +73,7 @@ public class PlayerPage {
         playerName.setBounds(screen.width / 3, 200, 200, 30);
         gameSetupPanel.add(playerName);
 
-        String[] colorList = {"None","Red","Cyan", "Green","Yellow","Orange","Pink"};
+        String[] colorList = {"None","Red","Cyan", "Green","Yellow","Magenta","Orange"};
         playerColor = new JComboBox<>(colorList);
         playerColor.setSelectedIndex(0);
         //Color[] colors = {Color.RED, Color.CYAN, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.PINK};
@@ -122,7 +122,6 @@ public class PlayerPage {
         String name = playerName.getText().trim();
         String color = (String) playerColor.getSelectedItem();
         Color playersColor;
-        //{"None","Red","Cyan", "Green","Yellow","Orange","Pink"};
         switch (color) {
             case "Red":
                 playersColor = Color.RED;
@@ -136,11 +135,11 @@ public class PlayerPage {
             case "Yellow":
                 playersColor = Color.YELLOW;
                 break;
-            case "Orange":
-                playersColor = Color.ORANGE;
+            case "Magenta":
+                playersColor = Color.MAGENTA;
                 break;
-            case "Pink":
-                playersColor = Color.PINK;
+            case "orange":
+                playersColor = new Color(215, 86, 36);
                 break;
             default:
                 JOptionPane.showMessageDialog(parent, "Select a player color.");

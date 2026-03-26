@@ -45,7 +45,7 @@ public class SetUpController {
 
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
-        gameInfoPanel = new ImagePanel("src/gameImages/GameInfoBackground.png");
+        gameInfoPanel = new ImagePanel("src/gameImages/GameInfoBackground.jpg");
         gameInfoPanel.setLayout(null);
         gameInfoPanel.setBounds(0, (int)(screen.getHeight() * 0.8), screen.width, (int)(screen.height*0.2));
         display.add(gameInfoPanel);
