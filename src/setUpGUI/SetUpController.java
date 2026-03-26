@@ -18,6 +18,8 @@ public class SetUpController {
 
     private final MapDisplay mapDisplay;
 
+    private final ImagePanel gameInfoPanel;
+
     private final Territory[][] territories;
 
     private String faze;
@@ -40,6 +42,13 @@ public class SetUpController {
         mapDisplay = new MapDisplay(gameSetUpData, this);
         territories = mapDisplay.getTerritories();
         regions = mapDisplay.getRegions();
+
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+
+        gameInfoPanel = new ImagePanel("src/gameImages/GameInfoBackground.png");
+        gameInfoPanel.setLayout(null);
+        gameInfoPanel.setBounds(0, (int)(screen.getHeight() * 0.8), screen.width, (int)(screen.height*0.2));
+        display.add(gameInfoPanel);
 
         players = gameSetUpData.getPlayers();
         activePlayer = players.getFirst();
@@ -147,7 +156,21 @@ public class SetUpController {
     }
 
     public void randomlyPlaceTroops() {
-
+        Random random = new Random();
+        while (playersHaveTroopsToPlace()) {
+            int row = random.nextInt(territories.length);
+            int col = random.nextInt(territories[row].length);
+            if (territories[row][col] != null && territories[row][col].getPlayer() == activePlayer) {
+                territories[row][col].setTroopAmount(territories[row][col].getTroopAmount() + 1);
+                activePlayer.setTroopsToPlace(activePlayer.getTroopsToPlace() - 1);
+                playerTurn++;
+                if (playerTurn >= players.size()) {
+                    playerTurn = 0;
+                }
+                activePlayer = players.get(playerTurn);
+            }
+        }
+        passToGameController();
     }
 
     public void placeTroop(Territory territory) {
