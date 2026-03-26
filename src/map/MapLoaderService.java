@@ -56,7 +56,7 @@ public class MapLoaderService {
         double cosValue = Math.cos(angleRadians);
         double sinValue = Math.sin(angleRadians);
         double length1 = (screen.getWidth() / (2 * numberColumns)) / (cosValue + 1);
-        double length2 = (screen.getHeight() / (sinValue * (numberRows + 1)));
+        double length2 = (screen.getHeight() / (sinValue * (numberRows + 1)))*0.8;
         double length = Math.min(length1, length2);
 
         // Starting coordinates for hex grid
