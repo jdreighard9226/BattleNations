@@ -54,14 +54,16 @@ public class AttackService {
         // Random value between 0 and 1 to determine outcome
         double generatedWinningOdds = Math.random();
 
-
+        int originalDefendingTroops = territoryDefending.getTroopAmount();
         // if attacker wins
+
         if (attackingPlayerWinningOdds >= generatedWinningOdds) {
 
-            int originalAttackingTroops = territoryAttacking.getTroopAmount();
-
             // Calculate surviving troops that will move into the captured territory
-            int survivingAttackingTroops = calculateNewTroopAmount(originalAttackingTroops);
+            // only let the attacker lose up to the amount the defender had
+            int attackingTroopsAvailable = territoryAttacking.getTroopAmount() - 1;
+
+            int survivingAttackingTroops = calculateRemainingTroops(attackingTroopsAvailable, originalDefendingTroops);
 
             // Attacking territory must leave at least 1 troop behind
             territoryAttacking.setTroopAmount(1);
@@ -78,7 +80,7 @@ public class AttackService {
             int originalAttackingTroops = territoryAttacking.getTroopAmount();
 
             // Attacker loses troops but retains control of the territory
-            int newTroops = calculateNewTroopAmount(originalAttackingTroops);
+            int newTroops = calculateRemainingTroops(originalAttackingTroops, originalDefendingTroops);
 
             territoryAttacking.setTroopAmount(newTroops);
 
@@ -119,20 +121,18 @@ public class AttackService {
      * @param troopAmount the original number of troops
      * @return the number of troops remaining after losses
      */
-    private int calculateNewTroopAmount(int troopAmount) {
-        // Random number of troops lost (up to the current troop count)
-        int troopsLostInBattle = (int) (Math.random() * (troopAmount));
-
-        // Subtract lost troops and ensure at least one troop remains
-        int newTroopAmount = troopAmount - troopsLostInBattle - 1;
-
-        if (newTroopAmount > 0) {
-            return newTroopAmount;
-        } else {
+    private int calculateRemainingTroops(int troopAmount, int defendingTroops) {
+        if (troopAmount <= 1) {
             return 1;
         }
-    }
 
+        int maxLoss = Math.min(defendingTroops, troopAmount - 1);
+
+        int troopsLost = (int) (Math.random() * (maxLoss + 1)); // 0 → maxLoss
+
+        int remainingTroops = troopAmount - troopsLost;
+        return Math.max(remainingTroops, 1);
+    }
     /**
      * Validates whether an attack is allowed.
      *
