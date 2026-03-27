@@ -59,6 +59,7 @@ public class StartController {
         display = new JFrame();
         display.setExtendedState(JFrame.MAXIMIZED_BOTH);
         display.setUndecorated(true);
+        display.setLayout(null);
 
         // Initialize pages
         start = new StartMenuPage();
