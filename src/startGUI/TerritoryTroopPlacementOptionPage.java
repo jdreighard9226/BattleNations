@@ -47,9 +47,9 @@ public class TerritoryTroopPlacementOptionPage {
         });
 
         ButtonGroup troopButtons = new ButtonGroup();
-        JRadioButton randomTroops = new JRadioButton("Random Troop Selection");
+        JRadioButton randomTroops = new JRadioButton("Random Troop Placement");
         randomTroops.setBounds((int) screen.getWidth()/3*2 - 125,(int) screen.getHeight()/5 * 2, 250, 40);
-        JRadioButton manuelTroops = new JRadioButton("Manuel Troop Selection");
+        JRadioButton manuelTroops = new JRadioButton("Manuel Troop Placement");
         manuelTroops.setBounds((int) screen.getWidth()/3*2 - 125, (int) screen.getHeight()/5 * 3, 250, 40);
 
         troopButtons.add(randomTroops);

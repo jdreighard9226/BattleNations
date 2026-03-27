@@ -72,7 +72,7 @@ public class MapDisplay {
     public MapDisplay(SetUpData setUpData, SetUpController setUpController) {
         screen = Toolkit.getDefaultToolkit().getScreenSize();
         displayWidth = screen.width;
-        displayHeight = screen.height;
+        displayHeight = (int) (screen.height * 0.8);
         loader = new MapLoaderService();
         //startController.getGameSetUpData().getMap()
 
@@ -84,6 +84,7 @@ public class MapDisplay {
         mapDisplay = new MapPanel(territories, setUpController);
         mapDisplay.setLayout(null);
         mapDisplay.setBounds(0, 0, displayWidth, displayHeight);
+        //mapDisplay.setBackground(Color.BLUE);
         mapDisplay.repaint();
     }
 

@@ -66,7 +66,6 @@ public class Territory extends Polygon implements Comparable<Territory> {
         this(terrain, xCoords, yCoords, isCapital);
         this.player = player;
         this.troopAmount = troopAmount;
-        this.neighboringTerritories = new ArrayList<>();
     }
 
     /**
@@ -87,6 +86,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
         this.isCapital = isCapital;
         this.player = null;
         this.troopAmount = 0;
+        this.neighboringTerritories = new ArrayList<>();
     }
 
     /**
@@ -258,7 +258,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
      * @param t the territory to check
      * @return {@code true} if the territories are neighbors; {@code false} otherwise
      */
-    public boolean isNeighbor(Territory t) {
+    public boolean hasNeighbor(Territory t) {
         return (neighboringTerritories.contains(t));
     }
 }
