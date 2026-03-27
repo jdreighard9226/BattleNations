@@ -43,6 +43,8 @@ public class GameLogic {
     /** The current phase of the player's turn. */
     private TurnPhase currentPhase;
 
+    private int currentPlayerIndex = 0;
+
     /**
      * Constructs a GameLogic instance with all required dependencies.
      *
@@ -107,11 +109,10 @@ public class GameLogic {
     /**
      * Calculates the number of reinforcements a player receives.
      *
-     * @param player the player receiving reinforcements
      * @return the number of troops available to place
      */
-    public int calculateReinforcement(Player player) {
-        return reinforcementService.calculateReinforcements(player, world);
+    public void calculateReinforcement() {
+        reinforcementService.calculateReinforcements(getCurrentPlayer(), world);
     }
 
     /**
@@ -128,6 +129,7 @@ public class GameLogic {
         } else if (currentPhase == TurnPhase.ATTACK) {
             currentPhase = TurnPhase.FORTIFY;
         } else {
+            incrementPlayerIndex();
             currentPhase = TurnPhase.REINFORCEMENT;
         }
     }
@@ -157,5 +159,30 @@ public class GameLogic {
      */
     public List<Player> getPlayers() {
         return players;
+    }
+
+    private void incrementPlayerIndex() {
+        if (currentPlayerIndex == players.size() - 1) {
+            currentPlayerIndex = 0;
+        } else {
+            currentPlayerIndex ++;
+        }
+    }
+
+    public int getCurrentPlayerIndex() {
+        return currentPlayerIndex;
+    }
+
+    public Player getCurrentPlayer() {
+        return players.get(currentPlayerIndex);
+    }
+
+    public List<Territory> getCurrentPlayerTerritories() {
+        return world.getTerritoriesOwnedByPlayer(getCurrentPlayer());
+    }
+
+    public boolean isTerritoryPlayerOwned(Territory territory) {
+        return territory.getPlayer() != null &&
+                territory.getPlayer().equals(getCurrentPlayer());
     }
 }
