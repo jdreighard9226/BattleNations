@@ -20,6 +20,10 @@ public class SetUpController {
 
     private final ImagePanel gameInfoPanel;
 
+    private JLabel gameStatusLabel;
+
+    private JLabel instructionText;
+
     private final Territory[][] territories;
 
     private String faze;
@@ -47,15 +51,33 @@ public class SetUpController {
 
         gameInfoPanel = new ImagePanel("src/gameImages/GameInfoBackground.jpg");
         gameInfoPanel.setLayout(null);
-        gameInfoPanel.setBounds(0, (int)(screen.getHeight() * 0.8), screen.width, (int)(screen.height*0.2));
+        gameInfoPanel.setBounds(0, (int) (screen.getHeight() * 0.8), screen.width, (int) (screen.height * 0.2));
+
+
+        gameStatusLabel = new JLabel();
+        instructionText = new JLabel();
+
+        gameStatusLabel.setBounds(40, 20, 800, 30);
+        instructionText.setBounds(40, 60, 1000, 30);
+
+        gameStatusLabel.setForeground(Color.WHITE);
+        instructionText.setForeground(Color.WHITE);
+
+        gameStatusLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        instructionText.setFont(new Font("Arial", Font.PLAIN, 18));
+
+        gameInfoPanel.add(gameStatusLabel);
+        gameInfoPanel.add(instructionText);
+
         display.add(gameInfoPanel);
 
         players = gameSetUpData.getPlayers();
         activePlayer = players.getFirst();
+        updateGameInfoText();
 
         displayMapDisplay();
 
-        if (gameSetUpData.isRandomTerritories()){
+        if (gameSetUpData.isRandomTerritories()) {
             randomlyAssigningTerritories();
         }
 
@@ -79,8 +101,7 @@ public class SetUpController {
                 if (territory != null && territory.contains(point)) {
                     if (faze.equals("Territory")) {
                         assigningTerritory(territory);
-                    }
-                    else if (faze.equals("Troop")){
+                    } else if (faze.equals("Troop")) {
                         placeTroop(territory);
                     }
                 }
@@ -100,6 +121,7 @@ public class SetUpController {
                     playerTurn = 0;
                 }
                 activePlayer = players.get(playerTurn);
+                updateGameInfoText();
                 if (!unownedTerritory()) {
                     placeTroopFaze();
                 }
@@ -134,6 +156,7 @@ public class SetUpController {
                     playerTurn = 0;
                 }
                 activePlayer = players.get(playerTurn);
+                updateGameInfoText();
             }
         }
         placeTroopFaze();
@@ -145,12 +168,13 @@ public class SetUpController {
             randomlyPlaceTroops();
         } else {
             faze = "Troop";
+            updateGameInfoText();
         }
     }
 
     public void giveTroopsToPlace(int troopsToPlace) {
-        int troopsPerPlayer = troopsToPlace/players.size();
-        for (Player player: players){
+        int troopsPerPlayer = troopsToPlace / players.size();
+        for (Player player : players) {
             player.setTroopsToPlace(troopsPerPlayer);
         }
     }
@@ -168,6 +192,7 @@ public class SetUpController {
                     playerTurn = 0;
                 }
                 activePlayer = players.get(playerTurn);
+                updateGameInfoText();
             }
         }
         passToGameController();
@@ -180,6 +205,8 @@ public class SetUpController {
                     territory.setTroopAmount(territory.getTroopAmount() + 1);
                     activePlayer.setTroopsToPlace(activePlayer.getTroopsToPlace() - 1);
                     troopsToPlace--;
+                    updateGameInfoText();
+
                 }
                 if (troopsToPlace <= 0) {
                     playerTurn++;
@@ -187,11 +214,14 @@ public class SetUpController {
                         playerTurn = 0;
                     }
                     activePlayer = players.get(playerTurn);
+
                     if (activePlayer.getTroopsToPlace() > 3) {
                         troopsToPlace = 3;
                     } else {
                         troopsToPlace = activePlayer.getTroopsToPlace();
+
                     }
+                    updateGameInfoText();
                 }
             }
         } else {
@@ -202,18 +232,30 @@ public class SetUpController {
         }
     }
 
-    public  void passToGameController() {
+    public void passToGameController() {
         TotalDominationWorld world = new TotalDominationWorld(regions);
         MapPanel mapPanel = mapDisplay.getMapDisplay();
-        new GameController(world,players,display, mapPanel);
+        new GameController(world, players, display, mapPanel);
     }
 
     public boolean playersHaveTroopsToPlace() {
-        for (Player player: players) {
+        for (Player player : players) {
             if (player.getTroopsToPlace() > 0) {
                 return true;
             }
         }
         return false;
+    }
+
+    private void updateGameInfoText() {
+        if (faze.equals("Territory")) {
+            gameStatusLabel.setText("Player: " + activePlayer.getName());
+            instructionText.setText("Select a territory");
+        } else if (faze.equals("Troop")) {
+            gameStatusLabel.setText("Player: " + activePlayer.getName());
+            instructionText.setText("Troops left: " + activePlayer.getTroopsToPlace() + " | Place this turn: " + troopsToPlace);
+        }
+
+        gameInfoPanel.repaint();
     }
 }
