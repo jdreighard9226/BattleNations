@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class MapLoaderService {
     public MapLoaderData loadTerritories(String fileName, Dimension screen) {
+        GenerateNeighborService generateNeighborService = new GenerateNeighborService();
         File mapFile = new File(fileName);
         int numberRows;
         int numberColumns;
@@ -18,6 +19,7 @@ public class MapLoaderService {
         List<Region> regions = new ArrayList<Region>();
         String[][] terrainTypes;
         Scanner fileReader = null;
+
 
         try {
             System.out.println(mapFile);
@@ -126,6 +128,8 @@ public class MapLoaderService {
             // Move to next hex row
             yLocation += sinValue * length;
         }
+        // populate every territory neighboring territories
+        generateNeighborService.generateNeighbors(territories);
         return new MapLoaderData(territories, regions);
     }
 }
