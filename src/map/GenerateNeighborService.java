@@ -15,7 +15,7 @@ public class GenerateNeighborService {
             // row length changes depending on if territories have been shifted to fit
             // even rows = territories[i].length
             // odd rows = territories[i].length - 1
-            int rowLength = territories[i].length - alternator;
+            int rowLength = territories[i].length;
 
             for (int j = 0; j < rowLength; j++) {
                 Territory current = territories[i][j];
@@ -24,22 +24,29 @@ public class GenerateNeighborService {
                     continue;
                 }
 
-                // get territories left neighbor (if exists)
-                if (j - 1 >= 0) {
-                    addTerritoryNeighbor(current, territories[i][j - 1]);
+                // get directly above neighbor (if exists)
+                if (i - 2 >= 0) {
+                    int upperVerticalRowLength = territories[i - 2].length;
+
+                    if (j < upperVerticalRowLength) {
+                        addTerritoryNeighbor(current, territories[i - 2][j]);
+                    }
                 }
 
-                // get right neighbor (if exists)
-                if (j + 1 < rowLength) {
-                    addTerritoryNeighbor(current, territories[i][j + 1]);
+                // get directly below neighbor (if exists)
+                if (i + 2 < territories.length) {
+                    int lowerVerticalRowLength = territories[i + 2].length;
+
+                    if (j < lowerVerticalRowLength) {
+                        addTerritoryNeighbor(current, territories[i + 2][j]);
+                    }
                 }
 
                 // get any upper neighbors
                 if (i - 1 >= 0) {
-                    // calculate the row above its length
-                    int upperAlternator = ((i - 1) % 2 != 0) ? 1 : 0;
-                    int upperRowLength = territories[i - 1].length - upperAlternator;
-                    // are current row is an even row
+                    int upperRowLength = territories[i - 1].length;
+
+                    // current row is an even row
                     if (alternator == 0) {
                         if (j - 1 >= 0 && j - 1 < upperRowLength) {
                             // add top left territory
@@ -64,8 +71,8 @@ public class GenerateNeighborService {
 
                 // get any lower neighbors
                 if (i + 1 < territories.length) {
-                    int lowerAlternator = ((i + 1) % 2 != 0) ? 1 : 0;
-                    int lowerRowLength = territories[i + 1].length - lowerAlternator;
+                    int lowerRowLength = territories[i + 1].length;
+
                     // the current row is an even row
                     if (alternator == 0) {
                         if (j - 1 >= 0 && j - 1 < lowerRowLength) {
@@ -85,13 +92,11 @@ public class GenerateNeighborService {
                         }
 
                         if (j + 1 < lowerRowLength) {
-                            // shift j over right 1 to grab the night neighbor
+                            // shift j over right 1 to grab the right neighbor
                             addTerritoryNeighbor(current, territories[i + 1][j + 1]);
                         }
                     }
                 }
-
-
             }
         }
     }
