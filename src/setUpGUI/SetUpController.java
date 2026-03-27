@@ -22,7 +22,14 @@ public class SetUpController {
 
     private JLabel gameStatusLabel;
 
+    private JLabel generalInfoLabel;
+
     private JLabel instructionText;
+
+    private JLabel errorText;
+
+    private JLabel successText;
+
 
     private final Territory[][] territories;
 
@@ -55,19 +62,33 @@ public class SetUpController {
 
 
         gameStatusLabel = new JLabel();
+        generalInfoLabel = new JLabel();
         instructionText = new JLabel();
+        errorText = new JLabel();
+        successText = new JLabel();
 
-        gameStatusLabel.setBounds(40, 20, 800, 30);
-        instructionText.setBounds(40, 60, 1000, 30);
+        gameStatusLabel.setBounds(40, 15, 1000, 28);
+        generalInfoLabel.setBounds(40, 50, 1200, 24);
+        instructionText.setBounds(40, 80, 1200, 24);
+        errorText.setBounds(40, 110, 1200, 24);
+        successText.setBounds(40, 140, 1200, 24);
 
         gameStatusLabel.setForeground(Color.WHITE);
+        generalInfoLabel.setForeground(Color.WHITE);
         instructionText.setForeground(Color.WHITE);
+        errorText.setForeground(Color.RED);
+        successText.setForeground(Color.GREEN);
 
         gameStatusLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        generalInfoLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         instructionText.setFont(new Font("Arial", Font.PLAIN, 18));
+        errorText.setFont(new Font("Arial", Font.BOLD, 20));
+        successText.setFont(new Font("Arial", Font.BOLD, 20));
 
         gameInfoPanel.add(gameStatusLabel);
+        gameInfoPanel.add(generalInfoLabel);
         gameInfoPanel.add(instructionText);
+        gameInfoPanel.add(errorText);
 
         display.add(gameInfoPanel);
 
@@ -112,7 +133,9 @@ public class SetUpController {
     public void assigningTerritory(Territory territory) {
         if (territory.getPlayer() == null) {
             if (territory.getTerrain() instanceof WaterTerrain) {
-                JOptionPane.showMessageDialog(display, "Cannot select water Territory");
+                errorText.setText("Cannot select a water Territory. Select A different one ");
+                gameInfoPanel.repaint();
+                // JOptionPane.showMessageDialog(display, "Cannot select water Territory");
             } else {
                 territory.setPlayer(activePlayer);
                 territory.setTroopAmount(1);
@@ -127,7 +150,9 @@ public class SetUpController {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(display, "Territory already owned");
+            errorText.setText("Territory is already Owned, Select A different one");
+            gameInfoPanel.repaint();
+            //JOptionPane.showMessageDialog(display, "Territory already owned");
         }
 
     }
@@ -225,7 +250,9 @@ public class SetUpController {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(display, "Territory not owned by " + activePlayer.getName());
+            errorText.setText("Territory not owned by " + activePlayer.getName());
+            gameInfoPanel.repaint();
+           // JOptionPane.showMessageDialog(display, "Territory not owned by " + activePlayer.getName());
         }
         if (!playersHaveTroopsToPlace()) {
             passToGameController();
@@ -235,7 +262,7 @@ public class SetUpController {
     public void passToGameController() {
         TotalDominationWorld world = new TotalDominationWorld(regions);
         MapPanel mapPanel = mapDisplay.getMapDisplay();
-        new GameController(world, players, display, mapPanel);
+        new GameController(world, players, display, mapPanel, gameInfoPanel, gameStatusLabel, generalInfoLabel, instructionText, errorText, successText);
     }
 
     public boolean playersHaveTroopsToPlace() {
@@ -248,6 +275,8 @@ public class SetUpController {
     }
 
     private void updateGameInfoText() {
+        errorText.setText("");
+
         if (faze.equals("Territory")) {
             gameStatusLabel.setText("Player: " + activePlayer.getName());
             instructionText.setText("Select a territory");
