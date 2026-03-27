@@ -48,7 +48,7 @@ public class ReinforcementService {
      * @param world  the game world used to determine territory ownership
      * @return the total number of reinforcements the player receives
      */
-    public int calculateReinforcements(Player player, World world) {
+    public void calculateReinforcements(Player player, World world) {
         int playerTerritoryCount = world.getTerritoryCountOwnedByPlayer(player);
         int baseTroops = playerTerritoryCount / TERRITORY_COUNT_DIVISOR;
 
@@ -61,8 +61,7 @@ public class ReinforcementService {
         for (Territory territory : world.getTerritoriesOwnedByPlayer(player)) {
             terrainBonusTroops += territory.getTerrain().getTroopBonus();
         }
-        return baseTroops + terrainBonusTroops;
-
+        player.setTroopsToPlace(baseTroops + terrainBonusTroops);
     }
 
     /**
