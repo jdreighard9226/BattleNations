@@ -89,6 +89,7 @@ public class SetUpController {
         gameInfoPanel.add(generalInfoLabel);
         gameInfoPanel.add(instructionText);
         gameInfoPanel.add(errorText);
+        gameInfoPanel.add(successText);
 
         display.add(gameInfoPanel);
 
