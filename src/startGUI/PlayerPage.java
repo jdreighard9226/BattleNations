@@ -184,6 +184,6 @@ public class PlayerPage {
 
     private void startGame() {
         parent.remove(gameSetupPanel);
-        startController.displayTerritoryTroopPlacementOptionPage();
+        startController.displaySetUpOptionsPage();
     }
 }
