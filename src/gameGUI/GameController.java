@@ -1,9 +1,6 @@
 package gameGUI;
 
-import game.AttackService;
-import game.FortifyService;
-import game.GameLogic;
-import game.ReinforcementService;
+import game.*;
 import map.MapPanel;
 import map.Territory;
 import map.TotalDominationWorld;
@@ -30,12 +27,17 @@ public class GameController {
     public void getTerritoryClicked(Point point) {
             for (Territory territory : territories) {
                 if (territory != null && territory.contains(point)) {
-//                    if (faze is something)) {
-//                        do this function;
-//                    }
-//                    else if (if face is something else){
-//                        do this fuctnion;
-//                    }
+                    if (gameLogic.getCurrentPhase() == TurnPhase.REINFORCEMENT) {
+                        // do something
+                        return;
+                    } else if (gameLogic.getCurrentPhase() == TurnPhase.ATTACK) {
+                        // do something
+                        return;
+                       // game logic is Fortify
+                    } else {
+                        // do something
+                        return;
+                    }
                 }
             }
 
