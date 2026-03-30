@@ -96,7 +96,9 @@ public class StartController {
     /**
      * Displays the map choice page on the main JFrame display.
      */
-    public void displayMapChoicePage() {mapChoice.addMapChoicePage(this);}
+    public void displayMapChoicePage() {
+        mapChoice.addMapChoicePage(this);
+    }
 
     /**
      * Displays set up options page
@@ -106,7 +108,7 @@ public class StartController {
     }
 
     /**
-     *  Returns the main JFrame used for the GUI
+     * Returns the main JFrame used for the GUI
      *
      * @return The main JFrame used for displaying.
      */
@@ -115,7 +117,7 @@ public class StartController {
     }
 
     /**
-     *  Returns the setup data object used for storing users choices.
+     * Returns the setup data object used for storing users choices.
      *
      * @return The SetUpData that stores the users choices.
      */

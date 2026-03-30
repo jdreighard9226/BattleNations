@@ -253,7 +253,7 @@ public class SetUpController {
         } else {
             errorText.setText("Territory not owned by " + activePlayer.getName());
             gameInfoPanel.repaint();
-           // JOptionPane.showMessageDialog(display, "Territory not owned by " + activePlayer.getName());
+            // JOptionPane.showMessageDialog(display, "Territory not owned by " + activePlayer.getName());
         }
         if (!playersHaveTroopsToPlace()) {
             passToGameController();

@@ -23,7 +23,7 @@ public class TestTerrainType {
      * TerrainType returns an object of the expected class.</p>
      *
      * @return {@code true} if all terrain types return the correct class;
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     private static boolean testCreateTerrainType() {
         System.out.print("testing enumerators getTerrain() method: ");

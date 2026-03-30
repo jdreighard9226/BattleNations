@@ -64,7 +64,6 @@ public class MapDisplay {
     private List<Region> regions;
 
 
-
     /**
      * Constructs a MapDisplay object, initializes the screen size,
      * loads the map file, and creates the territory grid.
@@ -102,7 +101,11 @@ public class MapDisplay {
         return territories;
     }
 
-    public List<Region> getRegions() {return regions;}
+    public List<Region> getRegions() {
+        return regions;
+    }
 
-    public MapPanel getMapDisplay() {return mapDisplay;}
+    public MapPanel getMapDisplay() {
+        return mapDisplay;
+    }
 }

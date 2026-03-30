@@ -25,22 +25,34 @@ import java.util.List;
  * </ul>
  */
 public class GameLogic {
-    /** The game world containing all territories and regions. */
+    /**
+     * The game world containing all territories and regions.
+     */
     private final World world;
 
-    /** The list of players participating in the game. */
+    /**
+     * The list of players participating in the game.
+     */
     private final List<Player> players;
 
-    /** Service responsible for handling attack logic. */
+    /**
+     * Service responsible for handling attack logic.
+     */
     private final AttackService attackService;
 
-    /** Service responsible for handling reinforcement logic. */
+    /**
+     * Service responsible for handling reinforcement logic.
+     */
     private final ReinforcementService reinforcementService;
 
-    /** Service responsible for handling fortification logic. */
+    /**
+     * Service responsible for handling fortification logic.
+     */
     private final FortifyService fortifyService;
 
-    /** The current phase of the player's turn. */
+    /**
+     * The current phase of the player's turn.
+     */
     private TurnPhase currentPhase;
 
     private int currentPlayerIndex = 0;
@@ -51,11 +63,11 @@ public class GameLogic {
      * <p>The provided player list is copied to prevent external modification
      * from affecting the internal game state.</p>
      *
-     * @param world the game world
-     * @param players the list of players
-     * @param attackService the service used for attack actions
+     * @param world                the game world
+     * @param players              the list of players
+     * @param attackService        the service used for attack actions
      * @param reinforcementService the service used for reinforcement actions
-     * @param fortifyService the service used for fortification actions
+     * @param fortifyService       the service used for fortification actions
      */
     public GameLogic(World world, List<Player> players, AttackService attackService, ReinforcementService reinforcementService, FortifyService fortifyService) {
         this.world = world;
@@ -86,19 +98,19 @@ public class GameLogic {
      * Moves troops between two owned territories.
      *
      * @param territoryToTakeTroopsFrom the territory losing troops
-     * @param territoryToAddTroopsTo the territory gaining troops
-     * @param troopsBeingMoved the number of troops to move
+     * @param territoryToAddTroopsTo    the territory gaining troops
+     * @param troopsBeingMoved          the number of troops to move
      * @return the result of the fortify attempt
      */
     public ValidationResult fortify(Territory territoryToTakeTroopsFrom, Territory territoryToAddTroopsTo, int troopsBeingMoved) {
-       return fortifyService.fortify(territoryToTakeTroopsFrom, territoryToAddTroopsTo, troopsBeingMoved);
+        return fortifyService.fortify(territoryToTakeTroopsFrom, territoryToAddTroopsTo, troopsBeingMoved);
     }
 
     /**
      * Adds reinforcement troops to a territory.
      *
-     * @param player the player placing troops
-     * @param territory the territory receiving troops
+     * @param player      the player placing troops
+     * @param territory   the territory receiving troops
      * @param troopsToAdd the number of troops to add
      * @return the result of the reinforcement attempt
      */
@@ -165,7 +177,7 @@ public class GameLogic {
         if (currentPlayerIndex == players.size() - 1) {
             currentPlayerIndex = 0;
         } else {
-            currentPlayerIndex ++;
+            currentPlayerIndex++;
         }
     }
 

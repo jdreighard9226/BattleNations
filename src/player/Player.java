@@ -1,6 +1,7 @@
 package player;
 
 import java.awt.Color;
+
 /**
  * Represents a player in Battle Nations.
  *

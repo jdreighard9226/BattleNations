@@ -54,7 +54,9 @@ public enum TerrainType {
      */
     WATERROUTE(new WaterRouteTerrain());
 
-    /** The terrain instance associated with this terrain type. */
+    /**
+     * The terrain instance associated with this terrain type.
+     */
     private final Terrain terrain;
 
     /**

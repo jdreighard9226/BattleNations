@@ -16,9 +16,9 @@ public abstract class AbstractWorld implements World {
         this.regions = new ArrayList<>();
     }
 
-   public List<Region> getRegions() {
+    public List<Region> getRegions() {
         return this.regions;
-   }
+    }
 
     public List<Territory> getAllTerritories() {
         List<Territory> territories = new ArrayList<>();
@@ -28,9 +28,9 @@ public abstract class AbstractWorld implements World {
         return territories;
     }
 
-   public void addRegion(Region region) {
+    public void addRegion(Region region) {
         regions.add(region);
-   }
+    }
 
     public void removeRegion(Region region) {
         regions.remove(region);
@@ -62,12 +62,12 @@ public abstract class AbstractWorld implements World {
 
     public List<Region> getRegionsControlledByPlayer(Player player) {
         List<Region> playerOwnedRegions = new ArrayList<>();
-        for(Region region : regions) {
+        for (Region region : regions) {
             if (region.isRegionConquered()) {
                 if (isRegionControlledByPlayer(region, player)) {
                     playerOwnedRegions.add(region);
-                };
-            };
+                }
+            }
         }
         return playerOwnedRegions;
     }

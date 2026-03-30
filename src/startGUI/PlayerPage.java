@@ -73,11 +73,11 @@ public class PlayerPage {
         playerName.setBounds(screen.width / 3, 200, 200, 30);
         gameSetupPanel.add(playerName);
 
-        String[] colorList = {"None","Red","Cyan", "Green","Yellow","Magenta","Orange"};
+        String[] colorList = {"None", "Red", "Cyan", "Green", "Yellow", "Magenta", "Orange"};
         playerColor = new JComboBox<>(colorList);
         playerColor.setSelectedIndex(0);
         //Color[] colors = {Color.RED, Color.CYAN, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.PINK};
-        playerColor.setBounds(screen.width/3+250, 200, 200, 30);
+        playerColor.setBounds(screen.width / 3 + 250, 200, 200, 30);
         gameSetupPanel.add(playerColor);
 
         addPlayer = new JButton("Add Player");
@@ -146,7 +146,7 @@ public class PlayerPage {
                 return;
         }
 
-        for (Player p: players) {
+        for (Player p : players) {
             if (p.getColor().equals(playersColor)) {
                 JOptionPane.showMessageDialog(parent, "Color already used");
                 return;

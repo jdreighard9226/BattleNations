@@ -25,18 +25,18 @@ public class MapChoicePage {
         ButtonGroup mapChoices = new ButtonGroup();
 
         ImageIcon map1 = new ImageIcon("src/gameImages/FunnyLandMapImage.jpg");
-        Image map1Image= map1.getImage();
-        Image rescaledImageMap1 = map1Image.getScaledInstance((int) screen.getWidth()/4, (int) screen.getHeight()/4, Image.SCALE_SMOOTH);
+        Image map1Image = map1.getImage();
+        Image rescaledImageMap1 = map1Image.getScaledInstance((int) screen.getWidth() / 4, (int) screen.getHeight() / 4, Image.SCALE_SMOOTH);
         JRadioButton map1bt = new JRadioButton(new ImageIcon(rescaledImageMap1));
-        map1bt.setBounds((int) screen.getWidth()/8, (int) screen.getHeight()/2, (int) screen.getWidth()/4, (int) screen.getHeight()/4);
+        map1bt.setBounds((int) screen.getWidth() / 8, (int) screen.getHeight() / 2, (int) screen.getWidth() / 4, (int) screen.getHeight() / 4);
         map1bt.setContentAreaFilled(false);
         map1bt.setBorderPainted(true);
 
         ImageIcon map2 = new ImageIcon("src/gameImages/GlenmouthMapImage.jpg");
-        Image map2Image= map2.getImage();
-        Image rescaledImageMap2 = map2Image.getScaledInstance((int) screen.getWidth()/4, (int) screen.getHeight()/4, Image.SCALE_SMOOTH);
+        Image map2Image = map2.getImage();
+        Image rescaledImageMap2 = map2Image.getScaledInstance((int) screen.getWidth() / 4, (int) screen.getHeight() / 4, Image.SCALE_SMOOTH);
         JRadioButton map2bt = new JRadioButton(new ImageIcon(rescaledImageMap2));
-        map2bt.setBounds((int) screen.getWidth()/8 * 5, (int) (screen.getHeight()/2), (int) screen.getWidth()/4, (int) screen.getHeight()/4);
+        map2bt.setBounds((int) screen.getWidth() / 8 * 5, (int) (screen.getHeight() / 2), (int) screen.getWidth() / 4, (int) screen.getHeight() / 4);
         map2bt.setContentAreaFilled(false);
         map2bt.setBorderPainted(true);
 
@@ -65,7 +65,7 @@ public class MapChoicePage {
         });
 
         JButton continueBt = new JButton("Continue");
-        continueBt.setBounds((int) screen.getWidth()/2 - 100, (int)screen.getHeight()/6 * 5, 200, 80);
+        continueBt.setBounds((int) screen.getWidth() / 2 - 100, (int) screen.getHeight() / 6 * 5, 200, 80);
         continueBt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
