@@ -33,10 +33,12 @@ public class Territory extends Polygon implements Comparable<Territory> {
      * The player that currently owns this territory.
      */
     private Player player;
+
     /**
      * The terrain type associated with this territory.
      */
     private final Terrain terrain;
+
     /**
      * The number of troops stationed in the territory.
      */
@@ -55,12 +57,12 @@ public class Territory extends Polygon implements Comparable<Territory> {
     /**
      * Constructs a territory owned by a player.
      *
-     * @param player the player that owns the territory
-     * @param terrain the terrain type of the territory
+     * @param player      the player that owns the territory
+     * @param terrain     the terrain type of the territory
      * @param troopAmount the number of troops stationed in the territory
-     * @param xCoords the x-coordinates defining the polygon shape
-     * @param yCoords the y-coordinates defining the polygon shape
-     * @param isCapital whether this territory is a capital
+     * @param xCoords     the x-coordinates defining the polygon shape
+     * @param yCoords     the y-coordinates defining the polygon shape
+     * @param isCapital   whether this territory is a capital
      */
     public Territory(Player player, Terrain terrain, int troopAmount, int[] xCoords, int[] yCoords, boolean isCapital) {
         this(terrain, xCoords, yCoords, isCapital);
@@ -73,9 +75,9 @@ public class Territory extends Polygon implements Comparable<Territory> {
      *
      * <p>This constructor is typically used for neutral or water territories.</p>
      *
-     * @param terrain the terrain type of the territory
-     * @param xCoords the x-coordinates defining the polygon shape
-     * @param yCoords the y-coordinates defining the polygon shape
+     * @param terrain   the terrain type of the territory
+     * @param xCoords   the x-coordinates defining the polygon shape
+     * @param yCoords   the y-coordinates defining the polygon shape
      * @param isCapital whether this territory is a capital
      */
     public Territory(Terrain terrain, int[] xCoords, int[] yCoords, boolean isCapital) {
@@ -103,7 +105,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
      *
      * <p>If the territory has no owner, a default color is returned.</p>
      *
-     * @return the color representing the territory's owner
+     * @return the color representing the territory's owner, or null if territory not assigned
      */
     public Color getCurrentColor() {
         if (player == null) {
@@ -115,7 +117,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
     /**
      * Returns the player that owns the territory.
      *
-     * @return the owning player
+     * @return the owning player, or null if no player is assigned
      */
     public Player getPlayer() {
         return player;

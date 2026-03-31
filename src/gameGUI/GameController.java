@@ -29,7 +29,7 @@ public class GameController {
 
     private boolean fortifyUsedThisTurn;
 
-    public GameController(TotalDominationWorld world, List<Player> players, JFrame display, MapPanel mapPanel, JPanel gameInfoPannel, JLabel gameStatusLabel, JLabel generalInfoLabel, JLabel instructionText, JLabel errorText, JLabel successText){
+    public GameController(TotalDominationWorld world, List<Player> players, JFrame display, MapPanel mapPanel, JPanel gameInfoPannel, JLabel gameStatusLabel, JLabel generalInfoLabel, JLabel instructionText, JLabel errorText, JLabel successText) {
         gameLogic = new GameLogic(world, players, new AttackService(), new ReinforcementService(), new FortifyService());
         gameLogic.calculateReinforcement();
         territories = world.getAllTerritories();

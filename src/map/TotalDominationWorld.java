@@ -1,6 +1,7 @@
 package map;
 
 import player.Player;
+
 import java.util.List;
 
 public class TotalDominationWorld extends AbstractWorld {

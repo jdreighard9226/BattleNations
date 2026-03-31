@@ -133,6 +133,7 @@ public class AttackService {
         int remainingTroops = troopAmount - troopsLost;
         return Math.max(remainingTroops, 1);
     }
+
     /**
      * Validates whether an attack is allowed.
      *

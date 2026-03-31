@@ -9,6 +9,7 @@ public class SetUpData {
     private List<Player> players;
     private boolean randomTerritories;
     private boolean randomTroopPlacement;
+
     public SetUpData() {
     }
 

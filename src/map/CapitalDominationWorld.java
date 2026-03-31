@@ -7,6 +7,7 @@ import java.util.List;
 
 public class CapitalDominationWorld extends AbstractWorld {
     private int territoryCapitals;
+
     public CapitalDominationWorld(ArrayList<Region> regions) {
         super(regions);
     }
@@ -41,7 +42,7 @@ public class CapitalDominationWorld extends AbstractWorld {
         for (Region region : regions) {
             if (region.getCapitalTerritory() != null) {
                 temp++;
-            };
+            }
 
         }
         return temp;
@@ -50,6 +51,7 @@ public class CapitalDominationWorld extends AbstractWorld {
     private void setTerritoryCapitals() {
         this.territoryCapitals = getCapitalTerritoriesCount();
     }
+
     private int getTerritoryCapitals() {
         return territoryCapitals;
     }
