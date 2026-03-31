@@ -13,14 +13,10 @@ import javax.swing.*;
  */
 public class StartController {
 
-    /**
-     * The main JFrame used to hold the different pages.
-     */
+    /** The main JFrame used to hold the different pages. */
     private final JFrame display;
 
-    /**
-     * The Start Menu page.
-     */
+    /** The Start Menu page. */
     private final StartMenuPage start;
 
     /**
@@ -133,7 +129,7 @@ public class StartController {
     /**
      * Starting point the code
      *
-     * @param args does something
+     * @param args look it up
      */
     public static void main(String[] args) {
         new StartController();

@@ -13,7 +13,6 @@ import java.util.Scanner;
  *
  * <p>This class serves to take as input a text file, and then create from it a list of territories and regions that
  * can then be used for gameplay logic and display later.</p>
- *
  */
 public class MapLoaderService {
     /**
@@ -32,11 +31,11 @@ public class MapLoaderService {
         int numberRows;
         int numberColumns;
         int numberRegions;
-        List<Region> regions = new ArrayList<Region>();
+        List<Region> regions = new ArrayList<>();
         String[][] terrainTypes;
 
         // Creates the scanner and file that will be needed to read the file.
-        Scanner fileReader = null;
+        Scanner fileReader;
         File mapFile = new File(fileName);
 
 
@@ -61,7 +60,7 @@ public class MapLoaderService {
                     // so it can go on to the next index before reading anything more from the file.
                     if (!terrainTypes[i][j].equals("W")) {
                         String region = fileReader.next();
-                        // If the terrian is "C" (city) there is an extra piece of information that is associated with it,
+                        // If the terrain is "C" (city) there is an extra piece of information that is associated with it,
                         // so the file reader must read one more line to collect it before going on to the next index.
                         if (terrainTypes[i][j].equals("C")) {
                             // Creates a string at the index location with all the information needed for the territory.
@@ -74,6 +73,7 @@ public class MapLoaderService {
                     }
                 }
             }
+            //Throw actual error or do something.
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -98,22 +98,22 @@ public class MapLoaderService {
         // The last - length is present because each columns width is calculated by taking a hexagons width, and that of
         // the one bellow it diagonally to the right, but the last column does not have a hexagon bellow it to the right diagonally,
         // thus one length must be subtracted.
-        double length1 = (screen.getWidth() / (2*numberColumns*(cosValue+1)-1));
+        double length1 = (screen.getWidth() / (2*numberColumns*(cosValue + 1) - 1));
 
         // Calculates what the length of each side would be if the height was the restraining dimension.
         // The equation is derived from the equation
-        double length2 = (screen.getHeight() / (sinValue * (numberRows + 1)))*0.8;
+        double length2 = (screen.getHeight() / (sinValue * (numberRows + 1))) * 0.8;
 
         // Takes the smaller length value, the restraining value and sets it as the length value for all sides of the hexagons.
         double length = Math.min(length1, length2);
 
         // Finds how much extra room there is in the x direction and centers it, by using the previous width dimension
         // used, plugging in length, subtracting that value from the screens width, and then dividing it by two, so that
-        // we get the offset value which will corespond to how much space we will have on either side of the map.
+        // we get the offset value which will correspond to how much space we will have on either side of the map.
         double offset = (screen.getWidth() - (length * (2*numberColumns*(cosValue+1)-1)))/2;
 
-        // Starting coordinates for hex grid using our offset which will center the map.
-        double xLocation = offset;
+        // Initializes starting y and x locations.
+        double xLocation;
         double yLocation = sinValue * length;
 
         // Creates an empty doubly indexed array to store the territories made.

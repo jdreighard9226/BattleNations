@@ -138,7 +138,7 @@ public class PlayerPage {
             case "Magenta":
                 playersColor = Color.MAGENTA;
                 break;
-            case "orange":
+            case "Orange":
                 playersColor = new Color(215, 86, 36);
                 break;
             default:
