@@ -19,7 +19,7 @@ public class CityTerrain extends Terrain {
     /**
      * Attack bonus percentage provided by city terrain.
      */
-    private static final double ATTACK_BONUS_PERCENTAGE = .12;
+    private static final double ATTACK_BONUS_PERCENTAGE = 0;
 
     /**
      * Defense bonus percentage provided by city terrain.

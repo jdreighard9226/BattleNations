@@ -18,7 +18,7 @@ public class DesertTerrain extends Terrain {
     /**
      * Attack bonus percentage provided by desert terrain.
      */
-    private static final double ATTACK_BONUS_PERCENTAGE = .15;
+    private static final double ATTACK_BONUS_PERCENTAGE = .09;
 
     /**
      * Defense bonus percentage provided by desert terrain.

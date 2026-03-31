@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 /**
  * Creates a list of territories and regions from a text file.
  *
@@ -20,7 +21,7 @@ public class MapLoaderService {
      * populate the territories list. Using the screen dimensions it grids the territories to fit the screen size.
      *
      * @param fileName the file that holds the map information.
-     * @param screen the dimensions of the screen that the map is being fit too.
+     * @param screen   the dimensions of the screen that the map is being fit too.
      * @return the MapLoaderData object that holds a doubly indexed array of territories, and a list of regions.
      */
     public MapLoaderData loadTerritories(String fileName, Dimension screen) {
@@ -65,8 +66,7 @@ public class MapLoaderService {
                         if (terrainTypes[i][j].equals("C")) {
                             // Creates a string at the index location with all the information needed for the territory.
                             terrainTypes[i][j] += " " + region + " " + fileReader.next();
-                        }
-                        else {
+                        } else {
                             // Creates a string at the index location with all the information needed for the territory.
                             terrainTypes[i][j] += " " + region;
                         }
@@ -98,7 +98,7 @@ public class MapLoaderService {
         // The last - length is present because each columns width is calculated by taking a hexagons width, and that of
         // the one bellow it diagonally to the right, but the last column does not have a hexagon bellow it to the right diagonally,
         // thus one length must be subtracted.
-        double length1 = (screen.getWidth() / (2*numberColumns*(cosValue + 1) - 1));
+        double length1 = (screen.getWidth() / (2 * numberColumns * (cosValue + 1) - 1));
 
         // Calculates what the length of each side would be if the height was the restraining dimension.
         // The equation is derived from the equation
@@ -110,7 +110,7 @@ public class MapLoaderService {
         // Finds how much extra room there is in the x direction and centers it, by using the previous width dimension
         // used, plugging in length, subtracting that value from the screens width, and then dividing it by two, so that
         // we get the offset value which will correspond to how much space we will have on either side of the map.
-        double offset = (screen.getWidth() - (length * (2*numberColumns*(cosValue+1)-1)))/2;
+        double offset = (screen.getWidth() - (length * (2 * numberColumns * (cosValue + 1) - 1))) / 2;
 
         // Initializes starting y and x locations.
         double xLocation;
@@ -128,7 +128,7 @@ public class MapLoaderService {
             int alternator = (i % 2 != 0) ? 1 : 0;
             // If it's on the odd column, it must position the starting x coordinate to the bottom right of the previous
             // rows starting hexagon.
-            xLocation = (alternator == 0) ? 0 + offset: cosValue * length + length + offset;
+            xLocation = (alternator == 0) ? 0 + offset : cosValue * length + length + offset;
 
             for (int j = 0; j < numberColumns - alternator; j++) {
                 // Calculates the x coordinates of the hexagon
@@ -158,7 +158,7 @@ public class MapLoaderService {
                 }
 
                 // Creates a territory object and adds it to the territory array and the regions list as needed.
-                switch (terrainTypes[i][j].substring(0,1)) {
+                switch (terrainTypes[i][j].substring(0, 1)) {
                     case "M":
                         territories[i][j] = new Territory(TerrainType.MOUNTAIN.getTerrain(), xPoints, yPoints, false);
                         regions.get(Integer.parseInt(terrainTypes[i][j].substring(2)) - 1).addTerritory(territories[i][j]);
@@ -170,7 +170,7 @@ public class MapLoaderService {
                     case "C":
                         boolean isCapital = terrainTypes[i][j].substring(4).equals("T");
                         territories[i][j] = new Territory(TerrainType.CITY.getTerrain(), xPoints, yPoints, isCapital);
-                        regions.get(Integer.parseInt(terrainTypes[i][j].substring(2,3)) - 1).addTerritory(territories[i][j]);
+                        regions.get(Integer.parseInt(terrainTypes[i][j].substring(2, 3)) - 1).addTerritory(territories[i][j]);
                         break;
                     case "W":
                         territories[i][j] = new Territory(TerrainType.WATER.getTerrain(), xPoints, yPoints, false);

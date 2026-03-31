@@ -45,47 +45,41 @@ public class AttackService {
         if (!validationResult.isValid()) {
             return validationResult;
         }
-        double attackStrength = calculateEffectiveAttackStrength(territoryAttacking);
-        double defenseStrength = calculateEffectiveDefenseStrength(territoryDefending);
+        double attackStrength;
+        double defenseStrength;
+        double attackingPlayerKillingOdds;
+        double generatedKillingOdds;
+        int attackersLost = 0;
+        int initialAttackers = territoryAttacking.getTroopAmount();
 
-        // Probability of attacker winning based on relative strengths
-        double attackingPlayerWinningOdds = attackStrength / (attackStrength + defenseStrength);
+        while (territoryAttacking.getTroopAmount() > 1 && initialAttackers / 2 > attackersLost) {
+            attackStrength = calculateEffectiveAttackStrength(territoryAttacking);
+            defenseStrength = calculateEffectiveDefenseStrength(territoryDefending);
 
-        // Random value between 0 and 1 to determine outcome
-        double generatedWinningOdds = Math.random();
+            // Probability of attacker winning based on relative strengths
+            attackingPlayerKillingOdds = attackStrength / (attackStrength + defenseStrength);
 
-        int originalDefendingTroops = territoryDefending.getTroopAmount();
-        // if attacker wins
+            // Random value between 0 and 1 to determine outcome
+            generatedKillingOdds = Math.random();
 
-        if (attackingPlayerWinningOdds >= generatedWinningOdds) {
+            int originalDefendingTroops = territoryDefending.getTroopAmount();
+            // if attacker wins
 
-            // Calculate surviving troops that will move into the captured territory
-            // only let the attacker lose up to the amount the defender had
-            int attackingTroopsAvailable = territoryAttacking.getTroopAmount() - 1;
+            if (attackingPlayerKillingOdds >= generatedKillingOdds) {
+                territoryDefending.setTroopAmount(territoryDefending.getTroopAmount() - 1);
 
-            int survivingAttackingTroops = calculateRemainingTroops(attackingTroopsAvailable, originalDefendingTroops);
-
-            // Attacking territory must leave at least 1 troop behind
-            territoryAttacking.setTroopAmount(1);
-
-            // Transfer ownership of the defending territory
-            territoryDefending.setPlayer(territoryAttacking.getPlayer());
-
-            // Place surviving troops into the captured territory
-            territoryDefending.setTroopAmount(survivingAttackingTroops);
-
-            return new ValidationResult(true, "Attacker Wins");
-        } else {
-
-            int originalAttackingTroops = territoryAttacking.getTroopAmount();
-
-            // Attacker loses troops but retains control of the territory
-            int newTroops = calculateRemainingTroops(originalAttackingTroops, originalDefendingTroops);
-
-            territoryAttacking.setTroopAmount(newTroops);
-
-            return new ValidationResult(true, "Attacker Lost");
+                if (territoryDefending.getTroopAmount() <= 0) {
+                    territoryDefending.setPlayer(territoryAttacking.getPlayer());
+                    territoryDefending.setTroopAmount(territoryAttacking.getTroopAmount() - 1);
+                    territoryAttacking.setTroopAmount(1);
+                    return new ValidationResult(true, "Attacker Wins");
+                }
+            } else {
+                territoryAttacking.setTroopAmount(territoryAttacking.getTroopAmount() - 1);
+                attackersLost++;
+            }
         }
+        return new ValidationResult(true, "Attacker Lost");
     }
 
     /**

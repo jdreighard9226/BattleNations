@@ -47,12 +47,12 @@ public class Territory extends Polygon implements Comparable<Territory> {
     /**
      * boolean to see if a Territory is a capital or not
      */
-    private boolean isCapital;
+    private final boolean isCapital;
 
     /**
      * The list of neighboring territories
      */
-    private List<Territory> neighboringTerritories;
+    private final List<Territory> neighboringTerritories;
 
     /**
      * Constructs a territory owned by a player.
