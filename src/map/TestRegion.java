@@ -221,7 +221,44 @@ public class TestRegion {
      * @return false until implemented
      */
     private static boolean testClearRegion() {
-        return false;
+        boolean passed = true;
+        System.out.print("Testing Initializer with multiple territores as paramater: ");
+        // setting up all required elements for a region
+        Player player = new Player("p1", BLUE);
+        Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
+                new int[]{1, 2, 3, 4, 5, 6},
+                new int[]{1, 2, 3, 4, 5, 6}, true);
+        Territory t2 = new Territory(player, TerrainType.MOUNTAIN.getTerrain(), 10,
+                new int[]{1, 2, 3, 4, 5, 6},
+                new int[]{1, 2, 3, 4, 5, 6}, false);
+        Territory t3 = new Territory(player, TerrainType.DESERT.getTerrain(), 30,
+                new int[]{1, 2, 3, 4, 5, 6},
+                new int[]{1, 2, 3, 4, 5, 6}, false);
+        Territory t4 = new Territory(player, TerrainType.MOUNTAIN.getTerrain(), 50,
+                new int[]{1, 2, 3, 4, 5, 6},
+                new int[]{1, 2, 3, 4, 5, 6}, false);
+        Territory t5 = new Territory(player, TerrainType.CITY.getTerrain(), 20,
+                new int[]{1, 2, 3, 4, 5, 6},
+                new int[]{1, 2, 3, 4, 5, 6}, false);
+        List<Territory> temp = new ArrayList<>();
+        Collections.addAll(temp, t1, t2, t3, t4, t5);
+        int regionSize = temp.size();
+
+        // add all territories to a region
+        Region region = new Region(temp);
+
+        region.clearRegion();
+        if (region.getSize() != 0) {
+            passed = false;
+            System.err.println("The size of the region was not zero after the clear.");
+        }
+        return passed;
+
+        if (region.hasTerritory(t1) || region.hasTerritory(t2) || region.hasTerritory(t3) ||
+                region.hasTerritory(t4) || region.hasTerritory(t5)) {
+            passed = false;
+            System.err.println("");
+        }
     }
 
     /**
