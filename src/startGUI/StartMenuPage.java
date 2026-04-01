@@ -4,33 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Serves as the start menu page for the battle nations gui.
+ * Serves as the start menu page for the battle nations GUI.
  *
  * <p> This class creates a full screen panel with a background image and three main buttons.
  * A start game button which go displays the map choice page. The Settings button which opens
  * up the settings page, and the quit button which exits the program.</p>
- *
  */
 public class StartMenuPage {
 
-    /**
-     * The main image panel, to which is displayed an image and the buttons.
-     */
+    /** The main image panel, to which is displayed an image and the buttons. */
     private final ImagePanel startMenuPanel;
 
-    /**
-     * The parent JFrame that will hold and display the panel.
-     */
+    /** The parent JFrame that will hold and display the panel. */
     private JFrame parent;
 
-    /**
-     * The controller that allows navigation between panels
-     */
+    /** The controller that allows navigation between panels. */
     private StartController startController;
 
-    /**
-     * Constructs the StartMenuPage and initializes all buttons and the background image.
-     */
+    /** Constructs the StartMenuPage and initializes all buttons and the background image. */
     public StartMenuPage() {
         // Gets the screen size of the host device.
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
