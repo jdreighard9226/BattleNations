@@ -131,10 +131,12 @@ public class GameController {
             }
 
             firstTerritoryClicked = territory;
+            firstTerritoryClicked.setIsHighlighted(true);
 
         } else {
 
             if (firstTerritoryClicked == territory) {
+                firstTerritoryClicked.setIsHighlighted(false);
                 firstTerritoryClicked = null;
                 return;
             }
@@ -154,6 +156,7 @@ public class GameController {
                 return;
             }
             successText.setText(result.message());
+            firstTerritoryClicked.setIsHighlighted(false);
             firstTerritoryClicked = null;
         }
     }
@@ -170,18 +173,23 @@ public class GameController {
         }
 
         firstTerritoryClicked = territory;
+        firstTerritoryClicked.setIsHighlighted(true);
+        display.repaint();
         Integer troopsToPlace = getTroopAmountToPlaceOnTerritories(gameLogic.getCurrentPlayer().getTroopsToPlace());
         if (troopsToPlace == null) {
+            firstTerritoryClicked.setIsHighlighted(false);
             firstTerritoryClicked = null;
             return;
         }
 
         ValidationResult result = gameLogic.reinforce(gameLogic.getCurrentPlayer(), territory, troopsToPlace);
         if (!result.isValid()) {
+            firstTerritoryClicked.setIsHighlighted(false);
             errorText.setText(result.message());
             firstTerritoryClicked = null;
             return;
         }
+        firstTerritoryClicked.setIsHighlighted(false);
         successText.setText(result.message());
         firstTerritoryClicked = null;
     }
@@ -203,10 +211,12 @@ public class GameController {
             }
 
             firstTerritoryClicked = territory;
+            firstTerritoryClicked.setIsHighlighted(true);
             return;
         }
 
         if (territory == firstTerritoryClicked) {
+            firstTerritoryClicked.setIsHighlighted(false);
             firstTerritoryClicked = null;
             return;
         }
@@ -224,7 +234,8 @@ public class GameController {
         }
 
         successText.setText(result.message());
-        instructionText.setText("Forify Stage done, Press Continue Button");
+        instructionText.setText("Fortify Stage done, Press Continue Button");
+        firstTerritoryClicked.setIsHighlighted(false);
         firstTerritoryClicked = null;
         fortifyUsedThisTurn = true;
         continueButton.setEnabled(true);
@@ -278,7 +289,10 @@ public class GameController {
     }
 
     private void endTurn() {
-        firstTerritoryClicked = null;
+        if (firstTerritoryClicked != null) {
+            firstTerritoryClicked.setIsHighlighted(false);
+            firstTerritoryClicked = null;
+        }
         fortifyUsedThisTurn = false;
         errorText.setText("");
         successText.setText("");
