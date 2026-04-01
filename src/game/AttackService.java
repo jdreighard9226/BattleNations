@@ -62,9 +62,6 @@ public class AttackService {
             // Random value between 0 and 1 to determine outcome
             generatedKillingOdds = Math.random();
 
-            int originalDefendingTroops = territoryDefending.getTroopAmount();
-            // if attacker wins
-
             if (attackingPlayerKillingOdds >= generatedKillingOdds) {
                 territoryDefending.setTroopAmount(territoryDefending.getTroopAmount() - 1);
 

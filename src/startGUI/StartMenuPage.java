@@ -12,16 +12,24 @@ import java.awt.*;
  */
 public class StartMenuPage {
 
-    /** The main image panel, to which is displayed an image and the buttons. */
+    /**
+     * The main image panel, to which is displayed an image and the buttons.
+     */
     private final ImagePanel startMenuPanel;
 
-    /** The parent JFrame that will hold and display the panel. */
+    /**
+     * The parent JFrame that will hold and display the panel.
+     */
     private JFrame parent;
 
-    /** The controller that allows navigation between panels. */
+    /**
+     * The controller that allows navigation between panels.
+     */
     private StartController startController;
 
-    /** Constructs the StartMenuPage and initializes all buttons and the background image. */
+    /**
+     * Constructs the StartMenuPage and initializes all buttons and the background image.
+     */
     public StartMenuPage() {
         // Gets the screen size of the host device.
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();

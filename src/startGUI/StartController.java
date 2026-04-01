@@ -12,25 +12,39 @@ import javax.swing.*;
  */
 public class StartController {
 
-    /** The main JFrame used to hold the different pages. */
+    /**
+     * The main JFrame used to hold the different pages.
+     */
     private final JFrame display;
 
-    /** The Start Menu page. */
+    /**
+     * The Start Menu page.
+     */
     private final StartMenuPage start;
 
-    /** The Settings page. */
+    /**
+     * The Settings page.
+     */
     private final SettingsPage settings;
 
-    /** The Map Choice page. */
+    /**
+     * The Map Choice page.
+     */
     private final MapChoicePage mapChoice;
 
-    /** The Setup Options page. */
+    /**
+     * The Setup Options page.
+     */
     private final SetUpOptionsPage placementChoice;
 
-    /** The Player Page. */
+    /**
+     * The Player Page.
+     */
     private final PlayerPage playerPage;
 
-    /** Creates a new instance of the Setup Data class for storing information. */
+    /**
+     * Creates a new instance of the Setup Data class for storing information.
+     */
     private final SetUpData gameSetUpData = new SetUpData();
 
     /**
@@ -57,27 +71,37 @@ public class StartController {
         displayStartMenuPage();
     }
 
-    /** Displays the start menu page on the main JFrame display. */
+    /**
+     * Displays the start menu page on the main JFrame display.
+     */
     public void displayStartMenuPage() {
         start.addStartMenuPage(this);
     }
 
-    /** Displays the settings page on the main JFrame display. */
+    /**
+     * Displays the settings page on the main JFrame display.
+     */
     public void displaySettingsPage() {
         settings.addSettingsPage(this);
     }
 
-    /** Displays the game setup page on the main JFrame display. */
+    /**
+     * Displays the game setup page on the main JFrame display.
+     */
     public void displayGameSetupPage() {
         playerPage.addGameSetupPage(this);
     }
 
-    /** Displays the map choice page on the main JFrame display. */
+    /**
+     * Displays the map choice page on the main JFrame display.
+     */
     public void displayMapChoicePage() {
         mapChoice.addMapChoicePage(this);
     }
 
-    /** Displays set up options page. */
+    /**
+     * Displays set up options page.
+     */
     public void displaySetUpOptionsPage() {
         placementChoice.addSetUpOptionsPage(this);
     }
@@ -100,7 +124,9 @@ public class StartController {
         return gameSetUpData;
     }
 
-    /** Creates a new SetUpController object passing it the JFrame display, and game set up data. */
+    /**
+     * Creates a new SetUpController object passing it the JFrame display, and game set up data.
+     */
     public void changeToSetUpController() {
         new SetUpController(this.display, this.gameSetUpData);
     }
