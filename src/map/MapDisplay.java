@@ -45,23 +45,23 @@ public class MapDisplay {
     /**
      * The screen dimensions.
      */
-    private Dimension screen;
+    private final Dimension screen;
 
     /**
      * 2D array of territories representing the map grid.
      */
-    private Territory[][] territories;
+    private final Territory[][] territories;
 
     /**
      * Parent JFrame that contains the map display.
      */
     private JFrame parent;
 
-    private MapLoaderService loader;
+    private final MapLoaderService loader;
 
-    private MapLoaderData mapData;
+    private final MapLoaderData mapData;
 
-    private List<Region> regions;
+    private final List<Region> regions;
 
 
     /**
@@ -94,6 +94,11 @@ public class MapDisplay {
      */
     public void addMapDisplay(JFrame parent) {
         parent.add(mapDisplay);
+        parent.repaint();
+    }
+
+    public void removeMapDisplay(Frame parent) {
+        parent.remove(mapDisplay);
         parent.repaint();
     }
 

@@ -187,6 +187,41 @@ public class MapLoaderService {
             // Move to next hexagon row
             yLocation += sinValue * length;
         }
+
+        //assigns a color to each region
+        for (int i = 0; i < regions.size(); i++) {
+            Region r = regions.get(i);
+            switch (i) {
+                case 0:
+                    r.setColor(Color.RED);
+                    break;
+                case 1:
+                    r.setColor(Color.CYAN);
+                    break;
+                case 2:
+                    r.setColor(Color.GREEN);
+                    break;
+                case 3:
+                    r.setColor(Color.YELLOW);
+                    break;
+                case 4:
+                    r.setColor(Color.MAGENTA);
+                    break;
+                case 5:
+                    r.setColor(new Color(215, 86, 36));
+                    break;
+                case 6:
+                    r.setColor(new Color(100, 0, 255));
+                    break;
+                case 7:
+                    r.setColor(Color.GRAY);
+                    break;
+                case 8:
+                    r.setColor(new Color(0, 100, 0));
+                    break;
+            }
+        }
+
         // populate every territory neighboring territories
         generateNeighborService.generateNeighbors(territories);
         return new MapLoaderData(territories, regions);

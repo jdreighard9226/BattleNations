@@ -2,6 +2,8 @@ package map;
 
 import player.Player;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,12 @@ public class Region {
     /**
      * The list of territories that belong to this region.
      */
-    private List<Territory> territories;
+    private final List<Territory> territories;
+
+    /**
+     * The regions color.
+     */
+    private Color color;
 
     /**
      * Constructs a region with a predefined list of territories.
@@ -152,4 +159,41 @@ public class Region {
     public boolean hasTerritory(Territory territory) {
         return territories.contains(territory);
     }
+
+    /**
+     * Sets the color of the region to the specified color
+     *
+     * @param color the color the region will assign to its color variable
+     */
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    /**
+     * Draws the regions ont the game map.
+     *
+     * @param g the graphics context used for rendering
+     */
+    public void draw(Graphics g) {
+        g.setColor(color);
+        for (Territory t : territories) {
+            int[] xpoints = t.getXPoints();
+            int[] ypoints = t.getYPoints();
+            int npoints = t.getNPoints();
+
+            g.drawPolygon(xpoints, ypoints, npoints);
+            g.setColor(color.brighter());
+
+            g.fillPolygon(xpoints, ypoints, npoints);
+            ImageIcon watermarkIcon = new ImageIcon(t.getTerrain().getImageFile());
+            Image watermark = watermarkIcon.getImage();
+            int xLeft = xpoints[1];
+            int xRight = xpoints[2];
+            int yTop = ypoints[2];
+            int yBottom = ypoints[5];
+            g.drawImage(watermark, xLeft, yTop, xRight - xLeft, yBottom - yTop, g.getColor(), null);
+
+        }
+    }
 }
+

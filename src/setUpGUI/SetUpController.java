@@ -3,7 +3,8 @@ package setUpGUI;
 import gameGUI.GameController;
 import map.*;
 import player.Player;
-import startGUI.*;
+import startGUI.ImagePanel;
+import startGUI.SetUpData;
 import terrain.WaterTerrain;
 
 import javax.swing.*;
@@ -18,18 +19,19 @@ public class SetUpController {
 
     private final MapDisplay mapDisplay;
 
+    private final RegionPanel regionPanel;
+
     private final ImagePanel gameInfoPanel;
 
-    private JLabel gameStatusLabel;
+    private final JLabel gameStatusLabel;
 
-    private JLabel generalInfoLabel;
+    private final JLabel generalInfoLabel;
 
-    private JLabel instructionText;
+    private final JLabel instructionText;
 
-    private JLabel errorText;
+    private final JLabel errorText;
 
-    private JLabel successText;
-
+    private final JLabel successText;
 
     private final Territory[][] territories;
 
@@ -53,6 +55,8 @@ public class SetUpController {
         mapDisplay = new MapDisplay(gameSetUpData, this);
         territories = mapDisplay.getTerritories();
         regions = mapDisplay.getRegions();
+
+        regionPanel = new RegionPanel(territories, regions);
 
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -90,6 +94,33 @@ public class SetUpController {
         gameInfoPanel.add(instructionText);
         gameInfoPanel.add(errorText);
         gameInfoPanel.add(successText);
+
+        JButton showMapButton = new JButton("Show Map");
+        showMapButton.setBounds(gameInfoPanel.getWidth() - 200, 10, 200, 50);
+        showMapButton.setVisible(false);
+
+        JButton showRegionsButton = new JButton("Show Regions");
+        showRegionsButton.setBounds(gameInfoPanel.getWidth() - 200, 10, 200, 50);
+
+        showMapButton.addActionListener(e -> {
+            display.remove(regionPanel);
+            showRegionsButton.setVisible(true);
+            showMapButton.setVisible(false);
+            displayMapDisplay();
+
+
+        });
+
+        showRegionsButton.addActionListener(e -> {
+            regionPanel.setBounds(0, 0, screen.width, (int) (screen.height * 0.8));
+            mapDisplay.removeMapDisplay(display);
+            display.add(regionPanel);
+            showRegionsButton.setVisible(false);
+            showMapButton.setVisible(true);
+        });
+
+        gameInfoPanel.add(showRegionsButton);
+        gameInfoPanel.add(showMapButton);
 
         display.add(gameInfoPanel);
 
@@ -262,8 +293,7 @@ public class SetUpController {
 
     public void passToGameController() {
         TotalDominationWorld world = new TotalDominationWorld(regions);
-        MapPanel mapPanel = mapDisplay.getMapDisplay();
-        new GameController(world, players, display, mapPanel, gameInfoPanel, gameStatusLabel, generalInfoLabel, instructionText, errorText, successText);
+        new GameController(world, players, display, mapDisplay, gameInfoPanel, regionPanel, gameStatusLabel, generalInfoLabel, instructionText, errorText, successText);
     }
 
     public boolean playersHaveTroopsToPlace() {

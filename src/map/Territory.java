@@ -133,6 +133,33 @@ public class Territory extends Polygon implements Comparable<Territory> {
     }
 
     /**
+     * Returns the X points associated with the territory
+     *
+     * @return the int array of x points
+     */
+    public int[] getXPoints() {
+        return xpoints;
+    }
+
+    /**
+     * Returns the Y points associated with the territory
+     *
+     * @return the int array of y points
+     */
+    public int[] getYPoints() {
+        return ypoints;
+    }
+
+    /**
+     * returns the int value of how many points the polygon has
+     *
+     * @return the int value of the number of points the polygon has
+     */
+    public int getNPoints() {
+        return npoints;
+    }
+
+    /**
      * Returns whether this territory is designated as a capital.
      *
      * @return {@code true} if this territory is a capital; {@code false} otherwise

@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static java.awt.Color.*;
+import static java.awt.Color.BLUE;
+import static java.awt.Color.RED;
 
 /**
  * Tests the core behavior of the {@link Region} class.

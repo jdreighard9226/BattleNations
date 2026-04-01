@@ -30,8 +30,6 @@ public class MapPanel extends JPanel {
      */
     private final Territory[][] territories;
 
-    private SetUpController setUpController;
-
     private GameController gameController;
 
     private String activeController;
@@ -43,7 +41,6 @@ public class MapPanel extends JPanel {
      */
     public MapPanel(Territory[][] territories, SetUpController setUpController) {
         this.territories = territories;
-        this.setUpController = setUpController;
         this.activeController = "Set Up";
 
 
