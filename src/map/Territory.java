@@ -54,6 +54,8 @@ public class Territory extends Polygon implements Comparable<Territory> {
      */
     private final List<Territory> neighboringTerritories;
 
+    private boolean isHighlighted = false;
+
     /**
      * Constructs a territory owned by a player.
      *
@@ -132,6 +134,10 @@ public class Territory extends Polygon implements Comparable<Territory> {
         return terrain;
     }
 
+    public boolean isHighlighted() {
+        return isHighlighted;
+    }
+
     /**
      * Returns the X points associated with the territory
      *
@@ -168,6 +174,10 @@ public class Territory extends Polygon implements Comparable<Territory> {
         return isCapital;
     }
 
+    public void setIsHighlighted(boolean isHighlighted) {
+        this.isHighlighted = isHighlighted;
+    }
+
     /**
      * Sets the player that owns the territory.
      *
@@ -192,13 +202,17 @@ public class Territory extends Polygon implements Comparable<Territory> {
      * @param g the graphics context used for rendering
      */
     public void Draw(Graphics g) {
-        if (this.getCurrentColor() != null) {
+        if (isHighlighted) {
+            g.setColor(Color.WHITE);
+        } else if (this.getCurrentColor() != null) {
             g.setColor(this.getCurrentColor());
         } else {
             g.setColor(Color.DARK_GRAY);
         }
         g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
-        if (this.getCurrentColor() != null) {
+        if (isHighlighted) {
+            g.setColor(Color.WHITE);
+        } else if (this.getCurrentColor() != null) {
             g.setColor(this.getCurrentColor().brighter());
         } else {
             if (this.getTerrain() instanceof WaterTerrain) {
