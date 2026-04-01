@@ -293,7 +293,7 @@ public class SetUpController {
 
     public void passToGameController() {
         TotalDominationWorld world = new TotalDominationWorld(regions);
-        new GameController(world, players, display, mapDisplay, gameInfoPanel, regionPanel, gameStatusLabel, generalInfoLabel, instructionText, errorText, successText);
+        new GameController(world, players, display, mapDisplay.getMapDisplay(), gameInfoPanel, regionPanel, gameStatusLabel, generalInfoLabel, instructionText, errorText, successText);
     }
 
     public boolean playersHaveTroopsToPlace() {
