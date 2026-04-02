@@ -58,6 +58,9 @@ public class StartController {
         display.setUndecorated(true);
         display.setLayout(null);
 
+        ImageIcon icon = new ImageIcon("src/gameImages/GameIcon.png");
+        display.setIconImage(icon.getImage());
+
         // Initialize pages
         start = new StartMenuPage();
         settings = new SettingsPage();

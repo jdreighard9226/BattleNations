@@ -34,12 +34,14 @@ public class SetUpOptionsPage {
     /**
      * Boolean that keeps track of if the territory option has been selected yet.
      */
-    boolean territoriesSelected = false;
+    private boolean territoriesSelected = false;
 
     /**
      * Boolean that keeps track of if the troop option has been selected yet.
      */
-    boolean troopsSelected = false;
+    private boolean troopsSelected = false;
+
+    private JFrame parent;
 
     /**
      * Constructs a SetUp options page and initializes all buttons and layout.
@@ -137,6 +139,18 @@ public class SetUpOptionsPage {
             startController.getDisplay().remove(setUpOptionsPanel);
             startController.changeToSetUpController();
         });
+
+        JButton closeButton = new JButton("X");
+        closeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        closeButton.setBounds(screen.width - 52, 2, 50, 50);
+        closeButton.addActionListener(e -> System.exit(0));
+        setUpOptionsPanel.add(closeButton);
+
+        JButton minimizeButton = new JButton("-");
+        minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
+        minimizeButton.addActionListener(e -> parent.setState(Frame.ICONIFIED));
+        setUpOptionsPanel.add(minimizeButton);
     }
 
     /**
@@ -146,7 +160,7 @@ public class SetUpOptionsPage {
      */
     public void addSetUpOptionsPage(StartController startController) {
         this.startController = startController;
-        JFrame parent = startController.getDisplay();
+        parent = startController.getDisplay();
         parent.add(setUpOptionsPanel);
         parent.repaint();
     }

@@ -2,8 +2,6 @@ package startGUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Represents the Settings Page in the Battle Nations GUI.
@@ -78,15 +76,24 @@ public class SettingsPage {
         // Initialize back button
         back = new JButton("Back To Start");
         back.setBounds(screen.width / 2 - 100, 2 * screen.height / 3, 200, 50);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Remove settings page and return to start menu
-                parent.remove(settingsPanel);
-                startController.displayStartMenuPage();
-            }
+        back.addActionListener(e -> {
+            // Remove settings page and return to start menu
+            parent.remove(settingsPanel);
+            startController.displayStartMenuPage();
         });
         settingsPanel.add(back);
+
+        JButton closeButton = new JButton("X");
+        closeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        closeButton.setBounds(screen.width - 52, 2, 50, 50);
+        closeButton.addActionListener(e -> System.exit(0));
+        settingsPanel.add(closeButton);
+
+        JButton minimizeButton = new JButton("-");
+        minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
+        minimizeButton.addActionListener(e -> parent.setState(Frame.ICONIFIED));
+        settingsPanel.add(minimizeButton);
     }
 
     /**

@@ -115,6 +115,19 @@ public class MapChoicePage {
             continueBt.setEnabled(true);
             mapLocation = "src/mapTextFiles/glenmouth_map";
         });
+
+        JButton closeButton = new JButton("X");
+        closeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        closeButton.setBounds(screen.width - 52, 2, 50, 50);
+        closeButton.addActionListener(e -> System.exit(0));
+        mapChoicePanel.add(closeButton);
+
+        JButton minimizeButton = new JButton("-");
+        minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
+        minimizeButton.addActionListener(e -> parent.setState(Frame.ICONIFIED));
+        mapChoicePanel.add(minimizeButton);
+
     }
 
     /**

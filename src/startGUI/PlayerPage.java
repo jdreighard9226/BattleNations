@@ -4,8 +4,6 @@ import player.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -42,11 +40,6 @@ public class PlayerPage {
     private final JComboBox<String> playerColor;
 
     /**
-     * Button used to add a player to the list.
-     */
-    private final JButton addPlayer;
-
-    /**
      * Button used to proceed to the next step (start game setup).
      */
     private final JButton startGame;
@@ -55,11 +48,6 @@ public class PlayerPage {
      * Model storing player display strings for the list.
      */
     private final DefaultListModel<String> playerListModel;
-
-    /**
-     * Visual list displaying added players.
-     */
-    private final JList<String> playerList;
 
     /**
      * Internal list storing Player objects.
@@ -112,25 +100,21 @@ public class PlayerPage {
         String[] colorList = {"None", "Red", "Cyan", "Green", "Yellow", "Magenta", "Orange"};
         playerColor = new JComboBox<>(colorList);
         playerColor.setSelectedIndex(0);
-        //Color[] colors = {Color.RED, Color.CYAN, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.PINK};
         playerColor.setBounds(screen.width / 3 + 250, 200, 200, 30);
         gameSetupPanel.add(playerColor);
 
         // Button to add a player using the provided name and color.
-        addPlayer = new JButton("Add Player");
+        JButton addPlayer = new JButton("Add Player");
         addPlayer.setFont(new Font("Arial", Font.BOLD, 18));
         addPlayer.setBounds(screen.width / 2 - 100, 240, 200, 40);
-        addPlayer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addPlayer();
-            }
-        });
+        addPlayer.addActionListener(e -> addPlayer());
         gameSetupPanel.add(addPlayer);
 
         // Model and list for displaying added players.
         playerListModel = new DefaultListModel<>();
-        playerList = new JList<>(playerListModel);
+
+        // List that holds all player objects
+        JList<String> playerList = new JList<>(playerListModel);
 
         // Scroll pane to contain the player list.
         JScrollPane scroll = new JScrollPane(playerList);
@@ -145,14 +129,23 @@ public class PlayerPage {
         startGame.setEnabled(false);
 
         // Stores players and transitions to the next page.
-        startGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startController.getGameSetUpData().setPlayers(players);
-                startGame();
-            }
+        startGame.addActionListener(e -> {
+            startController.getGameSetUpData().setPlayers(players);
+            startGame();
         });
         gameSetupPanel.add(startGame);
+
+        JButton closeButton = new JButton("X");
+        closeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        closeButton.setBounds(screen.width - 52, 2, 50, 50);
+        closeButton.addActionListener(e -> System.exit(0));
+        gameSetupPanel.add(closeButton);
+
+        JButton minimizeButton = new JButton("-");
+        minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
+        minimizeButton.addActionListener(e -> parent.setState(Frame.ICONIFIED));
+        gameSetupPanel.add(minimizeButton);
     }
 
     /**
