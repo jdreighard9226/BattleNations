@@ -57,9 +57,18 @@ public class SetUpOptionsPage {
         setUpOptionsPanel.setLayout(null);
         setUpOptionsPanel.setBounds(0, 0, screen.width, screen.height);
 
+        // Button to go back a page
+        JButton backBt = new JButton("Back");
+        backBt.setBounds((int) screen.getWidth() / 2 - 210, (int) screen.getHeight() / 6 * 5, 200, 80);
+        backBt.addActionListener(e -> {
+            parent.remove(setUpOptionsPanel);
+            startController.displayPlayerPage();
+        });
+        setUpOptionsPanel.add(backBt);
+
         // Button that allows the user to proceed once both options are selected.
         JButton continueBt = new JButton("Continue");
-        continueBt.setBounds((int) screen.getWidth() / 2 - 100, (int) screen.getHeight() / 6 * 5, 200, 80);
+        continueBt.setBounds((int) screen.getWidth() / 2 + 10, (int) screen.getHeight() / 6 * 5, 200, 80);
 
         // Sets the continue button to disabled until both options are selected.
         continueBt.setEnabled(false);

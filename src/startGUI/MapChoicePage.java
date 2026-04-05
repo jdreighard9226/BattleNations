@@ -52,9 +52,18 @@ public class MapChoicePage {
         mapChoicePanel.setLayout(null);
         mapChoicePanel.setBounds(0, 0, screen.width, screen.height);
 
+        // Button to go back a page
+        JButton backBt = new JButton("Back");
+        backBt.setBounds((int) screen.getWidth() / 2 - 210, (int) screen.getHeight() / 6 * 5, 200, 80);
+        backBt.addActionListener(e -> {
+           parent.remove(mapChoicePanel);
+           startController.displayStartMenuPage();
+        });
+        mapChoicePanel.add(backBt);
+
         // Button to proceed after selecting a map.
         JButton continueBt = new JButton("Continue");
-        continueBt.setBounds((int) screen.getWidth() / 2 - 100, (int) screen.getHeight() / 6 * 5, 200, 80);
+        continueBt.setBounds((int) screen.getWidth() / 2 + 10, (int) screen.getHeight() / 6 * 5, 200, 80);
 
         // Sets it to false so cannot continue without selecting map.
         continueBt.setEnabled(false);
@@ -63,7 +72,7 @@ public class MapChoicePage {
         continueBt.addActionListener(e -> {
             startController.getGameSetUpData().setMap(mapLocation);
             startController.getDisplay().remove(mapChoicePanel);
-            startController.displayGameSetupPage();
+            startController.displayPlayerPage();
         });
 
         // Adds the continue button to the panel.

@@ -91,8 +91,8 @@ public class StartController {
     /**
      * Displays the game setup page on the main JFrame display.
      */
-    public void displayGameSetupPage() {
-        playerPage.addGameSetupPage(this);
+    public void displayPlayerPage() {
+        playerPage.addPlayerPage(this);
     }
 
     /**

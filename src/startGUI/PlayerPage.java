@@ -121,9 +121,18 @@ public class PlayerPage {
         scroll.setBounds(screen.width / 2 - 150, 300, 300, 150);
         gameSetupPanel.add(scroll);
 
+        // Button to go back a page
+        JButton backBt = new JButton("Back");
+        backBt.setBounds((int) screen.getWidth() / 2 - 210, (int) screen.getHeight() / 6 * 5, 200, 80);
+        backBt.addActionListener(e -> {
+            parent.remove(gameSetupPanel);
+            startController.displayMapChoicePage();
+        });
+        gameSetupPanel.add(backBt);
+
         // Button to proceed to the next setup step.
         startGame = new JButton("Continue");
-        startGame.setBounds(screen.width / 2 - 100, 480, 200, 50);
+        startGame.setBounds(screen.width / 2 + 10, (int) screen.getHeight() / 6 * 5, 200, 80);
 
         // Initially disabled until at least two players are added.
         startGame.setEnabled(false);
@@ -153,7 +162,7 @@ public class PlayerPage {
      *
      * @param startController the controller managing GUI navigation.
      */
-    public void addGameSetupPage(StartController startController) {
+    public void addPlayerPage(StartController startController) {
         this.startController = startController;
         this.parent = startController.getDisplay();
         parent.add(gameSetupPanel);
