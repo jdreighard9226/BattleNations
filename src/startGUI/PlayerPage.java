@@ -231,6 +231,7 @@ public class PlayerPage {
         // Adds the new player and updates the display list.
         players.add(new Player(name, playersColor));
         playerListModel.addElement("Player: " + name + " | Color: " + color);
+        playerColor.removeItem(color);
 
         // Clears the input field.
         playerName.setText("");
