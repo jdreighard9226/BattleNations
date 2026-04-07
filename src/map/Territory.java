@@ -242,12 +242,24 @@ public class Territory extends Polygon implements Comparable<Territory> {
             g.fillOval(xCenter - radius, yCenter - radius, 2 * radius, 2 * radius);
             g.setColor(Color.WHITE);
 
+            boolean smallEnough = false;
+            int startingFontSize = 18;
             Graphics2D g2 = (Graphics2D) g;
             String troopCount = String.valueOf(this.troopAmount);
-            Font numberFont = new Font("Arial", Font.BOLD, 18);
-            FontRenderContext fontRenderContext = g2.getFontRenderContext();
-            Rectangle2D dimentions = numberFont.getStringBounds(troopCount, fontRenderContext);
-            g.drawString(troopCount, xCenter - (int) (dimentions.getWidth() / 2), yCenter + (int) (dimentions.getHeight() / 2));
+            Font numberFont = null;
+            Rectangle2D dimentions = null;
+            while (!smallEnough) {
+                numberFont = new Font("Arial", Font.BOLD, startingFontSize);
+                FontRenderContext fontRenderContext = g2.getFontRenderContext();
+                dimentions = numberFont.getStringBounds(troopCount, fontRenderContext);
+                if (dimentions.getWidth() < 2 * radius) {
+                    smallEnough = true;
+                } else {
+                    startingFontSize--;
+                }
+            }
+            g.setFont(numberFont);
+            g.drawString(troopCount, xCenter - (int) (dimentions.getWidth() / 2), yCenter + (int) (dimentions.getHeight() / 4));
         }
 
 
