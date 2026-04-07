@@ -67,7 +67,7 @@ public class GameController {
         gameInfoPanel.add(changeDisplayButton);
 
         continueButton = new JButton("Continue");
-        continueButton.setBounds(900, 40, 180, 50);
+        continueButton.setBounds(gameInfoPanel.getWidth() - 200, 80, 200, 50);
         continueButton.setEnabled(false);
 
         continueButton.addActionListener(new ActionListener() {
