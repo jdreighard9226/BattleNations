@@ -9,12 +9,6 @@ public interface World {
 
     List<Territory> getAllTerritories();
 
-    void addRegion(Region region);
-
-    void removeRegion(Region region);
-
-    void clearWorld();
-
     int getTerritoryCount();
 
     List<Territory> getTerritoriesOwnedByPlayer(Player player);
