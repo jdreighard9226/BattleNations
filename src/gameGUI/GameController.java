@@ -31,7 +31,7 @@ public class GameController {
 
     private JButton changeDisplayButton;
 
-    public GameController(TotalDominationWorld world, List<Player> players, JFrame display, MapPanel mapPanel, JPanel gameInfoPanel, RegionPanel regionPanel, JLabel gameStatusLabel, JLabel generalInfoLabel, JLabel instructionText, JLabel errorText, JLabel successText) {
+    public GameController(World world, List<Player> players, JFrame display, MapPanel mapPanel, JPanel gameInfoPanel, RegionPanel regionPanel, JLabel gameStatusLabel, JLabel generalInfoLabel, JLabel instructionText, JLabel errorText, JLabel successText) {
         gameLogic = new GameLogic(world, players, new AttackService(), new ReinforcementService(), new FortifyService());
         gameLogic.calculateReinforcement();
         territories = world.getAllTerritories();

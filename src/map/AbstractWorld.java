@@ -28,18 +28,6 @@ public abstract class AbstractWorld implements World {
         return territories;
     }
 
-    public void addRegion(Region region) {
-        regions.add(region);
-    }
-
-    public void removeRegion(Region region) {
-        regions.remove(region);
-    }
-
-    public void clearWorld() {
-        regions.clear();
-    }
-
     public int getTerritoryCount() {
         return getAllTerritories().size();
     }
