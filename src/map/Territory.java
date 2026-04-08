@@ -6,6 +6,8 @@ import terrain.WaterTerrain;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -239,7 +241,25 @@ public class Territory extends Polygon implements Comparable<Territory> {
             g.setColor(player.getColor().darker());
             g.fillOval(xCenter - radius, yCenter - radius, 2 * radius, 2 * radius);
             g.setColor(Color.WHITE);
-            g.drawString(String.valueOf(this.troopAmount), xCenter, yCenter);
+
+            boolean smallEnough = false;
+            int startingFontSize = 18;
+            Graphics2D g2 = (Graphics2D) g;
+            String troopCount = String.valueOf(this.troopAmount);
+            Font numberFont = null;
+            Rectangle2D dimentions = null;
+            while (!smallEnough) {
+                numberFont = new Font("Arial", Font.BOLD, startingFontSize);
+                FontRenderContext fontRenderContext = g2.getFontRenderContext();
+                dimentions = numberFont.getStringBounds(troopCount, fontRenderContext);
+                if (dimentions.getWidth() < 2 * radius) {
+                    smallEnough = true;
+                } else {
+                    startingFontSize--;
+                }
+            }
+            g.setFont(numberFont);
+            g.drawString(troopCount, xCenter - (int) (dimentions.getWidth() / 2), yCenter + (int) (dimentions.getHeight() / 4));
         }
 
 
