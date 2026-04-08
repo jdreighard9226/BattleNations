@@ -200,14 +200,6 @@ public class PlayerPage {
                 return;
         }
 
-        // Ensures no duplicate colors are used.
-        for (Player p : players) {
-            if (p.getColor().equals(playersColor)) {
-                JOptionPane.showMessageDialog(parent, "Color already used");
-                return;
-            }
-        }
-
         // Validates that the name is not empty.
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(parent, "Enter a player name.");
@@ -228,10 +220,18 @@ public class PlayerPage {
             }
         }
 
+        if (playerName.getText().length() > 20) {
+            JOptionPane.showMessageDialog(parent, "Name is " + playerName.getText().length() + " characters long, \nnames must be shorter than 20 characters.");
+            return;
+        }
+
         // Adds the new player and updates the display list.
         players.add(new Player(name, playersColor));
         playerListModel.addElement("Player: " + name + " | Color: " + color);
         playerColor.removeItem(color);
+
+        // Clears Color selection back to None.
+        playerColor.setSelectedIndex(0);
 
         // Clears the input field.
         playerName.setText("");
