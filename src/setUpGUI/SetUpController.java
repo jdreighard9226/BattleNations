@@ -5,6 +5,7 @@ import map.*;
 import player.Player;
 import startGUI.ImagePanel;
 import startGUI.SetUpData;
+import terrain.WaterRouteTerrain;
 import terrain.WaterTerrain;
 
 import javax.swing.*;
@@ -164,10 +165,9 @@ public class SetUpController {
 
     public void assigningTerritory(Territory territory) {
         if (territory.getPlayer() == null) {
-            if (territory.getTerrain() instanceof WaterTerrain) {
-                errorText.setText("Cannot select a water Territory. Select A different one ");
+            if (territory.getTerrain() instanceof WaterTerrain || territory.getTerrain() instanceof WaterRouteTerrain) {
+                errorText.setText("Cannot select a water or water route Territory. Select A different one ");
                 gameInfoPanel.repaint();
-                // JOptionPane.showMessageDialog(display, "Cannot select water Territory");
             } else {
                 territory.setPlayer(activePlayer);
                 territory.setTroopAmount(1);
@@ -184,7 +184,6 @@ public class SetUpController {
         } else {
             errorText.setText("Territory is already Owned, Select A different one");
             gameInfoPanel.repaint();
-            //JOptionPane.showMessageDialog(display, "Territory already owned");
         }
 
     }
@@ -192,7 +191,7 @@ public class SetUpController {
     public boolean unownedTerritory() {
         for (Territory[] row : territories) {
             for (Territory territory : row) {
-                if (territory != null && territory.getPlayer() == null && !(territory.getTerrain() instanceof WaterTerrain)) {
+                if (territory != null && territory.getPlayer() == null && !(territory.getTerrain() instanceof WaterTerrain) && !(territory.getTerrain() instanceof WaterRouteTerrain)) {
                     return true;
                 }
             }
@@ -205,7 +204,7 @@ public class SetUpController {
         while (unownedTerritory()) {
             int row = random.nextInt(territories.length);
             int col = random.nextInt(territories[row].length);
-            if (territories[row][col] != null && territories[row][col].getPlayer() == null && !(territories[row][col].getTerrain() instanceof WaterTerrain)) {
+            if (territories[row][col] != null && territories[row][col].getPlayer() == null && !(territories[row][col].getTerrain() instanceof WaterTerrain) && !(territories[row][col].getTerrain() instanceof WaterRouteTerrain)) {
                 territories[row][col].setPlayer(activePlayer);
                 territories[row][col].setTroopAmount(1);
                 playerTurn++;
@@ -257,7 +256,7 @@ public class SetUpController {
 
     public void placeTroop(Territory territory) {
         if (territory.getPlayer() == activePlayer) {
-            if (!(territory.getTerrain() instanceof WaterTerrain)) {
+            if (!(territory.getTerrain() instanceof WaterTerrain && !(territory.getTerrain() instanceof WaterRouteTerrain))) {
                 if (activePlayer.getTroopsToPlace() > 0) {
                     territory.setTroopAmount(territory.getTroopAmount() + 1);
                     activePlayer.setTroopsToPlace(activePlayer.getTroopsToPlace() - 1);

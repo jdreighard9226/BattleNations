@@ -2,6 +2,7 @@ package map;
 
 import player.Player;
 import terrain.Terrain;
+import terrain.WaterRouteTerrain;
 import terrain.WaterTerrain;
 
 import javax.swing.*;
@@ -217,7 +218,7 @@ public class Territory extends Polygon implements Comparable<Territory> {
         } else if (this.getCurrentColor() != null) {
             g.setColor(this.getCurrentColor().brighter());
         } else {
-            if (this.getTerrain() instanceof WaterTerrain) {
+            if (this.getTerrain() instanceof WaterTerrain || this.getTerrain() instanceof WaterRouteTerrain) {
                 g.setColor(Color.BLUE);
             } else {
                 g.setColor(Color.LIGHT_GRAY);

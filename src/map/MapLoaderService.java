@@ -57,9 +57,9 @@ public class MapLoaderService {
                 int alternator = (i % 2 != 0) ? 1 : 0;
                 for (int j = 0; j < numberColumns - alternator; j++) {
                     terrainTypes[i][j] = fileReader.next();
-                    // If the terrain type is "W" (water) there is no more information that needs to be associated with it,
+                    // If the terrain type is "W" (water) or "R" water route there is no more information that needs to be associated with it,
                     // so it can go on to the next index before reading anything more from the file.
-                    if (!terrainTypes[i][j].equals("W")) {
+                    if (!terrainTypes[i][j].equals("W") && !terrainTypes[i][j].equals("R")) {
                         String region = fileReader.next();
                         // If the terrain is "C" (city) there is an extra piece of information that is associated with it,
                         // so the file reader must read one more line to collect it before going on to the next index.
@@ -178,6 +178,10 @@ public class MapLoaderService {
                     case "P":
                         territories[i][j] = new Territory(TerrainType.PLAIN.getTerrain(), xPoints, yPoints, false);
                         regions.get(Integer.parseInt(terrainTypes[i][j].substring(2)) - 1).addTerritory(territories[i][j]);
+                        break;
+                    case "R":
+                        territories[i][j] = new Territory(TerrainType.WATERROUTE.getTerrain(), xPoints, yPoints, false);
+                        break;
                 }
 
                 // Move to next hexagon horizontally
