@@ -124,10 +124,6 @@ public class GameController {
                 firstTerritoryClicked = null;
                 return;
             }
-            if (!firstTerritoryClicked.hasNeighbor(territory)) {
-                errorText.setText("ERROR: Select a valid Neighboring Territory To attack");
-                return;
-            }
 
             if (gameLogic.isTerritoryPlayerOwned(territory)) {
                 errorText.setText("ERROR: Select a valid territory you do not own to attack");
