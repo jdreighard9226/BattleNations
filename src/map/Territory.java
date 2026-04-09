@@ -235,10 +235,10 @@ public class Territory extends Polygon {
         g.drawImage(watermark, xLeft, yTop, xRight - xLeft, yBottom - yTop, g.getColor(), null);
 
         // Compute middle, then draw circle of color, then draw string in middle of circle.
+        int xCenter = (xRight + xLeft) / 2;
+        int yCenter = (yTop + yBottom) / 2;
+        int radius = (xRight - xLeft) / 4;
         if (this.getPlayer() != null) {
-            int xCenter = (xRight + xLeft) / 2;
-            int yCenter = (yTop + yBottom) / 2;
-            int radius = (xRight - xLeft) / 4;
             g.setColor(player.getColor().darker());
             g.fillOval(xCenter - radius, yCenter - radius, 2 * radius, 2 * radius);
             g.setColor(Color.WHITE);
@@ -261,6 +261,48 @@ public class Territory extends Polygon {
             }
             g.setFont(numberFont);
             g.drawString(troopCount, xCenter - (int) (dimentions.getWidth() / 2), yCenter + (int) (dimentions.getHeight() / 4));
+        }
+
+        g.setColor(Color.BLACK);
+        if (this.isCapital()) {
+            double[] xStarPoints = new double[3];
+            double[] yStarPoints = new double[3];
+            int[] insideHexegonX = new int[5];
+            int[] insideHexegonY = new int[5];
+            for (int i = 0; i < 5; i++) {
+                xStarPoints[0] = xCenter + radius * Math.cos(((2 * Math.PI * i) / 5) - (3 * Math.PI / 10));
+                xStarPoints[1] = xCenter + radius * Math.cos(((2 * Math.PI * (i + 1)) / 5) - (3 * Math.PI / 10));
+
+                yStarPoints[0] = yCenter + radius * Math.sin(((2 * Math.PI * (i)) / 5) - (3 * Math.PI / 10));
+                yStarPoints[1] = yCenter + radius * Math.sin(((2 * Math.PI * (i + 1)) / 5) - (3 * Math.PI / 10));
+
+                double midleX = (xStarPoints[0] + xStarPoints[1]) / 2;
+                double midleY = (yStarPoints[0] + yStarPoints[1]) / 2;
+
+                double changeX = (xCenter - midleX);
+                double changeY = (yCenter - midleY);
+
+                xStarPoints[2] = changeX * (-2) + midleX;
+                yStarPoints[2] = changeY * (-2) + midleY;
+
+
+                int[] xPoints = new int[3];
+                int[] yPoints = new int[3];
+                for (int k = 0; k < 3; k++) {
+                    // Converts the double values into int values by rounding so that the values can be used for drawing
+                    // in java swing.
+                    xPoints[k] = (int) Math.round(xStarPoints[k]);
+                    yPoints[k] = (int) Math.round(yStarPoints[k]);
+                }
+                insideHexegonX[i] = xPoints[0];
+                insideHexegonY[i] = yPoints[0];
+                g.fillPolygon(xPoints, yPoints, 3);
+
+
+            }
+            if (this.getPlayer() == null) {
+                g.fillPolygon(insideHexegonX, insideHexegonY, 5);
+            }
         }
 
 
