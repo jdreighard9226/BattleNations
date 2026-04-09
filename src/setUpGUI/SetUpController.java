@@ -308,13 +308,14 @@ public class SetUpController {
         errorText.setText("");
 
         if (faze.equals("Territory")) {
-            gameStatusLabel.setText("Player: " + activePlayer.getName());
+            gameStatusLabel.setText("Player: " + activePlayer.getName() + " | Color: " + activePlayer.getColorName());
             instructionText.setText("Select a territory");
         } else if (faze.equals("Troop")) {
-            gameStatusLabel.setText("Player: " + activePlayer.getName());
+            gameStatusLabel.setText("Player: " + activePlayer.getName() + " | Color: " + activePlayer.getColorName());
             instructionText.setText("Troops left: " + activePlayer.getTroopsToPlace() + " | Place this turn: " + troopsToPlace);
         }
 
         gameInfoPanel.repaint();
     }
+
 }
