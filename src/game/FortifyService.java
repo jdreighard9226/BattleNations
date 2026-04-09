@@ -1,6 +1,9 @@
 package game;
 
 import map.Territory;
+import terrain.WaterRouteTerrain;
+
+import java.util.ArrayList;
 
 /**
  * Handles fortification logic in Battle Nations.
@@ -77,7 +80,59 @@ public class FortifyService {
         } else if (troopsBeingMoved < 1) {
             // Must leave at least 1 troop behind in the source territory
             return new ValidationResult(false, "At least 1 troop Must be moved");
+        } else if (!areTerritoriesConnected(territoryToTakeTroopsFrom, territoryToAddTroopsTo)) {
+            return new ValidationResult(false, "Territories must be connected together by player Owned territories to fortify");
         }
         return new ValidationResult(true, "Valid Fortify Move Has been made");
     }
+
+    private boolean areTerritoriesConnected(Territory attackingTerritory, Territory defendingTerritory) {
+        ArrayList<Territory> neighboringPlayerOwnedTerritories = getAllNeighboringOwnedTerritories(attackingTerritory);
+
+        for (Territory ownedTerritory : neighboringPlayerOwnedTerritories) {
+            ArrayList<Territory> ownedTerritoriesVisited = new ArrayList<>();
+
+            if (searchNeighboringOwnedTerritories(ownedTerritory, defendingTerritory, ownedTerritoriesVisited)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private ArrayList<Territory> getAllNeighboringOwnedTerritories(Territory attackingTerritory) {
+        ArrayList<Territory> neighboringOwnedTerritories = new ArrayList<>();
+
+        for (Territory territory : attackingTerritory.getNeighboringTerritories()) {
+            if (territory.getPlayer() == attackingTerritory.getPlayer()) {
+                neighboringOwnedTerritories.add(territory);
+            }
+        }
+
+        return neighboringOwnedTerritories;
+    }
+
+    private boolean searchNeighboringOwnedTerritories(Territory neighboringOwnedTerritory, Territory defendingTerritory,
+                                                      ArrayList<Territory> ownedTerritoriesVisited) {
+        if (neighboringOwnedTerritory == null || ownedTerritoriesVisited.contains(neighboringOwnedTerritory)) {
+            return false;
+        }
+
+        ownedTerritoriesVisited.add(neighboringOwnedTerritory);
+
+        for (Territory territory : neighboringOwnedTerritory.getNeighboringTerritories()) {
+            if (territory == defendingTerritory) {
+                return true;
+            }
+
+            if (territory.getPlayer() == defendingTerritory.getPlayer()) {
+                if (searchNeighboringOwnedTerritories(territory, defendingTerritory, ownedTerritoriesVisited)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 }
