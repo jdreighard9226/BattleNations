@@ -176,6 +176,7 @@ public class PlayerPage {
         String name = playerName.getText().trim();
         String color = (String) playerColor.getSelectedItem();
         Color playersColor;
+
         switch (color) {
             case "Red":
                 playersColor = Color.RED;
@@ -226,7 +227,7 @@ public class PlayerPage {
         }
 
         // Adds the new player and updates the display list.
-        players.add(new Player(name, playersColor));
+        players.add(new Player(name, playersColor, color));
         playerListModel.addElement("Player: " + name + " | Color: " + color);
         playerColor.removeItem(color);
 
