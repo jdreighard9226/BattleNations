@@ -277,6 +277,7 @@ public class GameController {
             firstTerritoryClicked.setIsHighlighted(false);
             firstTerritoryClicked = null;
         }
+
         fortifyUsedThisTurn = false;
         errorText.setText("");
         successText.setText("");
@@ -287,6 +288,7 @@ public class GameController {
         }
 
         updateText();
+        display.repaint();
     }
 
     private void updateText() {
