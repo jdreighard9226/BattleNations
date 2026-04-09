@@ -30,6 +30,11 @@ public class Player {
     private Color color;
 
     /**
+     * The name of the color to display as text
+     */
+    private String colorName;
+
+    /**
      * The number of troops the player is allowed to place.
      */
     private int troopsToPlace;
@@ -44,6 +49,11 @@ public class Player {
      * @param name  the name used to identify the player
      * @param color the color used to represent the player's territories
      */
+    public Player(String name, Color color, String colorName) {
+        this(name, color);
+        this.colorName = colorName;
+    }
+
     public Player(String name, Color color) {
         this.name = name;
         this.color = color;
@@ -76,6 +86,14 @@ public class Player {
      */
     public Color getColor() {
         return color;
+    }
+
+    public String getColorName() {
+        return colorName;
+    }
+
+    public void setColorName(String colorName) {
+        this.colorName = colorName;
     }
 
     /**
