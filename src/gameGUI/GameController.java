@@ -295,7 +295,7 @@ public class GameController {
         if (gameLogic.getCurrentPhase() == TurnPhase.REINFORCEMENT) {
             gameStatusLabel.setText("REINFORCEMENT");
             generalInfoLabel.setText(
-                    "Player: " + currentPlayer.getName()
+                    "Player: " + currentPlayer.getName() + " | Color: " + currentPlayer.getColorName()
                             + " | Troops left: " + currentPlayer.getTroopsToPlace()
             );
 
@@ -304,7 +304,7 @@ public class GameController {
 
         } else if (gameLogic.getCurrentPhase() == TurnPhase.ATTACK) {
             gameStatusLabel.setText("ATTACK");
-            generalInfoLabel.setText("Current Player: " + currentPlayer.getName());
+            generalInfoLabel.setText("Current Player: " + currentPlayer.getName() + " | Color: " + currentPlayer.getColorName());
 
             if (firstTerritoryClicked == null) {
                 instructionText.setText("Select a territory you own to attack from.");
@@ -316,7 +316,7 @@ public class GameController {
 
         } else {
             gameStatusLabel.setText("FORTIFY");
-            generalInfoLabel.setText("Current Player: " + currentPlayer.getName());
+            generalInfoLabel.setText("Current Player: " + currentPlayer.getName() + " | Color: " + currentPlayer.getColorName());
 
             if (fortifyUsedThisTurn) {
                 instructionText.setText("Fortify complete. Press Continue to end your turn.");
