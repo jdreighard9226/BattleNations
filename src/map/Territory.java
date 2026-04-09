@@ -234,34 +234,9 @@ public class Territory extends Polygon {
         int yBottom = super.ypoints[5];
         g.drawImage(watermark, xLeft, yTop, xRight - xLeft, yBottom - yTop, g.getColor(), null);
 
-        // Compute middle, then draw circle of color, then draw string in middle of circle.
         int xCenter = (xRight + xLeft) / 2;
         int yCenter = (yTop + yBottom) / 2;
         int radius = (xRight - xLeft) / 4;
-        if (this.getPlayer() != null) {
-            g.setColor(player.getColor().darker());
-            g.fillOval(xCenter - radius, yCenter - radius, 2 * radius, 2 * radius);
-            g.setColor(Color.WHITE);
-
-            boolean smallEnough = false;
-            int startingFontSize = 18;
-            Graphics2D g2 = (Graphics2D) g;
-            String troopCount = String.valueOf(this.troopAmount);
-            Font numberFont = null;
-            Rectangle2D dimentions = null;
-            while (!smallEnough) {
-                numberFont = new Font("Arial", Font.BOLD, startingFontSize);
-                FontRenderContext fontRenderContext = g2.getFontRenderContext();
-                dimentions = numberFont.getStringBounds(troopCount, fontRenderContext);
-                if (dimentions.getWidth() < 2 * radius) {
-                    smallEnough = true;
-                } else {
-                    startingFontSize--;
-                }
-            }
-            g.setFont(numberFont);
-            g.drawString(troopCount, xCenter - (int) (dimentions.getWidth() / 2), yCenter + (int) (dimentions.getHeight() / 4));
-        }
 
         g.setColor(Color.BLACK);
         if (this.isCapital()) {
@@ -305,7 +280,31 @@ public class Territory extends Polygon {
             }
         }
 
+        // Compute middle, then draw circle of color, then draw string in middle of circle.
+        if (this.getPlayer() != null) {
+            g.setColor(player.getColor().darker());
+            g.fillOval(xCenter - radius, yCenter - radius, 2 * radius, 2 * radius);
+            g.setColor(Color.WHITE);
 
+            boolean smallEnough = false;
+            int startingFontSize = 18;
+            Graphics2D g2 = (Graphics2D) g;
+            String troopCount = String.valueOf(this.troopAmount);
+            Font numberFont = null;
+            Rectangle2D dimentions = null;
+            while (!smallEnough) {
+                numberFont = new Font("Arial", Font.BOLD, startingFontSize);
+                FontRenderContext fontRenderContext = g2.getFontRenderContext();
+                dimentions = numberFont.getStringBounds(troopCount, fontRenderContext);
+                if (dimentions.getWidth() < 2 * radius) {
+                    smallEnough = true;
+                } else {
+                    startingFontSize--;
+                }
+            }
+            g.setFont(numberFont);
+            g.drawString(troopCount, xCenter - (int) (dimentions.getWidth() / 2), yCenter + (int) (dimentions.getHeight() / 4));
+        }
     }
 
     /**
