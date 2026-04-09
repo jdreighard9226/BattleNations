@@ -1,6 +1,11 @@
 package game;
 
 import map.Territory;
+import terrain.TerrainType;
+import terrain.WaterRouteTerrain;
+import terrain.WaterTerrain;
+
+import java.util.ArrayList;
 
 /**
  * Handles attack logic in Battle Nations.
@@ -147,9 +152,61 @@ public class AttackService {
 
             // Must have at least 2 troops to attack (1 must remain behind)
             return new ValidationResult(false, "Attacking territory must have at least 2 troops");
+        } else if (!areTerritoriesNeighbors(attackingTerritory, defendingTerritory) && !isValidAttackThroughWaterRoutes(attackingTerritory, defendingTerritory)) {
+            return new ValidationResult(false, "Territories must be neighboring, or touching a valid water route");
         }
 
         return new ValidationResult(true, "Valid Attack");
 
+    }
+
+    private boolean areTerritoriesNeighbors(Territory attackingTerritory, Territory defendingTerritory) {
+        return (attackingTerritory.hasNeighbor(defendingTerritory));
+    }
+
+    private boolean isValidAttackThroughWaterRoutes(Territory attackingTerritory, Territory defendingTerritory) {
+        ArrayList<Territory> neighboringWaterRoutes = getAllNeighboringWaterRoutes(attackingTerritory);
+        for (Territory waterRoute : neighboringWaterRoutes) {
+            ArrayList<Territory> waterRoutesVisited = new ArrayList<>();
+
+            if (searchWaterRoutes(waterRoute, defendingTerritory, waterRoutesVisited)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private ArrayList<Territory> getAllNeighboringWaterRoutes(Territory attackingTerritory) {
+        ArrayList<Territory> waterRoutes = new ArrayList<>();
+
+        for (Territory territory : attackingTerritory.getNeighboringTerritories()) {
+            if (territory.getTerrain() instanceof WaterRouteTerrain) {
+                waterRoutes.add(territory);
+            }
+        }
+
+        return waterRoutes;
+    }
+
+    private boolean searchWaterRoutes(Territory neighborWaterRoute, Territory defendingTerritory, ArrayList<Territory> routesVisted) {
+        if (neighborWaterRoute == null || routesVisted.contains(neighborWaterRoute)) {
+            return false;
+        }
+
+        routesVisted.add(neighborWaterRoute);
+
+        for (Territory territory : neighborWaterRoute.getNeighboringTerritories()) {
+            if (territory == defendingTerritory) {
+                return true;
+            }
+
+            if (territory.getTerrain() instanceof WaterRouteTerrain) {
+                if (searchWaterRoutes(territory, defendingTerritory, routesVisted)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
