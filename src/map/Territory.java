@@ -270,11 +270,11 @@ public class Territory extends Polygon {
             int[] insideHexegonX = new int[5];
             int[] insideHexegonY = new int[5];
             for (int i = 0; i < 5; i++) {
-                xStarPoints[0] = xCenter + radius * Math.cos(((2 * Math.PI * i) / 5) - (Math.PI / 5));
-                xStarPoints[1] = xCenter + radius * Math.cos(((2 * Math.PI * (i + 1)) / 5) - (Math.PI / 5));
+                xStarPoints[0] = xCenter + radius * Math.cos(((2 * Math.PI * i) / 5) - (3 * Math.PI / 10));
+                xStarPoints[1] = xCenter + radius * Math.cos(((2 * Math.PI * (i + 1)) / 5) - (3 * Math.PI / 10));
 
-                yStarPoints[0] = yCenter + radius * Math.sin(((2 * Math.PI * (i)) / 5) - (Math.PI / 5));
-                yStarPoints[1] = yCenter + radius * Math.sin(((2 * Math.PI * (i + 1)) / 5) - (Math.PI / 5));
+                yStarPoints[0] = yCenter + radius * Math.sin(((2 * Math.PI * (i)) / 5) - (3 * Math.PI / 10));
+                yStarPoints[1] = yCenter + radius * Math.sin(((2 * Math.PI * (i + 1)) / 5) - (3 * Math.PI / 10));
 
                 double midleX = (xStarPoints[0] + xStarPoints[1]) / 2;
                 double midleY = (yStarPoints[0] + yStarPoints[1]) / 2;
