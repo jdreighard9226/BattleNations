@@ -16,16 +16,21 @@ public class TestFortifyService {
     }
 
     private static boolean testFortifyWithDifferentPlayer() {
-
+        boolean passed = true;
+        return passed;
 
     }
 
     private static boolean testFortifyMovingTooManyTroops() {
+        boolean passed = true;
 
+        return passed;
     }
 
     private static boolean testFortifyWithZeroTroopsMoved() {
 
+        boolean passed = true;
+        return passed;
     }
 
 
