@@ -81,6 +81,7 @@ public class GameController {
         updateText();
         display.revalidate();
         display.repaint();
+        displayStartPopup();
     }
 
     public void getTerritoryClicked(Point point) {
@@ -328,6 +329,21 @@ public class GameController {
         }
 
         gameInfoPanel.repaint();
+    }
+
+    private void displayStartPopup() {
+        String worldType;
+
+        if (gameLogic.getWorld() instanceof CapitalDominationWorld) {
+            worldType = "Capital Domination";
+        } else {
+            worldType = "Total Domination";
+        }
+
+        JOptionPane.showMessageDialog(display, "Setup Completed. Game has now started!\n" + "Game Mode Selected: " + worldType +
+                "\n" + "Each player will take turns Reinforcing Their Territories, Attacking Territories, Then Fortifying Territories.\n" +
+                "The game Does not end until a player has reached the objective of " + worldType +
+                "\n" + "Refer to bottom of the screen to see what players turn it is, as well as directions on what to do next", "Battle Nations", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }
