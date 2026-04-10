@@ -70,6 +70,8 @@ public abstract class AbstractWorld implements World {
         return (controllingPlayer != null && controllingPlayer.equals(player));
 
     }
-
     public abstract boolean isGameWon(List<Player> players);
+
+
+    public abstract Player getWinningPlayer(List<Player> players);
 }

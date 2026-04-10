@@ -42,4 +42,8 @@ public class DummyWorld extends AbstractWorld {
     public boolean isGameWon(List<Player> players) {
         return false;
     }
+
+    public Player getWinningPlayer(List<Player> players) {
+        return null;
+    }
 }

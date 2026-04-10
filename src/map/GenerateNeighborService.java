@@ -1,5 +1,10 @@
 package map;
 
+import terrain.WaterRouteTerrain;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class GenerateNeighborService {
 
     /**
@@ -99,17 +104,66 @@ public class GenerateNeighborService {
                 }
             }
         }
+        addingWaterRouteNeighbors(territories);
     }
 
-    private void addTerritoryNeighbor(Territory current, Territory neighbor) {
-        if (neighbor == null || current == null) return;
+    private boolean addTerritoryNeighbor(Territory current, Territory neighbor) {
+        if (neighbor == null || current == null) {
+            return false;
+        }
 
+        boolean returnValue = false;
         if (!current.hasNeighbor(neighbor)) {
             current.addToTerritoryNeighbors(neighbor);
+            returnValue = true;
         }
 
         if (!neighbor.hasNeighbor(current)) {
             neighbor.addToTerritoryNeighbors(current);
+            returnValue =  true;
+        }
+        return returnValue;
+    }
+
+    private void addingWaterRouteNeighbors(Territory[][] territories) {
+        for (int i = 0; i < territories.length; i++) {
+            int alternator = (i % 2 != 0) ? 1 : 0;
+            // row length changes depending on if territories have been shifted to fit
+            // even rows = territories[i].length
+            // odd rows = territories[i].length - 1
+            int rowLength = territories[i].length;
+
+            for (int j = 0; j < rowLength; j++) {
+                Territory current = territories[i][j];
+
+                if (current == null) {
+                    continue;
+                }
+
+                moreWaterRoutes(current);
+
+
+            }
+        }
+    }
+
+    private void moreWaterRoutes(Territory current){
+        List<Territory> neighbors = current.getNeighboringTerritories();
+        boolean newNeighbors = false;
+        outer:
+        while (!newNeighbors) {
+            newNeighbors = true;
+            for (Territory n : neighbors) {
+                if (n.getTerrain() instanceof WaterRouteTerrain) {
+                    List<Territory> waterRoutesNeighbors = n.getNeighboringTerritories();
+                    for (Territory wrn: waterRoutesNeighbors) {
+                        if(addTerritoryNeighbor(current,wrn)) {
+                            newNeighbors = false;
+                            continue outer;
+                        }
+                    }
+                }
+            }
         }
     }
 }

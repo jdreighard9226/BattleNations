@@ -1,5 +1,6 @@
 package map;
 
+import terrain.WaterRouteTerrain;
 import terrain.WaterTerrain;
 
 import javax.swing.*;
@@ -27,7 +28,7 @@ public class RegionPanel extends JPanel {
 
         for (Territory[] row : territories) {
             for (Territory t : row) {
-                if (t != null && t.getTerrain() instanceof WaterTerrain) {
+                if (t != null && (t.getTerrain() instanceof WaterTerrain || t.getTerrain() instanceof WaterRouteTerrain)) {
                     t.Draw(g);
                 }
             }

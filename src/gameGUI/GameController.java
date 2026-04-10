@@ -81,6 +81,11 @@ public class GameController {
         updateText();
         display.revalidate();
         display.repaint();
+        displayStartPopup();
+
+        if (gameLogic.isGameOver()) {
+            showWinPage();
+        }
     }
 
     public void getTerritoryClicked(Point point) {
@@ -136,8 +141,12 @@ public class GameController {
                 return;
             }
             successText.setText(result.message());
+
             firstTerritoryClicked.setIsHighlighted(false);
             firstTerritoryClicked = null;
+            if (gameLogic.isGameOver()) {
+                showWinPage();
+            }
         }
     }
 
@@ -269,6 +278,11 @@ public class GameController {
     }
 
     private void endTurn() {
+        if (gameLogic.isGameOver()) {
+            showWinPage();
+            return;
+        }
+
         if (firstTerritoryClicked != null) {
             firstTerritoryClicked.setIsHighlighted(false);
             firstTerritoryClicked = null;
@@ -328,6 +342,51 @@ public class GameController {
         }
 
         gameInfoPanel.repaint();
+    }
+
+    private void displayStartPopup() {
+        String worldType;
+
+        if (gameLogic.getWorld() instanceof CapitalDominationWorld) {
+            worldType = "Capital Domination";
+        } else {
+            worldType = "Total Domination";
+        }
+
+        JOptionPane.showMessageDialog(display, "Setup Completed. Game has now started!\n" + "Game Mode Selected: " + worldType +
+                "\n" + "Each player will take turns Reinforcing Their Territories, Attacking Territories, Then Fortifying Territories.\n" +
+                "The game Does not end until a player has reached the objective of " + worldType +
+                "\n" + "Refer to bottom of the screen to see what players turn it is, as well as directions on what to do next", "Battle Nations", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void returnToMainMenu() {
+        display.getContentPane().removeAll();
+
+        new startGUI.StartController(); // resets game
+
+        display.dispose(); // close current game window
+    }
+
+    private void showWinPage() {
+        Player winner = gameLogic.getWinner();
+        if (winner == null) {
+            return;
+        }
+
+        String mode;
+        if (gameLogic.getWorld() instanceof CapitalDominationWorld) {
+            mode = "Capital Domination";
+        } else {
+            mode = "Total Domination";
+        }
+
+        display.getContentPane().removeAll();
+
+        WinPage winPage = new WinPage(this, winner, mode);
+        display.add(winPage.getPanel());
+
+        display.revalidate();
+        display.repaint();
     }
 
 }

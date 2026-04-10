@@ -57,6 +57,8 @@ public class GameLogic {
 
     private int currentPlayerIndex = 0;
 
+    private Player winner = null;
+
     /**
      * Constructs a GameLogic instance with all required dependencies.
      *
@@ -196,5 +198,19 @@ public class GameLogic {
     public boolean isTerritoryPlayerOwned(Territory territory) {
         return territory.getPlayer() != null &&
                 territory.getPlayer().equals(getCurrentPlayer());
+    }
+
+
+    public boolean isGameOver() {
+        if (world.isGameWon(players)) {
+            winner = world.getWinningPlayer(players);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Player getWinner() {
+        return winner;
     }
 }

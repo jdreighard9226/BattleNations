@@ -10,6 +10,7 @@ import terrain.WaterTerrain;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -291,7 +292,12 @@ public class SetUpController {
     }
 
     public void passToGameController() {
-        TotalDominationWorld world = new TotalDominationWorld(regions);
+        World world;
+        if (gameSetUpData.getGameMode().equals("totalDomination")) {
+            world = new TotalDominationWorld(regions);
+        } else {
+            world = new CapitalDominationWorld((ArrayList<Region>) regions);
+        }
         new GameController(world, players, display, mapDisplay.getMapDisplay(), gameInfoPanel, regionPanel, gameStatusLabel, generalInfoLabel, instructionText, errorText, successText);
     }
 

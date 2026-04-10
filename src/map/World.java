@@ -22,4 +22,6 @@ public interface World {
     boolean isRegionControlledByPlayer(Region region, Player player);
 
     boolean isGameWon(List<Player> players);
+
+    Player getWinningPlayer(List<Player> players);
 }
