@@ -192,6 +192,9 @@ public class Region {
             int yTop = ypoints[2];
             int yBottom = ypoints[5];
             g.drawImage(watermark, xLeft, yTop, xRight - xLeft, yBottom - yTop, g.getColor(), null);
+            if (t.isCapital()) {
+                t.drawCapitalStar(g);
+            }
 
         }
     }

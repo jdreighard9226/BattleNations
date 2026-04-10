@@ -10,10 +10,12 @@ public class CapitalDominationWorld extends AbstractWorld {
 
     public CapitalDominationWorld(ArrayList<Region> regions) {
         super(regions);
+        setTerritoryCapitals();
     }
 
     public CapitalDominationWorld() {
         super();
+        setTerritoryCapitals();
     }
 
     @Override
@@ -52,7 +54,13 @@ public class CapitalDominationWorld extends AbstractWorld {
         this.territoryCapitals = getCapitalTerritoriesCount();
     }
 
-    private int getTerritoryCapitals() {
-        return territoryCapitals;
+
+    public Player getWinningPlayer(List<Player> players) {
+        for (Player player : players) {
+            if (getCapitalTerritoriesCountOwnedByPlayer(player) == territoryCapitals) {
+                return player;
+            }
+        }
+        return null;
     }
 }
