@@ -24,4 +24,14 @@ public class TotalDominationWorld extends AbstractWorld {
         }
         return false;
     }
+
+    public Player getWinningPlayer(List<Player> players) {
+        for (Player player : players) {
+            if (getRegionCountControlledByPlayer(player) == regions.size()) {
+                return player;
+            }
+        }
+        return null;
+
+    }
 }
