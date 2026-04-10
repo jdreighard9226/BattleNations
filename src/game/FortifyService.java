@@ -70,7 +70,7 @@ public class FortifyService {
      * @param troopsBeingMoved          the number of troops to move
      * @return the result of validating the fortify move
      */
-    public ValidationResult validateFortify(Territory territoryToTakeTroopsFrom, Territory territoryToAddTroopsTo, int troopsBeingMoved) {
+    private ValidationResult validateFortify(Territory territoryToTakeTroopsFrom, Territory territoryToAddTroopsTo, int troopsBeingMoved) {
         if (territoryToTakeTroopsFrom.getPlayer() == null || territoryToAddTroopsTo.getPlayer() == null) {
             return new ValidationResult(false, "Territories cannot be null");
         } else if (!territoryToTakeTroopsFrom.getPlayer().equals(territoryToAddTroopsTo.getPlayer())) {
