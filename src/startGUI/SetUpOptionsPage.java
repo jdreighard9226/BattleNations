@@ -41,6 +41,8 @@ public class SetUpOptionsPage {
      */
     private boolean troopsSelected = false;
 
+    private boolean dominationSelected = false;
+
     private JFrame parent;
 
     /**
@@ -81,11 +83,11 @@ public class SetUpOptionsPage {
 
         //Button for random territory selection.
         JRadioButton randomTerritories = new JRadioButton("Random Territory Selection");
-        randomTerritories.setBounds((int) screen.getWidth() / 3 - 125, (int) screen.getHeight() / 5 * 2, 250, 40);
+        randomTerritories.setBounds((int) screen.getWidth() / 6 * 2 - 125, (int) screen.getHeight() / 5 * 2, 250, 40);
 
         // Button for manual territory selection.
         JRadioButton manuelTerritories = new JRadioButton("Manuel Territory Selection");
-        manuelTerritories.setBounds((int) screen.getWidth() / 3 - 125, (int) screen.getHeight() / 5 * 3, 250, 40);
+        manuelTerritories.setBounds((int) screen.getWidth() / 6 * 2 - 125, (int) screen.getHeight() / 5 * 3, 250, 40);
 
         // Adds buttons to the group and panel.
         territoryButtons.add(randomTerritories);
@@ -97,14 +99,14 @@ public class SetUpOptionsPage {
         randomTerritories.addActionListener(e -> {
             startController.getGameSetUpData().setRandomTerritories(true);
             territoriesSelected = true;
-            if (troopsSelected) {
+            if (troopsSelected && dominationSelected) {
                 continueBt.setEnabled(true);
             }
         });
         manuelTerritories.addActionListener(e -> {
             startController.getGameSetUpData().setRandomTerritories(false);
             territoriesSelected = true;
-            if (troopsSelected) {
+            if (troopsSelected && dominationSelected) {
                 continueBt.setEnabled(true);
             }
         });
@@ -114,11 +116,11 @@ public class SetUpOptionsPage {
 
         // Buttons for random troop placement.
         JRadioButton randomTroops = new JRadioButton("Random Troop Placement");
-        randomTroops.setBounds((int) screen.getWidth() / 3 * 2 - 125, (int) screen.getHeight() / 5 * 2, 250, 40);
+        randomTroops.setBounds((int) screen.getWidth() / 6 * 3 - 125, (int) screen.getHeight() / 5 * 2, 250, 40);
 
         // Buttons for manual troop placement.
         JRadioButton manualTroops = new JRadioButton("Manuel Troop Placement");
-        manualTroops.setBounds((int) screen.getWidth() / 3 * 2 - 125, (int) screen.getHeight() / 5 * 3, 250, 40);
+        manualTroops.setBounds((int) screen.getWidth() / 6 * 3 - 125, (int) screen.getHeight() / 5 * 3, 250, 40);
 
         // Adds buttons to the group and panel.
         troopButtons.add(randomTroops);
@@ -126,11 +128,29 @@ public class SetUpOptionsPage {
         setUpOptionsPanel.add(randomTroops);
         setUpOptionsPanel.add(manualTroops);
 
+
+        //Groups the troop placement buttons so only one can be selected.
+        ButtonGroup gameModeButtons = new ButtonGroup();
+
+        // Buttons for random troop placement.
+        JRadioButton totalDomination = new JRadioButton("Total Domination");
+        totalDomination.setBounds((int) screen.getWidth() / 6 * 4 - 125, (int) screen.getHeight() / 5 * 2, 250, 40);
+
+        // Buttons for manual troop placement.
+        JRadioButton capitalDomination = new JRadioButton("Capital Domination");
+        capitalDomination.setBounds((int) screen.getWidth() / 6 * 4 - 125, (int) screen.getHeight() / 5 * 3, 250, 40);
+
+        // Adds buttons to the group and panel.
+        gameModeButtons.add(totalDomination);
+        gameModeButtons.add(capitalDomination);
+        setUpOptionsPanel.add(totalDomination);
+        setUpOptionsPanel.add(capitalDomination);
+
         // Sets game setup data based on selected troop placement option.
         randomTroops.addActionListener(e -> {
             startController.getGameSetUpData().setRandomTroopPlacement(true);
             troopsSelected = true;
-            if (territoriesSelected) {
+            if (territoriesSelected && dominationSelected) {
                 continueBt.setEnabled(true);
             }
 
@@ -138,7 +158,23 @@ public class SetUpOptionsPage {
         manualTroops.addActionListener(e -> {
             startController.getGameSetUpData().setRandomTroopPlacement(false);
             troopsSelected = true;
-            if (territoriesSelected) {
+            if (territoriesSelected && dominationSelected) {
+                continueBt.setEnabled(true);
+            }
+        });
+
+        totalDomination.addActionListener(e -> {
+            startController.getGameSetUpData().setGameMode("totalDomination");
+            dominationSelected = true;
+            if(territoriesSelected && troopsSelected) {
+                continueBt.setEnabled(true);
+            }
+        });
+
+        capitalDomination.addActionListener(e -> {
+            startController.getGameSetUpData().setGameMode("capitalDomination");
+            dominationSelected = true;
+            if(territoriesSelected && troopsSelected) {
                 continueBt.setEnabled(true);
             }
         });

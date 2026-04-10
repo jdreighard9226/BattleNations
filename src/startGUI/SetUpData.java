@@ -41,6 +41,9 @@ public class SetUpData {
      */
     private boolean randomTroopPlacement;
 
+
+    private String gameMode;
+
     /**
      * Constructs an empty SetUpData object.
      */
@@ -118,4 +121,14 @@ public class SetUpData {
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
+
+    public String getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(String gameMode) {
+        this.gameMode = gameMode;
+    }
+
+
 }
