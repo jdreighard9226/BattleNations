@@ -80,9 +80,26 @@ public class PlayerPage {
         gameSetupPanel.setBounds(0, 0, screen.width, screen.height);
 
         // Creates and positions the page title.
-        JLabel title = new JLabel("Game Setup");
-        title.setFont(new Font("Arial", Font.BOLD, 36));
-        title.setBounds(screen.width / 2 - 150, 80, 300, 40);
+        JLabel title = new JLabel("PLAYER CREATION");
+        boolean toBig = true;
+        int fontSize = 100;
+        int textBuffer = screen.width *7 / 8;
+        Dimension titleSize = null;
+        while (toBig) {
+            System.out.println("ran at least once");
+            title.setFont(new Font("Arial", Font.BOLD, fontSize));
+            title.setForeground(Color.WHITE);
+            title.setOpaque(true);
+            title.setBackground(Color.BLACK);
+            titleSize = title.getPreferredSize();
+            if (titleSize.width > screen.width - textBuffer) {
+                fontSize--;
+            }
+            else {
+                toBig = false;
+            }
+        }
+        title.setBounds(screen.width / 2 - titleSize.width / 2, screen.height / 10, titleSize.width, titleSize.height);
         gameSetupPanel.add(title);
 
         // Text field for entering player names.

@@ -52,6 +52,28 @@ public class MapChoicePage {
         mapChoicePanel.setLayout(null);
         mapChoicePanel.setBounds(0, 0, screen.width, screen.height);
 
+        // Creates and positions the page title.
+        JLabel title = new JLabel("MAP SELECTION");
+        boolean toBig = true;
+        int fontSize = 100;
+        int textBuffer = screen.width/4;
+        Dimension titleSize = null;
+        while (toBig) {
+            title.setFont(new Font("Arial", Font.BOLD, fontSize));
+            title.setForeground(Color.WHITE);
+            title.setOpaque(true);
+            title.setBackground(Color.BLACK);
+            titleSize = title.getPreferredSize();
+            if (titleSize.width > screen.width - textBuffer) {
+                fontSize--;
+            }
+            else {
+                toBig = false;
+            }
+        }
+        title.setBounds(screen.width / 2 - titleSize.width / 2, screen.height / 10, titleSize.width, titleSize.height);
+        mapChoicePanel.add(title);
+
         // Button to go back a page
         JButton backBt = new JButton("Back");
         backBt.setBounds((int) screen.getWidth() / 2 - 210, (int) screen.getHeight() / 6 * 5, 200, 80);
