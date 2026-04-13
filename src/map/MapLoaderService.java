@@ -73,9 +73,8 @@ public class MapLoaderService {
                     }
                 }
             }
-            //Throw actual error or do something.
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Map file not found: " + fileName, e);
         }
 
         // Creates the number of regions that was specified in the text file.
