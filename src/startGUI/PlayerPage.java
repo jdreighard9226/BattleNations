@@ -64,6 +64,10 @@ public class PlayerPage {
      */
     private StartController startController;
 
+    private JList<String> playerList;
+
+    private final JButton removePlayer;
+
     /**
      * Constructs the PlayerPage and initializes all GUI components.
      */
@@ -103,49 +107,68 @@ public class PlayerPage {
         gameSetupPanel.add(title);
 
         // Text field for entering player names.
+        playerName = new JTextField();
+        int formattingBuffer = 5;
+        playerName.setBounds(screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 3 / 10, screen.width / 8, 30);
+        gameSetupPanel.add(playerName);
+
+        // Label for entering player names.
         JLabel nameLabel = new JLabel("Player Name:");
         nameLabel.setOpaque(true);
         nameLabel.setBackground(Color.BLACK);
         nameLabel.setForeground(Color.WHITE);
         nameLabel.setFont(new Font("Arial", Font.BOLD, 18));
         Dimension nameLabelSize = nameLabel.getPreferredSize();
-        nameLabel.setBounds(screen.width / 4 - nameLabelSize.width / 2 , screen.height * 3 / 10, nameLabelSize.width, 30);
+        nameLabel.setBounds(screen.width / 2 - screen.width / 8 - 2 * formattingBuffer - nameLabelSize.width, screen.height * 3 / 10, nameLabelSize.width, 30);
         gameSetupPanel.add(nameLabel);
 
-        // Text field for entering player names.
-        playerName = new JTextField();
-        int textBoxBuffer = 5;
-        playerName.setBounds(screen.width / 4 + nameLabelSize.width / 2 + textBoxBuffer, screen.height * 3 / 10, screen.width / 8, 30);
-        gameSetupPanel.add(playerName);
+        // Label for entering player names.
+        JLabel colorLabel = new JLabel("Player Color:");
+        colorLabel.setOpaque(true);
+        colorLabel.setBackground(Color.BLACK);
+        colorLabel.setForeground(Color.WHITE);
+        colorLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        Dimension colorLabelSize = colorLabel.getPreferredSize();
+        colorLabel.setBounds(screen.width / 2 + formattingBuffer, screen.height * 3 / 10, colorLabelSize.width, 30);
+        gameSetupPanel.add(colorLabel);
 
         // Dropdown list of available player colors.
         String[] colorList = {"None", "Red", "Cyan", "Green", "Yellow", "Magenta", "Orange"};
         playerColor = new JComboBox<>(colorList);
         playerColor.setSelectedIndex(0);
-        playerColor.setBounds(screen.width / 3 + 250, 200, 200, 30);
+        playerColor.setBounds(screen.width / 2 + 2 * formattingBuffer + colorLabelSize.width, screen.height * 3 / 10, screen.width / 8, 30);
         gameSetupPanel.add(playerColor);
 
         // Button to add a player using the provided name and color.
         JButton addPlayer = new JButton("Add Player");
         addPlayer.setFont(new Font("Arial", Font.BOLD, 18));
-        addPlayer.setBounds(screen.width / 2 - 100, 240, 200, 40);
+        addPlayer.setBounds(screen.width / 2 - screen.width / 8, screen.height * 4 / 10, screen.width / 8, 40);
         addPlayer.addActionListener(e -> addPlayer());
         gameSetupPanel.add(addPlayer);
+
+        // Button to add a player using the provided name and color.
+        removePlayer = new JButton("Remove Player");
+        removePlayer.setFont(new Font("Arial", Font.BOLD, 18));
+        removePlayer.setBounds(screen.width / 2 + formattingBuffer, screen.height * 4 / 10, screen.width / 8, 40);
+        removePlayer.addActionListener(e -> removePlayer());
+        removePlayer.setEnabled(false);
+        gameSetupPanel.add(removePlayer);
 
         // Model and list for displaying added players.
         playerListModel = new DefaultListModel<>();
 
         // List that holds all player objects
-        JList<String> playerList = new JList<>(playerListModel);
+        playerList = new JList<>(playerListModel);
+        playerList.addListSelectionListener(e -> removePlayer.setEnabled(true));
 
         // Scroll pane to contain the player list.
         JScrollPane scroll = new JScrollPane(playerList);
-        scroll.setBounds(screen.width / 2 - 150, 300, 300, 150);
+        scroll.setBounds(screen.width / 2 - screen.width / 8, screen.height * 9 /20, screen.width / 4, screen.height * 9 / 12 - screen.height * 9 / 20);
         gameSetupPanel.add(scroll);
 
         // Button to go back a page
         JButton backBt = new JButton("Back");
-        backBt.setBounds((int) screen.getWidth() / 2 - 210, (int) screen.getHeight() / 6 * 5, 200, 80);
+        backBt.setBounds( screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);
         backBt.addActionListener(e -> {
             parent.remove(gameSetupPanel);
             startController.displayMapChoicePage();
@@ -154,7 +177,7 @@ public class PlayerPage {
 
         // Button to proceed to the next setup step.
         startGame = new JButton("Continue");
-        startGame.setBounds(screen.width / 2 + 10, (int) screen.getHeight() / 6 * 5, 200, 80);
+        startGame.setBounds(screen.width / 2 + formattingBuffer,  screen.height * 5 / 6, screen.width / 8, 80);
 
         // Initially disabled until at least two players are added.
         startGame.setEnabled(false);
@@ -266,6 +289,19 @@ public class PlayerPage {
         }
     }
 
+    private void removePlayer() {
+        int playerLocation = playerList.getSelectedIndex();
+        Player playerToRemove = players.remove(playerLocation);
+
+        playerListModel.remove(playerLocation);
+        playerColor.addItem(playerToRemove.getColorName());
+        removePlayer.setEnabled(false);
+
+        if (players.size() < 2) {
+            startGame.setEnabled(false);
+        }
+    }
+
     public void reset() {
         playerName.setText("");
         String[] colorList = {"None", "Red", "Cyan", "Green", "Yellow", "Magenta", "Orange"};
@@ -274,6 +310,7 @@ public class PlayerPage {
             playerColor.addItem(s);
         }
         startGame.setEnabled(false);
+        removePlayer.setEnabled(false);
         players.clear();
         playerListModel.clear();
     }
