@@ -83,7 +83,7 @@ public class PlayerPage {
         JLabel title = new JLabel("PLAYER CREATION");
         boolean toBig = true;
         int fontSize = 100;
-        int textBuffer = screen.width *7 / 8;
+        int textBuffer = screen.width / 2;
         Dimension titleSize = null;
         while (toBig) {
             System.out.println("ran at least once");
@@ -99,18 +99,23 @@ public class PlayerPage {
                 toBig = false;
             }
         }
-        title.setBounds(screen.width / 2 - titleSize.width / 2, screen.height / 10, titleSize.width, titleSize.height);
+        title.setBounds(screen.width / 2 - titleSize.width / 2 - 5, screen.height / 10, titleSize.width + 10, titleSize.height);
         gameSetupPanel.add(title);
 
         // Text field for entering player names.
         JLabel nameLabel = new JLabel("Player Name:");
+        nameLabel.setOpaque(true);
+        nameLabel.setBackground(Color.BLACK);
+        nameLabel.setForeground(Color.WHITE);
         nameLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        nameLabel.setBounds(screen.width / 2 - 100, 160, 200, 30);
+        Dimension nameLabelSize = nameLabel.getPreferredSize();
+        nameLabel.setBounds(screen.width / 4 - nameLabelSize.width / 2 , screen.height * 3 / 10, nameLabelSize.width, 30);
         gameSetupPanel.add(nameLabel);
 
         // Text field for entering player names.
         playerName = new JTextField();
-        playerName.setBounds(screen.width / 3, 200, 200, 30);
+        int textBoxBuffer = 5;
+        playerName.setBounds(screen.width / 4 + nameLabelSize.width / 2 + textBoxBuffer, screen.height * 3 / 10, screen.width / 8, 30);
         gameSetupPanel.add(playerName);
 
         // Dropdown list of available player colors.
@@ -157,7 +162,8 @@ public class PlayerPage {
         // Stores players and transitions to the next page.
         startGame.addActionListener(e -> {
             startController.getGameSetUpData().setPlayers(players);
-            startGame();
+            parent.remove(gameSetupPanel);
+            startController.displaySetUpOptionsPage();
         });
         gameSetupPanel.add(startGame);
 
@@ -260,12 +266,15 @@ public class PlayerPage {
         }
     }
 
-    /**
-     * Transitions to the next setup page.
-     */
-    private void startGame() {
-        // Removes current panel and displays the next page.
-        parent.remove(gameSetupPanel);
-        startController.displaySetUpOptionsPage();
+    public void reset() {
+        playerName.setText("");
+        String[] colorList = {"None", "Red", "Cyan", "Green", "Yellow", "Magenta", "Orange"};
+        playerColor.removeAllItems();
+        for (String s: colorList) {
+            playerColor.addItem(s);
+        }
+        startGame.setEnabled(false);
+        players.clear();
+        playerListModel.clear();
     }
 }
