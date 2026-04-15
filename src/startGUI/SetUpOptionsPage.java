@@ -43,6 +43,14 @@ public class SetUpOptionsPage {
 
     private boolean dominationSelected = false;
 
+    private JButton continueBt;
+
+    private ButtonGroup territoryButtons;
+
+    private ButtonGroup troopButtons;
+
+    private ButtonGroup gameModeButtons;
+
     private JFrame parent;
 
     /**
@@ -92,7 +100,7 @@ public class SetUpOptionsPage {
         setUpOptionsPanel.add(backBt);
 
         // Button that allows the user to proceed once both options are selected.
-        JButton continueBt = new JButton("Continue");
+        continueBt = new JButton("Continue");
         continueBt.setBounds(screen.width / 2 + formattingBuffer,  screen.height * 5 / 6, screen.width / 8, 80);
 
         // Sets the continue button to disabled until both options are selected.
@@ -102,7 +110,7 @@ public class SetUpOptionsPage {
         setUpOptionsPanel.add(continueBt);
 
         // Groups the territory selection buttons so only one can be selected.
-        ButtonGroup territoryButtons = new ButtonGroup();
+        territoryButtons = new ButtonGroup();
 
         //Button for random territory selection.
         JRadioButton randomTerritories = new JRadioButton("Random Territory Selection");
@@ -135,7 +143,7 @@ public class SetUpOptionsPage {
         });
 
         //Groups the troop placement buttons so only one can be selected.
-        ButtonGroup troopButtons = new ButtonGroup();
+        troopButtons = new ButtonGroup();
 
         // Buttons for random troop placement.
         JRadioButton randomTroops = new JRadioButton("Random Troop Placement");
@@ -153,7 +161,7 @@ public class SetUpOptionsPage {
 
 
         //Groups the troop placement buttons so only one can be selected.
-        ButtonGroup gameModeButtons = new ButtonGroup();
+        gameModeButtons = new ButtonGroup();
 
         // Buttons for random troop placement.
         JRadioButton totalDomination = new JRadioButton("Total Domination");
@@ -233,4 +241,13 @@ public class SetUpOptionsPage {
         parent.repaint();
     }
 
+    public void reset() {
+        territoriesSelected = false;
+        troopsSelected = false;
+        dominationSelected = false;
+        territoryButtons.clearSelection();
+        troopButtons.clearSelection();
+        gameModeButtons.clearSelection();
+        continueBt.setEnabled(false);
+    }
 }
