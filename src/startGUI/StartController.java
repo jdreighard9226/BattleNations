@@ -107,6 +107,7 @@ public class StartController {
      */
     public void displaySetUpOptionsPage() {
         placementChoice.addSetUpOptionsPage(this);
+        placementChoice.reset();
     }
 
     /**

@@ -65,12 +65,12 @@ public class SettingsPage {
 
         // Initialize sound checkbox
         sound = new JCheckBox("Sound Affects", true);
-        sound.setBounds(screen.width / 2 - 100, screen.height / 2, 200, 40);
+        sound.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2, screen.width / 6, 40);
         settingsPanel.add(sound);
 
         // Initialize music checkbox
         music = new JCheckBox("Music", true);
-        music.setBounds(screen.width / 2 - 100, screen.height / 2 + 80, 200, 40);
+        music.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2 + 80, screen.width / 6, 40);
         settingsPanel.add(music);
 
         // Initialize back button

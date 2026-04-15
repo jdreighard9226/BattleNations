@@ -41,6 +41,16 @@ public class MapChoicePage {
     private StartController startController;
 
     /**
+     *
+     */
+    private boolean stillShow = true;
+
+    private final ButtonGroup mapChoices;
+    private final JRadioButton map1bt;
+    private final JRadioButton map2bt;
+    private final JButton continueBt;
+
+    /**
      * Constructs the MapChoicePage and initializes UI components.
      */
     public MapChoicePage() {
@@ -52,6 +62,28 @@ public class MapChoicePage {
         mapChoicePanel.setLayout(null);
         mapChoicePanel.setBounds(0, 0, screen.width, screen.height);
 
+        // Creates and positions the page title.
+        JLabel title = new JLabel("MAP SELECTION");
+        boolean toBig = true;
+        int fontSize = 100;
+        int textBuffer = screen.width/4;
+        Dimension titleSize = null;
+        while (toBig) {
+            title.setFont(new Font("Arial", Font.BOLD, fontSize));
+            title.setForeground(Color.WHITE);
+            title.setOpaque(true);
+            title.setBackground(Color.BLACK);
+            titleSize = title.getPreferredSize();
+            if (titleSize.width > screen.width - textBuffer) {
+                fontSize--;
+            }
+            else {
+                toBig = false;
+            }
+        }
+        title.setBounds(screen.width / 2 - titleSize.width / 2 - 5, screen.height / 10, titleSize.width + 10, titleSize.height);
+        mapChoicePanel.add(title);
+
         // Button to go back a page
         JButton backBt = new JButton("Back");
         backBt.setBounds((int) screen.getWidth() / 2 - 210, (int) screen.getHeight() / 6 * 5, 200, 80);
@@ -62,7 +94,7 @@ public class MapChoicePage {
         mapChoicePanel.add(backBt);
 
         // Button to proceed after selecting a map.
-        JButton continueBt = new JButton("Continue");
+        continueBt = new JButton("Continue");
         continueBt.setBounds((int) screen.getWidth() / 2 + 10, (int) screen.getHeight() / 6 * 5, 200, 80);
 
         // Sets it to false so cannot continue without selecting map.
@@ -79,7 +111,7 @@ public class MapChoicePage {
         mapChoicePanel.add(continueBt);
 
         // Groups map selection buttons so only one can be selected.
-        ButtonGroup mapChoices = new ButtonGroup();
+        mapChoices = new ButtonGroup();
 
         // Loads and scales the first map image.
         ImageIcon map1 = new ImageIcon("src/gameImages/FunnyLandMapImage.jpg");
@@ -87,7 +119,7 @@ public class MapChoicePage {
         Image rescaledImageMap1 = map1Image.getScaledInstance((int) screen.getWidth() / 4, (int) screen.getHeight() / 4, Image.SCALE_SMOOTH);
 
         // Creates a radio button with the map image.
-        JRadioButton map1bt = new JRadioButton(new ImageIcon(rescaledImageMap1));
+        map1bt = new JRadioButton(new ImageIcon(rescaledImageMap1));
         map1bt.setBounds((int) screen.getWidth() / 8, (int) screen.getHeight() / 2, (int) screen.getWidth() / 4, (int) screen.getHeight() / 4);
         map1bt.setContentAreaFilled(false);
         map1bt.setBorderPainted(true);
@@ -98,7 +130,7 @@ public class MapChoicePage {
         Image rescaledImageMap2 = map2Image.getScaledInstance((int) screen.getWidth() / 4, (int) screen.getHeight() / 4, Image.SCALE_SMOOTH);
 
         // Creates a radio button with the second map image.
-        JRadioButton map2bt = new JRadioButton(new ImageIcon(rescaledImageMap2));
+        map2bt = new JRadioButton(new ImageIcon(rescaledImageMap2));
         map2bt.setBounds((int) screen.getWidth() / 8 * 5, (int) (screen.getHeight() / 2), (int) screen.getWidth() / 4, (int) screen.getHeight() / 4);
         map2bt.setContentAreaFilled(false);
         map2bt.setBorderPainted(true);
@@ -149,5 +181,23 @@ public class MapChoicePage {
         this.parent = startController.getDisplay();
         parent.add(mapChoicePanel);
         parent.repaint();
+        if (stillShow) {
+            JCheckBox checkBox = new JCheckBox("Don't show again");
+            Object[] message = {"Please click on a map to select it to be the map used for your game.\n" +
+                    "If you wish to change it simply click on the new map of your choice.", checkBox};
+
+            JOptionPane.showMessageDialog(parent, message, "Map Choice", JOptionPane.INFORMATION_MESSAGE);
+
+            if (checkBox.isSelected()) {
+                stillShow = false;
+            }
+        }
+    }
+
+    public void reset(){
+        mapChoices.clearSelection();
+        map1bt.setBorder(null);
+        map2bt.setBorder(null);
+        continueBt.setEnabled(false);
     }
 }
