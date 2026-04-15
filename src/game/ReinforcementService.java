@@ -104,7 +104,7 @@ public class ReinforcementService {
         } else if (territory == null) {
             return new ValidationResult(false, "Territory cannot be null");
         } else if (territory.getPlayer() == null || !territory.getPlayer().equals(player)) {
-            return new ValidationResult(false, "both territories must be owned by " + player.getName());
+            return new ValidationResult(false, "Territory must be owned by " + player.getName());
         } else if (troopsToAdd <= 0) {
             return new ValidationResult(false, "Troops to add must be at least 1");
         } else if (player.getTroopsToPlace() < troopsToAdd) {
