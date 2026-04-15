@@ -3,6 +3,7 @@ package gameGUI;
 import game.*;
 import map.*;
 import player.Player;
+import startGUI.StartController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -99,6 +100,11 @@ public class GameController {
     private JButton changeDisplayButton;
 
     /**
+     * Start Controller used to return back to the main menu after the game
+     */
+    private StartController startController;
+
+    /**
      * Constructs the game controller and initializes gameplay components.
      *
      * @param world            the world being played on
@@ -112,12 +118,14 @@ public class GameController {
      * @param instructionText  label showing turn instructions
      * @param errorText        label showing error messages
      * @param successText      label showing success messages
+     * @param startController  controller incharge of the setting up of a new game
      */
-    public GameController(World world, List<Player> players, JFrame display, MapPanel mapPanel, JPanel gameInfoPanel, RegionPanel regionPanel, JLabel gameStatusLabel, JLabel generalInfoLabel, JLabel instructionText, JLabel errorText, JLabel successText) {
+    public GameController(World world, List<Player> players, JFrame display, MapPanel mapPanel, JPanel gameInfoPanel, RegionPanel regionPanel, JLabel gameStatusLabel, JLabel generalInfoLabel, JLabel instructionText, JLabel errorText, JLabel successText, StartController startController) {
         gameLogic = new GameLogic(world, players, new AttackService(), new ReinforcementService(), new FortifyService());
         gameLogic.calculateReinforcement();
         territories = world.getAllTerritories();
         fortifyUsedThisTurn = false;
+        this.startController = startController;
 
         this.display = display;
         this.gameInfoPanel = gameInfoPanel;
@@ -537,10 +545,7 @@ public class GameController {
      */
     public void returnToMainMenu() {
         display.getContentPane().removeAll();
-
-        new startGUI.StartController(); // resets game
-
-        display.dispose(); // close current game window
+        startController.reset(); // resets game
     }
 
     /**

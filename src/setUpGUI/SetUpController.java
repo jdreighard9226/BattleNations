@@ -5,6 +5,7 @@ import map.*;
 import player.Player;
 import startGUI.ImagePanel;
 import startGUI.SetUpData;
+import startGUI.StartController;
 import terrain.WaterRouteTerrain;
 import terrain.WaterTerrain;
 
@@ -49,9 +50,12 @@ public class SetUpController {
 
     private int troopsToPlace = 3;
 
-    public SetUpController(JFrame display, SetUpData setUpData) {
+    private StartController startController;
+
+    public SetUpController(JFrame display, SetUpData setUpData, StartController startController) {
         this.display = display;
         this.gameSetUpData = setUpData;
+        this.startController = startController;
         faze = "Territory";
 
         mapDisplay = new MapDisplay(gameSetUpData, this);
@@ -298,7 +302,7 @@ public class SetUpController {
         } else {
             world = new CapitalDominationWorld((ArrayList<Region>) regions);
         }
-        new GameController(world, players, display, mapDisplay.getMapDisplay(), gameInfoPanel, regionPanel, gameStatusLabel, generalInfoLabel, instructionText, errorText, successText);
+        new GameController(world, players, display, mapDisplay.getMapDisplay(), gameInfoPanel, regionPanel, gameStatusLabel, generalInfoLabel, instructionText, errorText, successText, startController);
     }
 
     public boolean playersHaveTroopsToPlace() {

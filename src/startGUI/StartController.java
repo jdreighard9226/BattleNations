@@ -45,7 +45,7 @@ public class StartController {
     /**
      * Creates a new instance of the Setup Data class for storing information.
      */
-    private final SetUpData gameSetUpData = new SetUpData();
+    private SetUpData gameSetUpData = new SetUpData();
 
     /**
      * Constructs a start controller. Initializes and formats the main JFrame display, initializes all pages, and then
@@ -107,7 +107,6 @@ public class StartController {
      */
     public void displaySetUpOptionsPage() {
         placementChoice.addSetUpOptionsPage(this);
-        placementChoice.reset();
     }
 
     /**
@@ -132,7 +131,16 @@ public class StartController {
      * Creates a new SetUpController object passing it the JFrame display, and game set up data.
      */
     public void changeToSetUpController() {
-        new SetUpController(this.display, this.gameSetUpData);
+        new SetUpController(this.display, this.gameSetUpData, this);
+    }
+
+
+    public void reset() {
+        gameSetUpData = new SetUpData();
+        mapChoice.reset();
+        playerPage.reset();
+        placementChoice.reset();
+        displayStartMenuPage();
     }
 
     /**

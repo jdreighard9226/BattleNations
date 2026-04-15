@@ -141,14 +141,14 @@ public class PlayerPage {
         playerCreationPanel.add(playerColor);
 
         // Button to add a player using the provided name and color.
-        JButton addPlayer = new JButton("Add Player");
+        JButton addPlayer = new JButton("Add");
         addPlayer.setFont(new Font("Arial", Font.BOLD, 18));
         addPlayer.setBounds(screen.width / 2 - screen.width / 8, screen.height * 4 / 10, screen.width / 8, 40);
         addPlayer.addActionListener(e -> addPlayer());
         playerCreationPanel.add(addPlayer);
 
         // Button to remove a player based on the selected list index.
-        removePlayer = new JButton("Remove Player");
+        removePlayer = new JButton("Remove");
         removePlayer.setFont(new Font("Arial", Font.BOLD, 18));
         removePlayer.setBounds(screen.width / 2 + formattingBuffer, screen.height * 4 / 10, screen.width / 8, 40);
         removePlayer.addActionListener(e -> removePlayer());
@@ -222,7 +222,7 @@ public class PlayerPage {
             JCheckBox checkBox = new JCheckBox("Don't show again");
             Object[] message = {"Welcome to the Player Creation Page.\n" +
                     "To create a player, enter a name shorter than 20 characters into the text box,\n" +
-                    "select a color from the drop down list, and then click add player.\n" +
+                    "select a color from the drop down list, and then click add, to add player.\n" +
                     "To remove a player, simply click on their name in the list, and then click remove.", checkBox};
 
             JOptionPane.showMessageDialog(parent, message, "Player Creation", JOptionPane.INFORMATION_MESSAGE);

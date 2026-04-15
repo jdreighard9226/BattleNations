@@ -2,6 +2,7 @@ package gameGUI;
 
 import player.Player;
 import startGUI.ImagePanel;
+import startGUI.StartController;
 
 import javax.swing.*;
 import java.awt.*;
