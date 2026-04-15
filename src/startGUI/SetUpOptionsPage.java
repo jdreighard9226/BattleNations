@@ -59,10 +59,33 @@ public class SetUpOptionsPage {
         setUpOptionsPanel.setLayout(null);
         setUpOptionsPanel.setBounds(0, 0, screen.width, screen.height);
 
+        // Creates and positions the page title.
+        JLabel title = new JLabel("GAME SET UP");
+        boolean toBig = true;
+        int fontSize = 100;
+        int textBuffer = screen.width / 2;
+        Dimension titleSize = null;
+        while (toBig) {
+            title.setFont(new Font("Arial", Font.BOLD, fontSize));
+            title.setForeground(Color.WHITE);
+            title.setOpaque(true);
+            title.setBackground(Color.BLACK);
+            titleSize = title.getPreferredSize();
+            if (titleSize.width > screen.width - textBuffer) {
+                fontSize--;
+            }
+            else {
+                toBig = false;
+            }
+        }
+        title.setBounds(screen.width / 2 - titleSize.width / 2 - 5, screen.height / 10, titleSize.width + 10, titleSize.height);
+        setUpOptionsPanel.add(title);
+
+        int formattingBuffer = 10;
+
         // Button to go back a page
         JButton backBt = new JButton("Back");
-        backBt.setBounds((int) screen.getWidth() / 2 - 210, (int) screen.getHeight() / 6 * 5, 200, 80);
-        backBt.addActionListener(e -> {
+        backBt.setBounds( screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);        backBt.addActionListener(e -> {
             parent.remove(setUpOptionsPanel);
             startController.displayPlayerPage();
         });
@@ -70,7 +93,7 @@ public class SetUpOptionsPage {
 
         // Button that allows the user to proceed once both options are selected.
         JButton continueBt = new JButton("Continue");
-        continueBt.setBounds((int) screen.getWidth() / 2 + 10, (int) screen.getHeight() / 6 * 5, 200, 80);
+        continueBt.setBounds(screen.width / 2 + formattingBuffer,  screen.height * 5 / 6, screen.width / 8, 80);
 
         // Sets the continue button to disabled until both options are selected.
         continueBt.setEnabled(false);
@@ -83,11 +106,11 @@ public class SetUpOptionsPage {
 
         //Button for random territory selection.
         JRadioButton randomTerritories = new JRadioButton("Random Territory Selection");
-        randomTerritories.setBounds((int) screen.getWidth() / 6 * 2 - 125, (int) screen.getHeight() / 5 * 2, 250, 40);
+        randomTerritories.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height * 2 / 5, screen.width / 6, 40);
 
         // Button for manual territory selection.
         JRadioButton manuelTerritories = new JRadioButton("Manuel Territory Selection");
-        manuelTerritories.setBounds((int) screen.getWidth() / 6 * 2 - 125, (int) screen.getHeight() / 5 * 3, 250, 40);
+        manuelTerritories.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height * 3 / 5, screen.width / 6, 40);
 
         // Adds buttons to the group and panel.
         territoryButtons.add(randomTerritories);
@@ -116,11 +139,11 @@ public class SetUpOptionsPage {
 
         // Buttons for random troop placement.
         JRadioButton randomTroops = new JRadioButton("Random Troop Placement");
-        randomTroops.setBounds((int) screen.getWidth() / 6 * 3 - 125, (int) screen.getHeight() / 5 * 2, 250, 40);
+        randomTroops.setBounds(screen.width / 2 - screen.width / 12, screen.height  * 2 / 5, screen.width / 6, 40);
 
         // Buttons for manual troop placement.
         JRadioButton manualTroops = new JRadioButton("Manuel Troop Placement");
-        manualTroops.setBounds((int) screen.getWidth() / 6 * 3 - 125, (int) screen.getHeight() / 5 * 3, 250, 40);
+        manualTroops.setBounds(screen.width / 2 - screen.width / 12, screen.height * 3 / 5, screen.width / 6, 40);
 
         // Adds buttons to the group and panel.
         troopButtons.add(randomTroops);
@@ -134,11 +157,11 @@ public class SetUpOptionsPage {
 
         // Buttons for random troop placement.
         JRadioButton totalDomination = new JRadioButton("Total Domination");
-        totalDomination.setBounds((int) screen.getWidth() / 6 * 4 - 125, (int) screen.getHeight() / 5 * 2, 250, 40);
+        totalDomination.setBounds(screen.width / 2 + screen.width / 12 + formattingBuffer, screen.height * 2 / 5, screen.width / 6, 40);
 
         // Buttons for manual troop placement.
         JRadioButton capitalDomination = new JRadioButton("Capital Domination");
-        capitalDomination.setBounds((int) screen.getWidth() / 6 * 4 - 125, (int) screen.getHeight() / 5 * 3, 250, 40);
+        capitalDomination.setBounds(screen.width / 2 + screen.width / 12 + formattingBuffer, screen.height * 3/ 5, screen.width / 6, 40);
 
         // Adds buttons to the group and panel.
         gameModeButtons.add(totalDomination);

@@ -27,7 +27,7 @@ public class PlayerPage {
     /**
      * Background panel that holds all UI components.
      */
-    private final ImagePanel gameSetupPanel;
+    private final ImagePanel playerCreationPanel;
 
     /**
      * Text field for entering the player's name.
@@ -78,12 +78,12 @@ public class PlayerPage {
         players = new ArrayList<>();
 
         // Creates the background panel with an image.
-        gameSetupPanel = new ImagePanel("src/gameImages/OptionScreen.png");
+        playerCreationPanel = new ImagePanel("src/gameImages/OptionScreen.png");
 
         // Gets screen size and configures panel layout.
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        gameSetupPanel.setLayout(null);
-        gameSetupPanel.setBounds(0, 0, screen.width, screen.height);
+        playerCreationPanel.setLayout(null);
+        playerCreationPanel.setBounds(0, 0, screen.width, screen.height);
 
         // Creates and positions the page title.
         JLabel title = new JLabel("PLAYER CREATION");
@@ -105,13 +105,13 @@ public class PlayerPage {
             }
         }
         title.setBounds(screen.width / 2 - titleSize.width / 2 - 5, screen.height / 10, titleSize.width + 10, titleSize.height);
-        gameSetupPanel.add(title);
+        playerCreationPanel.add(title);
 
         // Text field for entering player names.
         playerName = new JTextField();
         int formattingBuffer = 5;
         playerName.setBounds(screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 3 / 10, screen.width / 8, 30);
-        gameSetupPanel.add(playerName);
+        playerCreationPanel.add(playerName);
 
         // Label for entering player names.
         JLabel nameLabel = new JLabel("Player Name:");
@@ -121,7 +121,7 @@ public class PlayerPage {
         nameLabel.setFont(new Font("Arial", Font.BOLD, 18));
         Dimension nameLabelSize = nameLabel.getPreferredSize();
         nameLabel.setBounds(screen.width / 2 - screen.width / 8 - 2 * formattingBuffer - nameLabelSize.width, screen.height * 3 / 10, nameLabelSize.width, 30);
-        gameSetupPanel.add(nameLabel);
+        playerCreationPanel.add(nameLabel);
 
         // Label for entering player names.
         JLabel colorLabel = new JLabel("Player Color:");
@@ -131,21 +131,21 @@ public class PlayerPage {
         colorLabel.setFont(new Font("Arial", Font.BOLD, 18));
         Dimension colorLabelSize = colorLabel.getPreferredSize();
         colorLabel.setBounds(screen.width / 2 + formattingBuffer, screen.height * 3 / 10, colorLabelSize.width, 30);
-        gameSetupPanel.add(colorLabel);
+        playerCreationPanel.add(colorLabel);
 
         // Dropdown list of available player colors.
         String[] colorList = {"None", "Red", "Cyan", "Green", "Yellow", "Magenta", "Orange"};
         playerColor = new JComboBox<>(colorList);
         playerColor.setSelectedIndex(0);
         playerColor.setBounds(screen.width / 2 + 2 * formattingBuffer + colorLabelSize.width, screen.height * 3 / 10, screen.width / 8, 30);
-        gameSetupPanel.add(playerColor);
+        playerCreationPanel.add(playerColor);
 
         // Button to add a player using the provided name and color.
         JButton addPlayer = new JButton("Add Player");
         addPlayer.setFont(new Font("Arial", Font.BOLD, 18));
         addPlayer.setBounds(screen.width / 2 - screen.width / 8, screen.height * 4 / 10, screen.width / 8, 40);
         addPlayer.addActionListener(e -> addPlayer());
-        gameSetupPanel.add(addPlayer);
+        playerCreationPanel.add(addPlayer);
 
         // Button to remove a player based on the selected list index.
         removePlayer = new JButton("Remove Player");
@@ -153,7 +153,7 @@ public class PlayerPage {
         removePlayer.setBounds(screen.width / 2 + formattingBuffer, screen.height * 4 / 10, screen.width / 8, 40);
         removePlayer.addActionListener(e -> removePlayer());
         removePlayer.setEnabled(false);
-        gameSetupPanel.add(removePlayer);
+        playerCreationPanel.add(removePlayer);
 
         // Model and list for displaying added players.
         playerListModel = new DefaultListModel<>();
@@ -169,16 +169,16 @@ public class PlayerPage {
         // Scroll pane to contain the player list.
         JScrollPane scroll = new JScrollPane(playerList);
         scroll.setBounds(screen.width / 2 - screen.width / 8, screen.height * 9 /20, screen.width / 4, screen.height * 9 / 12 - screen.height * 9 / 20);
-        gameSetupPanel.add(scroll);
+        playerCreationPanel.add(scroll);
 
         // Button to go back a page
         JButton backBt = new JButton("Back");
         backBt.setBounds( screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);
         backBt.addActionListener(e -> {
-            parent.remove(gameSetupPanel);
+            parent.remove(playerCreationPanel);
             startController.displayMapChoicePage();
         });
-        gameSetupPanel.add(backBt);
+        playerCreationPanel.add(backBt);
 
         // Button to proceed to the next setup step.
         continueBt = new JButton("Continue");
@@ -190,22 +190,22 @@ public class PlayerPage {
         // Stores players and transitions to the next page.
         continueBt.addActionListener(e -> {
             startController.getGameSetUpData().setPlayers(players);
-            parent.remove(gameSetupPanel);
+            parent.remove(playerCreationPanel);
             startController.displaySetUpOptionsPage();
         });
-        gameSetupPanel.add(continueBt);
+        playerCreationPanel.add(continueBt);
 
         JButton closeButton = new JButton("X");
         closeButton.setFont(new Font("Arial", Font.BOLD, 14));
         closeButton.setBounds(screen.width - 52, 2, 50, 50);
         closeButton.addActionListener(e -> System.exit(0));
-        gameSetupPanel.add(closeButton);
+        playerCreationPanel.add(closeButton);
 
         JButton minimizeButton = new JButton("-");
         minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
         minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
         minimizeButton.addActionListener(e -> parent.setState(Frame.ICONIFIED));
-        gameSetupPanel.add(minimizeButton);
+        playerCreationPanel.add(minimizeButton);
     }
 
     /**
@@ -216,7 +216,7 @@ public class PlayerPage {
     public void addPlayerPage(StartController startController) {
         this.startController = startController;
         this.parent = startController.getDisplay();
-        parent.add(gameSetupPanel);
+        parent.add(playerCreationPanel);
         parent.repaint();
         if (stillShow) {
             JCheckBox checkBox = new JCheckBox("Don't show again");
