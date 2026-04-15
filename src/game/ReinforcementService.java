@@ -46,7 +46,6 @@ public class ReinforcementService {
      *
      * @param player the player receiving reinforcements
      * @param world  the game world used to determine territory ownership
-     * @return the total number of reinforcements the player receives
      */
     public void calculateReinforcements(Player player, World world) {
         int playerTerritoryCount = world.getTerritoryCountOwnedByPlayer(player);
