@@ -183,23 +183,15 @@ public class GameLogic {
         }
     }
 
-    public int getCurrentPlayerIndex() {
-        return currentPlayerIndex;
-    }
-
     public Player getCurrentPlayer() {
         return players.get(currentPlayerIndex);
     }
 
-    public List<Territory> getCurrentPlayerTerritories() {
-        return world.getTerritoriesOwnedByPlayer(getCurrentPlayer());
-    }
 
     public boolean isTerritoryPlayerOwned(Territory territory) {
         return territory.getPlayer() != null &&
                 territory.getPlayer().equals(getCurrentPlayer());
     }
-
 
     public boolean isGameOver() {
         if (world.isGameWon(players)) {
