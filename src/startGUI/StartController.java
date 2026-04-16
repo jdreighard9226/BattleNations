@@ -1,7 +1,8 @@
 package startGUI;
 
 import setUpGUI.SetUpController;
-import soundMaker.Sound;
+import soundMaker.ButtonSound;
+import soundMaker.Music;
 
 import javax.swing.*;
 
@@ -48,7 +49,9 @@ public class StartController {
      */
     private SetUpData gameSetUpData = new SetUpData();
 
-    private Sound buttonSound;
+    private ButtonSound buttonSound;
+
+    private Music music;
 
     /**
      * Constructs a start controller. Initializes and formats the main JFrame display, initializes all pages, and then
@@ -64,7 +67,9 @@ public class StartController {
         ImageIcon icon = new ImageIcon("src/gameImages/GameIcon.png");
         display.setIconImage(icon.getImage());
 
-        buttonSound = new Sound("src/soundFiles/buttonSound.wav");
+        buttonSound = new ButtonSound("src/soundFiles/buttonSound.wav");
+
+        music = new Music("src/soundFiles/Start_GUI_Music.wav");
 
         // Initialize pages
         start = new StartMenuPage();
@@ -75,6 +80,8 @@ public class StartController {
 
         // Show the display
         display.setVisible(true);
+
+        music.startMusic();
 
         buttonSound.playSound(19580);
 
@@ -156,6 +163,10 @@ public class StartController {
 
     public boolean isSoundEnabled() {
         return buttonSound.isSoundEnabled();
+    }
+
+    public Music getMusic() {
+        return music;
     }
 
     public void reset() {

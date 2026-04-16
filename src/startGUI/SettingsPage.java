@@ -1,5 +1,7 @@
 package startGUI;
 
+import soundMaker.Music;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -34,7 +36,7 @@ public class SettingsPage {
     /**
      * Checkbox for enabling/disabling music.
      */
-    private final JCheckBox music;
+    private final JCheckBox musicBt;
 
     /**
      * Button to return to the start menu.
@@ -77,9 +79,18 @@ public class SettingsPage {
         settingsPanel.add(sound);
 
         // Initialize music checkbox
-        music = new JCheckBox("Music", true);
-        music.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2 + 80, screen.width / 6, 40);
-        settingsPanel.add(music);
+        musicBt = new JCheckBox("Music", true);
+        musicBt.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2 + 80, screen.width / 6, 40);
+        settingsPanel.add(musicBt);
+        musicBt.addActionListener(e -> {
+            startController.makeSound();
+            Music music = startController.getMusic();
+            if (musicBt.isSelected()) {
+                music.enableMusic();
+            } else {
+                music.disableMusic();
+            }
+        });
 
         // Initialize back button
         back = new JButton("Back To Start");
@@ -120,6 +131,7 @@ public class SettingsPage {
         this.parent = startController.getDisplay();
         this.startController = startController;
         sound.setSelected(startController.isSoundEnabled());
+        musicBt.setSelected(startController.getMusic().isMusicEnabled());
         parent.add(settingsPanel);
         parent.repaint();
     }
