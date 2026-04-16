@@ -20,38 +20,36 @@ import java.awt.*;
  */
 public class MapChoicePage {
 
-    /**
-     * The main panel displaying map options and controls.
-     */
+    /** The main panel displaying map options and controls. */
     private final JPanel mapChoicePanel;
 
-    /**
-     * The parent JFrame that holds and displays the panel.
-     */
+    /** The parent JFrame that holds and displays the panel. */
     private JFrame parent;
 
-    /**
-     * Stores the file path of the selected map.
-     */
+    /** Stores the file path of the selected map. */
     private String mapLocation;
 
-    /**
-     * Controller used for navigation and data sharing.
-     */
+    /** Controller used for navigation and data sharing. */
     private StartController startController;
 
-    /**
-     *
-     */
-    private boolean stillShow = true;
+    /** Boolean used for checking if instruction pop up message should be shown. */
+    private boolean stillShow;
 
+    /** Groups map selection buttons to enforce a single selection. */
     private final ButtonGroup mapChoices;
+
+    /** Radio button representing the first map option. */
     private final JRadioButton map1bt;
+
+    /** Radio button representing the second map option. */
     private final JRadioButton map2bt;
+
+    /** Button used to proceed to the next page after a map is selected. */
     private final JButton continueBt;
 
     /**
-     * Constructs the MapChoicePage and initializes UI components.
+     * Constructs the MapChoicePage and initializes all UI components, including layout,
+     * buttons, images, and event listeners.
      */
     public MapChoicePage() {
         // Creates the background panel with an image.
@@ -62,35 +60,20 @@ public class MapChoicePage {
         mapChoicePanel.setLayout(null);
         mapChoicePanel.setBounds(0, 0, screen.width, screen.height);
 
-        // Creates and positions the page title.
-        JLabel title = new JLabel("MAP SELECTION");
-        boolean toBig = true;
-        int fontSize = 100;
-        int textBuffer = screen.width/4;
-        Dimension titleSize = null;
-        while (toBig) {
-            title.setFont(new Font("Arial", Font.BOLD, fontSize));
-            title.setForeground(Color.WHITE);
-            title.setOpaque(true);
-            title.setBackground(Color.BLACK);
-            titleSize = title.getPreferredSize();
-            if (titleSize.width > screen.width - textBuffer) {
-                fontSize--;
-            }
-            else {
-                toBig = false;
-            }
-        }
-        title.setBounds(screen.width / 2 - titleSize.width / 2 - 5, screen.height / 10, titleSize.width + 10, titleSize.height);
+        // Allows the message box to appear giving the user instructions.
+        stillShow = true;
+
+        // Creates and adds the screen title.
+        JLabel title = createTitle(screen);
         mapChoicePanel.add(title);
 
-        // Button to go back a page
+        // Button to go back a page.
         JButton backBt = new JButton("Back");
         backBt.setBounds((int) screen.getWidth() / 2 - 210, (int) screen.getHeight() / 6 * 5, 200, 80);
         backBt.addActionListener(e -> {
             startController.makeSound();
-           parent.remove(mapChoicePanel);
-           startController.displayStartMenuPage();
+            parent.remove(mapChoicePanel);
+            startController.displayStartMenuPage();
         });
         mapChoicePanel.add(backBt);
 
@@ -161,6 +144,7 @@ public class MapChoicePage {
             mapLocation = "src/mapTextFiles/glenmouth_map";
         });
 
+        // Button that shuts program down when pressed.
         JButton closeButton = new JButton("X");
         closeButton.setFont(new Font("Arial", Font.BOLD, 14));
         closeButton.setBounds(screen.width - 52, 2, 50, 50);
@@ -170,6 +154,7 @@ public class MapChoicePage {
         });
         mapChoicePanel.add(closeButton);
 
+        // Button that minimizes program when pressed.
         JButton minimizeButton = new JButton("-");
         minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
         minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
@@ -182,15 +167,67 @@ public class MapChoicePage {
     }
 
     /**
+     * Creates and configures the title label for the map selection page.
+     *
+     * <p>
+     * The label text is dynamically resized to ensure it fits within the screen width.
+     * The font size is reduced iteratively until the rendered text width is within
+     * an acceptable range based on the provided screen dimensions.
+     * </p>
+     *
+     * @param screen the screen dimensions used to calculate size and positioning
+     * @return a configured {@link JLabel} representing the page title
+     */
+    private static JLabel createTitle(Dimension screen) {
+        // Creates the label.
+        JLabel title = new JLabel("MAP SELECTION");
+        title.setForeground(Color.WHITE);
+        title.setOpaque(true);
+        title.setBackground(Color.BLACK);
+
+        // Creates several variables used for resizing the text font.
+        boolean tooBig = true;
+        int fontSize = 100;
+        int textBuffer = screen.width / 4;
+        Dimension titleSize = null;
+
+        // Continues shrinking the font size until it fits within the text box with a buffer.
+        while (tooBig) {
+            title.setFont(new Font("Arial", Font.BOLD, fontSize));
+            titleSize = title.getPreferredSize();
+
+            // Checks to see if it's too big, if it is, shrinks the font by 1, otherwise it stops the while loop.
+            if (titleSize.width > screen.width - textBuffer) {
+                fontSize--;
+            } else {
+                tooBig = false;
+            }
+        }
+
+        // Sets the bounds of the title before returning it.
+        title.setBounds(screen.width / 2 - titleSize.width / 2 - 5, screen.height / 10, titleSize.width + 10, titleSize.height);
+        return title;
+    }
+
+    /**
      * Adds the map choice panel to the main JFrame display.
+     *
+     * <p>
+     * This method also optionally displays an instructional popup explaining
+     * how to select a map. If the user selects "Don't show again",
+     * the popup will not be shown in future calls.
+     * </p>
      *
      * @param startController the controller managing GUI navigation.
      */
     public void addMapChoicePage(StartController startController) {
+        // Adds the map choice panel to the main JFrame and repaints it.
         this.startController = startController;
         this.parent = startController.getDisplay();
         parent.add(mapChoicePanel);
         parent.repaint();
+
+        // Checks to see if the instruction box should be displayed.
         if (stillShow) {
             JCheckBox checkBox = new JCheckBox("Don't show again");
             Object[] message = {"Please click on a map to select it to be the map used for your game.\n" +
@@ -204,7 +241,21 @@ public class MapChoicePage {
         }
     }
 
-    public void reset(){
+    /**
+     * Resets the map selection UI to its default state.
+     *
+     * <p>
+     * This includes:
+     * <ul>
+     *   <li>Clearing any selected map</li>
+     *   <li>Removing selection borders</li>
+     *   <li>Disabling the continue button</li>
+     * </ul>
+     * <p>
+     * This method is called if a game has been completed and the players return to the start menu.
+     * </p>
+     */
+    public void reset() {
         mapChoices.clearSelection();
         map1bt.setBorder(null);
         map2bt.setBorder(null);

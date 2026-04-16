@@ -12,9 +12,7 @@ import java.awt.*;
  */
 public class ImagePanel extends JPanel {
 
-    /**
-     * The image that will be drawn as the background image.
-     */
+    /** The image that will be drawn as the background image. */
     private final Image backgroundImage;
 
     /**
@@ -27,9 +25,7 @@ public class ImagePanel extends JPanel {
         backgroundImage = new ImageIcon(path).getImage();
     }
 
-    /**
-     * overrides the paint component.
-     */
+    /** Overrides the paint component. */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

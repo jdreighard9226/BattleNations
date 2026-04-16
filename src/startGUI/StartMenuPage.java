@@ -1,37 +1,40 @@
 package startGUI;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Serves as the start menu page for the battle nations GUI.
  *
- * <p> This class creates a full screen panel with a background image and three main buttons.
+ * <p>
+ * This class creates a full screen panel with a background image and three main buttons.
  * A start game button which go displays the map choice page. The Settings button which opens
- * up the settings page, and the quit button which exits the program.</p>
+ * up the settings page, and the quit button which exits the program.
+ * </p>
+ *
+ * <p>
+ * This page also checks system audio components and displays a warning
+ * message if button sounds or music are not working properly.
+ * </p>
  */
 public class StartMenuPage {
 
-    /**
-     * The main image panel, to which is displayed an image and the buttons.
-     */
+    /** The main image panel, to which is displayed an image and the buttons. */
     private final ImagePanel startMenuPanel;
 
-    /**
-     * The parent JFrame that will hold and display the panel.
-     */
+    /** The parent JFrame that will hold and display the panel. */
     private JFrame parent;
 
-    /**
-     * The controller that allows navigation between panels.
-     */
+    /** The controller that allows navigation between panels. */
     private StartController startController;
 
     /**
      * Constructs the StartMenuPage and initializes all buttons and the background image.
+     *
+     * <p>
+     * This includes setting up the panel, creating and positioning the startGame, settings,
+     * and quit buttons, and giving each the appropriate action listener for navigation.
+     * </p>
      */
     public StartMenuPage() {
         // Gets the screen size of the host device.
@@ -78,12 +81,22 @@ public class StartMenuPage {
      * @param startController the controller managing GUI navigation.
      */
     public void addStartMenuPage(StartController startController) {
+        // Adds the setup options panel to the main JFrame and repaints it.
         this.startController = startController;
         this.parent = startController.getDisplay();
         parent.add(startMenuPanel);
         parent.repaint();
+
+        // Creates an error message if either the sound or music is not working.
+        String message = "";
         if (!startController.isSoundWorking()) {
-            JOptionPane.showMessageDialog(parent, "Button sounds are not working but game will still run.", "Button Warning", JOptionPane.WARNING_MESSAGE);
+            message += "Button sounds are not working but game will still run.\n";
+        }
+        if (!startController.getMusic().isMusicWorking()) {
+            message += "Music is not working, but game will still run.";
+        }
+        if (!message.isEmpty()) {
+            JOptionPane.showMessageDialog(parent, message, "Sound Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
 }

@@ -24,54 +24,49 @@ import java.util.ArrayList;
  */
 public class PlayerPage {
 
-    /**
-     * Background panel that holds all UI components.
-     */
+    /** Background panel that holds all UI components. */
     private final ImagePanel playerCreationPanel;
 
-    /**
-     * Text field for entering the player's name.
-     */
+    /** Text field for entering the player's name. */
     private final JTextField playerName;
 
-    /**
-     * Dropdown menu for selecting a player's color.
-     */
+    /** Dropdown menu for selecting a player's color. */
     private final JComboBox<String> playerColor;
 
-    /**
-     * Button used to proceed to the next step (start game setup).
-     */
+    /** Button used to proceed to the next step (start game setup). */
     private final JButton continueBt;
 
-    /**
-     * Model storing player display strings for the list.
-     */
+    /** Model storing player display strings for the list. */
     private final DefaultListModel<String> playerListModel;
 
-    /**
-     * Internal list storing Player objects.
-     */
+    /** Internal list storing Player objects. */
     private final ArrayList<Player> players;
 
-    /**
-     * Parent JFrame that displays the panel.
-     */
+    /** Parent JFrame that displays the panel. */
     private JFrame parent;
 
-    /**
-     * Controller used for navigation and data sharing.
-     */
+    /** Controller used for navigation and data sharing. */
     private StartController startController;
 
-    private JList<String> playerList;
+    /** List component displaying all created players. */
+    private final JList<String> playerList;
 
+    /** Button used to remove the currently selected player from the list. */
     private final JButton removePlayer;
 
-    private boolean stillShow = true;
+    /**
+     * Determines whether the instruction popup should be shown.
+     * Set to false if the user selects "Don't show again".
+     */
+    private boolean stillShow;
 
     /**
-     * Constructs the PlayerPage and initializes all GUI components.
+     * Constructs the PlayerPage and initializes all GUI components used for player creation.
+     *
+     * <p>
+     * This includes setting up the background panel, input fields, buttons, player list,
+     * and all event listeners required for adding, removing, and managing players.
+     * </p>
      */
     public PlayerPage() {
         // Initializes the player list.
@@ -85,26 +80,11 @@ public class PlayerPage {
         playerCreationPanel.setLayout(null);
         playerCreationPanel.setBounds(0, 0, screen.width, screen.height);
 
+        // Allows the message box to appear giving the user instructions.
+        stillShow = true;
+
         // Creates and positions the page title.
-        JLabel title = new JLabel("PLAYER CREATION");
-        boolean toBig = true;
-        int fontSize = 100;
-        int textBuffer = screen.width / 2;
-        Dimension titleSize = null;
-        while (toBig) {
-            title.setFont(new Font("Arial", Font.BOLD, fontSize));
-            title.setForeground(Color.WHITE);
-            title.setOpaque(true);
-            title.setBackground(Color.BLACK);
-            titleSize = title.getPreferredSize();
-            if (titleSize.width > screen.width - textBuffer) {
-                fontSize--;
-            }
-            else {
-                toBig = false;
-            }
-        }
-        title.setBounds(screen.width / 2 - titleSize.width / 2 - 5, screen.height / 10, titleSize.width + 10, titleSize.height);
+        JLabel title = createTitle(screen);
         playerCreationPanel.add(title);
 
         // Text field for entering player names.
@@ -123,7 +103,7 @@ public class PlayerPage {
         nameLabel.setBounds(screen.width / 2 - screen.width / 8 - 2 * formattingBuffer - nameLabelSize.width, screen.height * 3 / 10, nameLabelSize.width, 30);
         playerCreationPanel.add(nameLabel);
 
-        // Label for entering player names.
+        // Label for entering player colors.
         JLabel colorLabel = new JLabel("Player Color:");
         colorLabel.setOpaque(true);
         colorLabel.setBackground(Color.BLACK);
@@ -175,12 +155,12 @@ public class PlayerPage {
 
         // Scroll pane to contain the player list.
         JScrollPane scroll = new JScrollPane(playerList);
-        scroll.setBounds(screen.width / 2 - screen.width / 8, screen.height * 9 /20, screen.width / 4, screen.height * 9 / 12 - screen.height * 9 / 20);
+        scroll.setBounds(screen.width / 2 - screen.width / 8, screen.height * 9 / 20, screen.width / 4, screen.height * 9 / 12 - screen.height * 9 / 20);
         playerCreationPanel.add(scroll);
 
         // Button to go back a page
         JButton backBt = new JButton("Back");
-        backBt.setBounds( screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);
+        backBt.setBounds(screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);
         backBt.addActionListener(e -> {
             startController.makeSound();
             parent.remove(playerCreationPanel);
@@ -190,7 +170,7 @@ public class PlayerPage {
 
         // Button to proceed to the next setup step.
         continueBt = new JButton("Continue");
-        continueBt.setBounds(screen.width / 2 + formattingBuffer,  screen.height * 5 / 6, screen.width / 8, 80);
+        continueBt.setBounds(screen.width / 2 + formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);
 
         // Initially disabled until at least two players are added.
         continueBt.setEnabled(false);
@@ -204,6 +184,7 @@ public class PlayerPage {
         });
         playerCreationPanel.add(continueBt);
 
+        // Button that shuts program down when pressed.
         JButton closeButton = new JButton("X");
         closeButton.setFont(new Font("Arial", Font.BOLD, 14));
         closeButton.setBounds(screen.width - 52, 2, 50, 50);
@@ -213,6 +194,7 @@ public class PlayerPage {
         });
         playerCreationPanel.add(closeButton);
 
+        // Button that minimizes program when pressed.
         JButton minimizeButton = new JButton("-");
         minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
         minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
@@ -224,15 +206,67 @@ public class PlayerPage {
     }
 
     /**
+     * Creates and configures the title label for the player page.
+     *
+     * <p>
+     * The label text is dynamically resized to ensure it fits within the screen width.
+     * The font size is reduced iteratively until the rendered text width is within
+     * an acceptable range based on the provided screen dimensions.
+     * </p>
+     *
+     * @param screen the screen dimensions used to calculate size and positioning
+     * @return a configured {@link JLabel} representing the page title
+     */
+    private static JLabel createTitle(Dimension screen) {
+        // Creates the label.
+        JLabel title = new JLabel("PLAYER CREATION");
+        title.setForeground(Color.WHITE);
+        title.setOpaque(true);
+        title.setBackground(Color.BLACK);
+
+        // Creates several variables used for resizing the text font.
+        boolean tooBig = true;
+        int fontSize = 100;
+        int textBuffer = screen.width / 2;
+        Dimension titleSize = null;
+
+        // Continues shrinking the font size until it fits within the text box with a buffer.
+        while (tooBig) {
+            title.setFont(new Font("Arial", Font.BOLD, fontSize));
+            titleSize = title.getPreferredSize();
+
+            // Checks to see if it's too big, if it is, shrinks the font by 1, otherwise it stops the while loop.
+            if (titleSize.width > screen.width - textBuffer) {
+                fontSize--;
+            } else {
+                tooBig = false;
+            }
+        }
+
+        // Sets the bounds of the title before returning it.
+        title.setBounds(screen.width / 2 - titleSize.width / 2 - 5, screen.height / 10, titleSize.width + 10, titleSize.height);
+        return title;
+    }
+
+    /**
      * Adds the player setup panel to the main JFrame.
+     *
+     * <p>
+     * This method also optionally displays an instructional popup explaining
+     * how to create a player. If the user selects "Don't show again",
+     * the popup will not be shown in future calls.
+     * </p>
      *
      * @param startController the controller managing GUI navigation.
      */
     public void addPlayerPage(StartController startController) {
+        // Adds the setup options panel to the main JFrame and repaints it.
         this.startController = startController;
         this.parent = startController.getDisplay();
         parent.add(playerCreationPanel);
         parent.repaint();
+
+        // Checks to see if the instruction box should be displayed.
         if (stillShow) {
             JCheckBox checkBox = new JCheckBox("Don't show again");
             Object[] message = {"Welcome to the Player Creation Page.\n" +
@@ -253,11 +287,13 @@ public class PlayerPage {
      * Handles adding a player after validating input fields.
      */
     private void addPlayer() {
+        // Gets the information from the player creation fields
         String name = playerName.getText().trim();
         String color = (String) playerColor.getSelectedItem();
         Color playersColor = null;
         String errorMessage = "";
-        
+
+        // Checks to see which color was selected
         switch (color) {
             case "Red":
                 playersColor = Color.RED;
@@ -286,10 +322,10 @@ public class PlayerPage {
             JOptionPane.showMessageDialog(parent, "Max 6 players.");
             return;
         }
-        
+
         // Validates that the name is not empty.
         if (name.isEmpty()) {
-            errorMessage += "Please enter a player name. \n"; 
+            errorMessage += "Please enter a player name. \n";
         }
 
         // Ensures no duplicate player names.
@@ -299,15 +335,17 @@ public class PlayerPage {
             }
         }
 
+        // Ensures the name is shorter than 20 characters.
         if (name.length() > 20) {
             errorMessage += "Name is " + name.length() + " characters long, \nnames must be shorter than 20 characters.";
         }
 
+        // Only shows the errror message if there was something wrong with the information given.
         if (!errorMessage.isEmpty()) {
             JOptionPane.showMessageDialog(parent, errorMessage);
             return;
         }
-        
+
         // Adds the new player and updates the display list.
         players.add(new Player(name, playersColor, color));
         playerListModel.addElement("Player: " + name + " | Color: " + color);
@@ -325,6 +363,14 @@ public class PlayerPage {
         }
     }
 
+    /**
+     * Removes the selected player from the player list.
+     *
+     * <p>
+     * This method updates both the internal player array and the display list.
+     * It also restores the removed player's color back into the dropdown menu.
+     * </p>
+     */
     private void removePlayer() {
         int playerLocation = playerList.getSelectedIndex();
         Player playerToRemove = players.remove(playerLocation);
@@ -338,11 +384,19 @@ public class PlayerPage {
         }
     }
 
+    /**
+     * Resets the player creation page back to its default state.
+     *
+     * <p>
+     * This clears all player data, resets the input fields, restores the color
+     * dropdown, and disables the continue and remove buttons.
+     * </p>
+     */
     public void reset() {
         playerName.setText("");
         String[] colorList = {"None", "Red", "Cyan", "Green", "Yellow", "Magenta", "Orange"};
         playerColor.removeAllItems();
-        for (String s: colorList) {
+        for (String s : colorList) {
             playerColor.addItem(s);
         }
         continueBt.setEnabled(false);

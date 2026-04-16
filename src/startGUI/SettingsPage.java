@@ -1,7 +1,5 @@
 package startGUI;
 
-import soundMaker.Music;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,6 +11,12 @@ import java.awt.*;
  * background image and manually positions all components based on
  * screen dimensions.</p>
  *
+ * <p>
+ * User settings are applied immediately when changed and are passed
+ * back to the main controller to affect global audio behavior across
+ * the application.
+ * </p>
+ *
  * <p><b>Sources Used:</b></p>
  * <ul>
  *   <li>ChatGPT – Assisted with generating Javadoc comments for this file in conjunction with Max Montowski.
@@ -23,34 +27,19 @@ import java.awt.*;
  */
 public class SettingsPage {
 
-    /**
-     * Background panel displaying the settings image.
-     */
+    /** Background panel displaying the settings image. */
     private final ImagePanel settingsPanel;
 
-    /**
-     * Checkbox for enabling/disabling sound effects.
-     */
+    /** Checkbox for enabling/disabling sound effects. */
     private final JCheckBox sound;
 
-    /**
-     * Checkbox for enabling/disabling music.
-     */
+    /** Checkbox for enabling/disabling music. */
     private final JCheckBox musicBt;
 
-    /**
-     * Button to return to the start menu.
-     */
-    private final JButton back;
-
-    /**
-     * Parent JFrame that contains this settings page.
-     */
+    /** Parent JFrame that contains this settings page. */
     private JFrame parent;
 
-    /**
-     * Controller for managing GUI interactions.
-     */
+    /** Controller for managing GUI interactions. */
     private StartController startController;
 
     /**
@@ -65,7 +54,7 @@ public class SettingsPage {
         settingsPanel.setLayout(null);
         settingsPanel.setBounds(0, 0, screen.width, screen.height);
 
-        // Initialize sound checkbox
+        // Initialize sound checkbox which controls whether buttons make sound.
         sound = new JCheckBox("Sound Affects", true);
         sound.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2, screen.width / 6, 40);
         sound.addActionListener(e -> {
@@ -78,22 +67,21 @@ public class SettingsPage {
         });
         settingsPanel.add(sound);
 
-        // Initialize music checkbox
+        // Initialize music checkbox which controls whether music plays.
         musicBt = new JCheckBox("Music", true);
         musicBt.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2 + 80, screen.width / 6, 40);
         settingsPanel.add(musicBt);
         musicBt.addActionListener(e -> {
             startController.makeSound();
-            Music music = startController.getMusic();
             if (musicBt.isSelected()) {
-                music.enableMusic();
+                startController.getMusic().enableMusic();
             } else {
-                music.disableMusic();
+                startController.getMusic().disableMusic();
             }
         });
 
         // Initialize back button
-        back = new JButton("Back To Start");
+        JButton back = new JButton("Back To Start");
         back.setBounds(screen.width / 2 - 100, 2 * screen.height / 3, 200, 50);
         back.addActionListener(e -> {
             // Remove settings page and return to start menu
@@ -103,6 +91,7 @@ public class SettingsPage {
         });
         settingsPanel.add(back);
 
+        // Button that shuts program down when pressed.
         JButton closeButton = new JButton("X");
         closeButton.setFont(new Font("Arial", Font.BOLD, 14));
         closeButton.setBounds(screen.width - 52, 2, 50, 50);
@@ -112,6 +101,7 @@ public class SettingsPage {
         });
         settingsPanel.add(closeButton);
 
+        // Button that minimizes program when pressed.
         JButton minimizeButton = new JButton("-");
         minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
         minimizeButton.setBounds(screen.width - 104, 2, 50, 50);

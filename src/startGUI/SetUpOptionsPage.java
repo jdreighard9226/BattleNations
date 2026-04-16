@@ -21,42 +21,50 @@ import java.awt.*;
  */
 public class SetUpOptionsPage {
 
-    /**
-     * The controller that allows for navigation between panels.
-     */
+    /** Controller that allows navigation between pages and shared game data access. */
     private StartController startController;
 
-    /**
-     * The image panel that will hold the background image and buttons.
-     */
+    /** Image panel that hold the background image and buttons. */
     private final ImagePanel setUpOptionsPanel;
 
-    /**
-     * Boolean that keeps track of if the territory option has been selected yet.
-     */
+    /** Determines whether a territory selection option has been chosen. */
     private boolean territoriesSelected = false;
 
-    /**
-     * Boolean that keeps track of if the troop option has been selected yet.
-     */
+    /** Determines whether a troop placement option has been chosen. */
     private boolean troopsSelected = false;
 
+    /** Determines whether a game mode option has been chosen. */
     private boolean dominationSelected = false;
 
-    private JButton continueBt;
+    /** Button used to continue to the next setup stage once all options are selected. */
+    private final JButton continueBt;
 
-    private ButtonGroup territoryButtons;
+    /** Groups territory selection buttons so only one option can be selected. */
+    private final ButtonGroup territoryButtons;
 
-    private ButtonGroup troopButtons;
+    /** Groups troop placement buttons so only one option can be selected. */
+    private final ButtonGroup troopButtons;
 
-    private ButtonGroup gameModeButtons;
+    /** Groups game mode buttons so only one option can be selected. */
+    private final ButtonGroup gameModeButtons;
 
+    /** Parent JFrame that contains and displays this panel. */
     private JFrame parent;
 
+    /**
+     * Determines whether the instruction popup should be shown.
+     * Set to false if the user selects "Don't show again".
+     */
     private boolean stillShow = true;
 
     /**
-     * Constructs a SetUp options page and initializes all buttons and layout.
+     * Constructs a SetUp options page and initializes all buttons, layout, and user interface components.
+     *
+     * <p>
+     * This includes creating the background panel, setting up the title, initializing all radio button
+     * groups for territory selection, troop placement, and game mode selection, and configuring the
+     * continue button logic that only allows progression once all required options are selected.
+     * </p>
      */
     public SetUpOptionsPage() {
         // Creates the background image panel.
@@ -69,33 +77,20 @@ public class SetUpOptionsPage {
         setUpOptionsPanel.setLayout(null);
         setUpOptionsPanel.setBounds(0, 0, screen.width, screen.height);
 
+        // Allows the message box to appear giving the user instructions.
+        stillShow = true;
+
         // Creates and positions the page title.
-        JLabel title = new JLabel("GAME SET UP");
-        boolean toBig = true;
-        int fontSize = 100;
-        int textBuffer = screen.width / 2;
-        Dimension titleSize = null;
-        while (toBig) {
-            title.setFont(new Font("Arial", Font.BOLD, fontSize));
-            title.setForeground(Color.WHITE);
-            title.setOpaque(true);
-            title.setBackground(Color.BLACK);
-            titleSize = title.getPreferredSize();
-            if (titleSize.width > screen.width - textBuffer) {
-                fontSize--;
-            }
-            else {
-                toBig = false;
-            }
-        }
-        title.setBounds(screen.width / 2 - titleSize.width / 2 - 5, screen.height / 10, titleSize.width + 10, titleSize.height);
+        JLabel title = createTitle(screen);
         setUpOptionsPanel.add(title);
 
+        // Creates a buffer so that objects on screen don't touch but have space in between.
         int formattingBuffer = 10;
 
-        // Button to go back a page
+        // Button to go back a page.
         JButton backBt = new JButton("Back");
-        backBt.setBounds( screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);        backBt.addActionListener(e -> {
+        backBt.setBounds(screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);
+        backBt.addActionListener(e -> {
             startController.makeSound();
             parent.remove(setUpOptionsPanel);
             startController.displayPlayerPage();
@@ -104,7 +99,7 @@ public class SetUpOptionsPage {
 
         // Button that allows the user to proceed once both options are selected.
         continueBt = new JButton("Continue");
-        continueBt.setBounds(screen.width / 2 + formattingBuffer,  screen.height * 5 / 6, screen.width / 8, 80);
+        continueBt.setBounds(screen.width / 2 + formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);
 
         // Sets the continue button to disabled until both options are selected.
         continueBt.setEnabled(false);
@@ -115,47 +110,29 @@ public class SetUpOptionsPage {
         // Groups the territory selection buttons so only one can be selected.
         territoryButtons = new ButtonGroup();
 
-        //Button for random territory selection.
+        // Button for random territory selection.
         JRadioButton randomTerritories = new JRadioButton("Random Territory Selection");
         randomTerritories.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height * 2 / 5, screen.width / 6, 40);
 
         // Button for manual territory selection.
-        JRadioButton manuelTerritories = new JRadioButton("Manuel Territory Selection");
-        manuelTerritories.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height * 3 / 5, screen.width / 6, 40);
+        JRadioButton manualTerritories = new JRadioButton("Manual Territory Selection");
+        manualTerritories.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height * 3 / 5, screen.width / 6, 40);
 
         // Adds buttons to the group and panel.
         territoryButtons.add(randomTerritories);
-        territoryButtons.add(manuelTerritories);
+        territoryButtons.add(manualTerritories);
         setUpOptionsPanel.add(randomTerritories);
-        setUpOptionsPanel.add(manuelTerritories);
+        setUpOptionsPanel.add(manualTerritories);
 
-        // Sets game setup data based on selected territory option.
-        randomTerritories.addActionListener(e -> {
-            startController.makeSound();
-            startController.getGameSetUpData().setRandomTerritories(true);
-            territoriesSelected = true;
-            if (troopsSelected && dominationSelected) {
-                continueBt.setEnabled(true);
-            }
-        });
-        manuelTerritories.addActionListener(e -> {
-            startController.makeSound();
-            startController.getGameSetUpData().setRandomTerritories(false);
-            territoriesSelected = true;
-            if (troopsSelected && dominationSelected) {
-                continueBt.setEnabled(true);
-            }
-        });
-
-        //Groups the troop placement buttons so only one can be selected.
+        // Groups the troop placement buttons so only one can be selected.
         troopButtons = new ButtonGroup();
 
         // Buttons for random troop placement.
         JRadioButton randomTroops = new JRadioButton("Random Troop Placement");
-        randomTroops.setBounds(screen.width / 2 - screen.width / 12, screen.height  * 2 / 5, screen.width / 6, 40);
+        randomTroops.setBounds(screen.width / 2 - screen.width / 12, screen.height * 2 / 5, screen.width / 6, 40);
 
         // Buttons for manual troop placement.
-        JRadioButton manualTroops = new JRadioButton("Manuel Troop Placement");
+        JRadioButton manualTroops = new JRadioButton("Manual Troop Placement");
         manualTroops.setBounds(screen.width / 2 - screen.width / 12, screen.height * 3 / 5, screen.width / 6, 40);
 
         // Adds buttons to the group and panel.
@@ -165,7 +142,7 @@ public class SetUpOptionsPage {
         setUpOptionsPanel.add(manualTroops);
 
 
-        //Groups the troop placement buttons so only one can be selected.
+        // Groups the troop placement buttons so only one can be selected.
         gameModeButtons = new ButtonGroup();
 
         // Buttons for random troop placement.
@@ -174,7 +151,7 @@ public class SetUpOptionsPage {
 
         // Buttons for manual troop placement.
         JRadioButton capitalDomination = new JRadioButton("Capital Domination");
-        capitalDomination.setBounds(screen.width / 2 + screen.width / 12 + formattingBuffer, screen.height * 3/ 5, screen.width / 6, 40);
+        capitalDomination.setBounds(screen.width / 2 + screen.width / 12 + formattingBuffer, screen.height * 3 / 5, screen.width / 6, 40);
 
         // Adds buttons to the group and panel.
         gameModeButtons.add(totalDomination);
@@ -182,7 +159,27 @@ public class SetUpOptionsPage {
         setUpOptionsPanel.add(totalDomination);
         setUpOptionsPanel.add(capitalDomination);
 
-        // Sets game setup data based on selected troop placement option.
+        // Sets game setup data to be random territory assignment based on selected territory option.
+        randomTerritories.addActionListener(e -> {
+            startController.makeSound();
+            startController.getGameSetUpData().setRandomTerritories(true);
+            territoriesSelected = true;
+            if (troopsSelected && dominationSelected) {
+                continueBt.setEnabled(true);
+            }
+        });
+
+        // Sets game setup data to be manual territory assignment based on selected territory option.
+        manualTerritories.addActionListener(e -> {
+            startController.makeSound();
+            startController.getGameSetUpData().setRandomTerritories(false);
+            territoriesSelected = true;
+            if (troopsSelected && dominationSelected) {
+                continueBt.setEnabled(true);
+            }
+        });
+
+        // Sets game setup data to be random troop placement based on selected troop placement option.
         randomTroops.addActionListener(e -> {
             startController.makeSound();
             startController.getGameSetUpData().setRandomTroopPlacement(true);
@@ -192,6 +189,8 @@ public class SetUpOptionsPage {
             }
 
         });
+
+        // Sets game setup data to be manual troop placement based on selected troop placement option.
         manualTroops.addActionListener(e -> {
             startController.makeSound();
             startController.getGameSetUpData().setRandomTroopPlacement(false);
@@ -201,20 +200,22 @@ public class SetUpOptionsPage {
             }
         });
 
+        // Sets game setup data to be total domination based on selected domination option.
         totalDomination.addActionListener(e -> {
             startController.makeSound();
             startController.getGameSetUpData().setGameMode("totalDomination");
             dominationSelected = true;
-            if(territoriesSelected && troopsSelected) {
+            if (territoriesSelected && troopsSelected) {
                 continueBt.setEnabled(true);
             }
         });
 
+        // Sets game setup data to be capital domination based on selected domination option.
         capitalDomination.addActionListener(e -> {
             startController.makeSound();
             startController.getGameSetUpData().setGameMode("capitalDomination");
             dominationSelected = true;
-            if(territoriesSelected && troopsSelected) {
+            if (territoriesSelected && troopsSelected) {
                 continueBt.setEnabled(true);
             }
         });
@@ -226,6 +227,7 @@ public class SetUpOptionsPage {
             startController.changeToSetUpController();
         });
 
+        // Button that shuts program down when pressed.
         JButton closeButton = new JButton("X");
         closeButton.setFont(new Font("Arial", Font.BOLD, 14));
         closeButton.setBounds(screen.width - 52, 2, 50, 50);
@@ -235,6 +237,7 @@ public class SetUpOptionsPage {
         });
         setUpOptionsPanel.add(closeButton);
 
+        // Button that minimizes program when pressed.
         JButton minimizeButton = new JButton("-");
         minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
         minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
@@ -246,28 +249,77 @@ public class SetUpOptionsPage {
     }
 
     /**
+     * Creates and configures the title label for the game setup page.
+     *
+     * <p>
+     * The label text is dynamically resized to ensure it fits within the screen width.
+     * The font size is reduced iteratively until the rendered text width is within
+     * an acceptable range based on the provided screen dimensions.
+     * </p>
+     *
+     * @param screen the screen dimensions used to calculate size and positioning
+     * @return a configured {@link JLabel} representing the page title
+     */
+    private static JLabel createTitle(Dimension screen) {
+        // Creates the label.
+        JLabel title = new JLabel("GAME SET UP");
+        title.setForeground(Color.WHITE);
+        title.setOpaque(true);
+        title.setBackground(Color.BLACK);
+
+        // Creates several variables used for resizing the text font.
+        boolean toBig = true;
+        int fontSize = 100;
+        int textBuffer = screen.width / 2;
+        Dimension titleSize = null;
+
+        // Continues shrinking the font size until it fits within the text box with a buffer.
+        while (toBig) {
+            title.setFont(new Font("Arial", Font.BOLD, fontSize));
+            titleSize = title.getPreferredSize();
+
+            // Checks to see if it's too big, if it is, shrinks the font by 1, otherwise it stops the while loop.
+            if (titleSize.width > screen.width - textBuffer) {
+                fontSize--;
+            } else {
+                toBig = false;
+            }
+        }
+
+        // Sets the bounds of the title before returning it.
+        title.setBounds(screen.width / 2 - titleSize.width / 2 - 5, screen.height / 10, titleSize.width + 10, titleSize.height);
+        return title;
+    }
+
+    /**
      * Adds the setup options panel to the main JFrame display.
      *
      * @param startController the controller managing GUI navigation.
      */
     public void addSetUpOptionsPage(StartController startController) {
+        // Adds the setup options panel to the main JFrame and repaints it.
         this.startController = startController;
         parent = startController.getDisplay();
         parent.add(setUpOptionsPanel);
         parent.repaint();
+
+        // Checks to see if the instruction box should be displayed.
         if (stillShow) {
             JCheckBox checkBox = new JCheckBox("Don't show again");
-            Object[] message = {"Please select an option for how you want to choose territories,\n" +
-                    "how to place troops, and what game mode you want.\n" +
-                    "Territory Options:\n" +
-                    "   - Random Territory Selection lets the game automatically assign territories for each player.\n" +
-                    "   - Manual Territory Selection lets the players take turns choosing the territories they want.\n" +
-                    "Troop Options:\n" +
-                    "   - Random Troop Placement lets the game automatically assign the players starting troops to their territories.\n" +
-                    "   - Manual Troop Placement lets the players take turns placing troops on the territories they want to reinforce.\n" +
-                    "Game Mode Options:\n" +
-                    "   - Total Domination sets the game win condition to be that one player has to control every territory on the map.\n" +
-                    "   - Capital Domination sets the game win condition to be that one player has to control every capital on the map.", checkBox};
+            Object[] message = {"""
+Please select options for territory assignment, troop placement, and game mode.
+
+Territory Options:
+- Random: territories are automatically assigned.
+- Manual: players choose territories in turn.
+
+Troop Options:
+- Random: starting troops are automatically placed.
+- Manual: players place troops themselves in turn.
+
+Game Modes:
+- Total Domination: control all territories to win.
+- Capital Domination: control all capitals to win.""", checkBox};
 
             JOptionPane.showMessageDialog(parent, message, "Map Choice", JOptionPane.INFORMATION_MESSAGE);
             startController.makeSound();
@@ -277,6 +329,14 @@ public class SetUpOptionsPage {
         }
     }
 
+    /**
+     * Resets the setup options page to its default state.
+     *
+     * <p>
+     * This clears all selections and disables the continue button until
+     * all required options are selected again.
+     * </p>
+     */
     public void reset() {
         territoriesSelected = false;
         troopsSelected = false;
