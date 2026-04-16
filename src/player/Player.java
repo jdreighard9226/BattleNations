@@ -6,8 +6,7 @@ import java.awt.Color;
  * Represents a player in Battle Nations.
  *
  * <p>A player has a name, a color, and a number of troops they are allowed
- * to place each round. A player may also receive attack, defense, and troop
- * bonuses depending on game mechanics.</p>
+ * to place each round.</p>
  *
  * <p><b>Sources Used:</b></p>
  * <ul>
