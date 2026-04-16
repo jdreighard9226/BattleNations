@@ -66,6 +66,14 @@ public class SettingsPage {
         // Initialize sound checkbox
         sound = new JCheckBox("Sound Affects", true);
         sound.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2, screen.width / 6, 40);
+        sound.addActionListener(e -> {
+            startController.setSound(sound.isSelected());
+
+            if (sound.isSelected()) {
+                startController.makeSound();
+            }
+
+        });
         settingsPanel.add(sound);
 
         // Initialize music checkbox
@@ -78,6 +86,7 @@ public class SettingsPage {
         back.setBounds(screen.width / 2 - 100, 2 * screen.height / 3, 200, 50);
         back.addActionListener(e -> {
             // Remove settings page and return to start menu
+            startController.makeSound();
             parent.remove(settingsPanel);
             startController.displayStartMenuPage();
         });
@@ -86,13 +95,19 @@ public class SettingsPage {
         JButton closeButton = new JButton("X");
         closeButton.setFont(new Font("Arial", Font.BOLD, 14));
         closeButton.setBounds(screen.width - 52, 2, 50, 50);
-        closeButton.addActionListener(e -> System.exit(0));
+        closeButton.addActionListener(e -> {
+            startController.makeSound();
+            System.exit(0);
+        });
         settingsPanel.add(closeButton);
 
         JButton minimizeButton = new JButton("-");
         minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
         minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
-        minimizeButton.addActionListener(e -> parent.setState(Frame.ICONIFIED));
+        minimizeButton.addActionListener(e -> {
+            startController.makeSound();
+            parent.setState(Frame.ICONIFIED);
+        });
         settingsPanel.add(minimizeButton);
     }
 
@@ -104,6 +119,7 @@ public class SettingsPage {
     public void addSettingsPage(StartController startController) {
         this.parent = startController.getDisplay();
         this.startController = startController;
+        sound.setSelected(startController.isSoundEnabled());
         parent.add(settingsPanel);
         parent.repaint();
     }

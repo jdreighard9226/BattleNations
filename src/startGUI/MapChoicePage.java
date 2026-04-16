@@ -88,6 +88,7 @@ public class MapChoicePage {
         JButton backBt = new JButton("Back");
         backBt.setBounds((int) screen.getWidth() / 2 - 210, (int) screen.getHeight() / 6 * 5, 200, 80);
         backBt.addActionListener(e -> {
+            startController.makeSound();
            parent.remove(mapChoicePanel);
            startController.displayStartMenuPage();
         });
@@ -102,6 +103,7 @@ public class MapChoicePage {
 
         // Proceeds only if a map has been selected.
         continueBt.addActionListener(e -> {
+            startController.makeSound();
             startController.getGameSetUpData().setMap(mapLocation);
             startController.getDisplay().remove(mapChoicePanel);
             startController.displayPlayerPage();
@@ -143,6 +145,7 @@ public class MapChoicePage {
 
         // Handles selection of map 1.
         map1bt.addActionListener(e -> {
+            startController.makeSound();
             map1bt.setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
             map2bt.setBorder(null);
             continueBt.setEnabled(true);
@@ -151,6 +154,7 @@ public class MapChoicePage {
 
         // Handles selection of map 2.
         map2bt.addActionListener(e -> {
+            startController.makeSound();
             map2bt.setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
             map1bt.setBorder(null);
             continueBt.setEnabled(true);
@@ -160,13 +164,19 @@ public class MapChoicePage {
         JButton closeButton = new JButton("X");
         closeButton.setFont(new Font("Arial", Font.BOLD, 14));
         closeButton.setBounds(screen.width - 52, 2, 50, 50);
-        closeButton.addActionListener(e -> System.exit(0));
+        closeButton.addActionListener(e -> {
+            startController.makeSound();
+            System.exit(0);
+        });
         mapChoicePanel.add(closeButton);
 
         JButton minimizeButton = new JButton("-");
         minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
         minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
-        minimizeButton.addActionListener(e -> parent.setState(Frame.ICONIFIED));
+        minimizeButton.addActionListener(e -> {
+            startController.makeSound();
+            parent.setState(Frame.ICONIFIED);
+        });
         mapChoicePanel.add(minimizeButton);
 
     }
@@ -187,7 +197,7 @@ public class MapChoicePage {
                     "If you wish to change it simply click on the new map of your choice.", checkBox};
 
             JOptionPane.showMessageDialog(parent, message, "Map Choice", JOptionPane.INFORMATION_MESSAGE);
-
+            startController.makeSound();
             if (checkBox.isSelected()) {
                 stillShow = false;
             }

@@ -1,6 +1,7 @@
 package startGUI;
 
 import setUpGUI.SetUpController;
+import soundMaker.Sound;
 
 import javax.swing.*;
 
@@ -47,6 +48,8 @@ public class StartController {
      */
     private SetUpData gameSetUpData = new SetUpData();
 
+    private Sound buttonSound;
+
     /**
      * Constructs a start controller. Initializes and formats the main JFrame display, initializes all pages, and then
      * displays the start menu page.
@@ -61,6 +64,8 @@ public class StartController {
         ImageIcon icon = new ImageIcon("src/gameImages/GameIcon.png");
         display.setIconImage(icon.getImage());
 
+        buttonSound = new Sound("src/soundFiles/buttonSound.wav");
+
         // Initialize pages
         start = new StartMenuPage();
         settings = new SettingsPage();
@@ -70,6 +75,9 @@ public class StartController {
 
         // Show the display
         display.setVisible(true);
+
+        buttonSound.playSound(19580);
+
         // Show the start menu by default
         displayStartMenuPage();
     }
@@ -134,6 +142,21 @@ public class StartController {
         new SetUpController(this.display, this.gameSetUpData, this);
     }
 
+    public void makeSound() {
+        buttonSound.playSound(2000);
+    }
+
+    public boolean isSoundWorking() {
+        return buttonSound.isSoundWorking();
+    }
+
+    public void setSound(boolean enabled) {
+        buttonSound.setEnabled(enabled);
+    }
+
+    public boolean isSoundEnabled() {
+        return buttonSound.isSoundEnabled();
+    }
 
     public void reset() {
         gameSetUpData = new SetUpData();

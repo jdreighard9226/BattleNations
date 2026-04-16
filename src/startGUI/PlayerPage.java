@@ -144,14 +144,20 @@ public class PlayerPage {
         JButton addPlayer = new JButton("Add");
         addPlayer.setFont(new Font("Arial", Font.BOLD, 18));
         addPlayer.setBounds(screen.width / 2 - screen.width / 8, screen.height * 4 / 10, screen.width / 8, 40);
-        addPlayer.addActionListener(e -> addPlayer());
+        addPlayer.addActionListener(e -> {
+            startController.makeSound();
+            addPlayer();
+        });
         playerCreationPanel.add(addPlayer);
 
         // Button to remove a player based on the selected list index.
         removePlayer = new JButton("Remove");
         removePlayer.setFont(new Font("Arial", Font.BOLD, 18));
         removePlayer.setBounds(screen.width / 2 + formattingBuffer, screen.height * 4 / 10, screen.width / 8, 40);
-        removePlayer.addActionListener(e -> removePlayer());
+        removePlayer.addActionListener(e -> {
+            startController.makeSound();
+            removePlayer();
+        });
         removePlayer.setEnabled(false);
         playerCreationPanel.add(removePlayer);
 
@@ -162,6 +168,7 @@ public class PlayerPage {
         playerList = new JList<>(playerListModel);
         playerList.addListSelectionListener(e -> {
             if (playerList.getSelectedIndex() >= 0) {
+                startController.makeSound();
                 removePlayer.setEnabled(true);
             }
         });
@@ -175,6 +182,7 @@ public class PlayerPage {
         JButton backBt = new JButton("Back");
         backBt.setBounds( screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);
         backBt.addActionListener(e -> {
+            startController.makeSound();
             parent.remove(playerCreationPanel);
             startController.displayMapChoicePage();
         });
@@ -189,6 +197,7 @@ public class PlayerPage {
 
         // Stores players and transitions to the next page.
         continueBt.addActionListener(e -> {
+            startController.makeSound();
             startController.getGameSetUpData().setPlayers(players);
             parent.remove(playerCreationPanel);
             startController.displaySetUpOptionsPage();
@@ -198,13 +207,19 @@ public class PlayerPage {
         JButton closeButton = new JButton("X");
         closeButton.setFont(new Font("Arial", Font.BOLD, 14));
         closeButton.setBounds(screen.width - 52, 2, 50, 50);
-        closeButton.addActionListener(e -> System.exit(0));
+        closeButton.addActionListener(e -> {
+            startController.makeSound();
+            System.exit(0);
+        });
         playerCreationPanel.add(closeButton);
 
         JButton minimizeButton = new JButton("-");
         minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
         minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
-        minimizeButton.addActionListener(e -> parent.setState(Frame.ICONIFIED));
+        minimizeButton.addActionListener(e -> {
+            startController.makeSound();
+            parent.setState(Frame.ICONIFIED);
+        });
         playerCreationPanel.add(minimizeButton);
     }
 
@@ -227,6 +242,7 @@ public class PlayerPage {
 
             JOptionPane.showMessageDialog(parent, message, "Player Creation", JOptionPane.INFORMATION_MESSAGE);
 
+            startController.makeSound();
             if (checkBox.isSelected()) {
                 stillShow = false;
             }

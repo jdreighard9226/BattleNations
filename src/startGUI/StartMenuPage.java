@@ -1,7 +1,10 @@
 package startGUI;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Serves as the start menu page for the battle nations GUI.
@@ -43,6 +46,7 @@ public class StartMenuPage {
         JButton startGame = new JButton("Start Game");
         startGame.setBounds(screen.width / 2 - 100, screen.height / 3, 200, 50);
         startGame.addActionListener(e -> {
+            startController.makeSound();
             parent.remove(startMenuPanel);
             startController.displayMapChoicePage();
         });
@@ -52,6 +56,7 @@ public class StartMenuPage {
         JButton settings = new JButton("Settings");
         settings.setBounds(screen.width / 2 - 100, screen.height / 2, 200, 50);
         settings.addActionListener(e -> {
+            startController.makeSound();
             parent.remove(startMenuPanel);
             startController.displaySettingsPage();
         });
@@ -60,7 +65,10 @@ public class StartMenuPage {
         // Quit button that shuts down the program.
         JButton quit = new JButton("Quit");
         quit.setBounds(screen.width / 2 - 100, 2 * screen.height / 3, 200, 50);
-        quit.addActionListener(e -> System.exit(0));
+        quit.addActionListener(e -> {
+            startController.makeSound();
+            System.exit(0);
+        });
         startMenuPanel.add(quit);
     }
 
@@ -74,5 +82,8 @@ public class StartMenuPage {
         this.parent = startController.getDisplay();
         parent.add(startMenuPanel);
         parent.repaint();
+        if (!startController.isSoundWorking()) {
+            JOptionPane.showMessageDialog(parent, "Button sounds are not working but game will still run.", "Button Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }
