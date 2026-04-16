@@ -131,23 +131,43 @@ public class StartController {
         new SetUpController(this.display, this.gameSetUpData, this);
     }
 
-
+    /** Playes the button click sound effect. */
     public void makeSound() {
         buttonSound.playSound(2000);
     }
 
+    /**
+     * Checks whether button sound effects are working properly
+     *
+     * @return true if sound effects are working, false if not.
+     */
     public boolean isSoundWorking() {
         return buttonSound.isSoundWorking();
     }
 
+    /**
+     * Sets whether the button sound effects are enabled.
+     *
+     * @param enabled true to enable sound effects, false to disable.
+     */
     public void setSound(boolean enabled) {
         buttonSound.setEnabled(enabled);
     }
 
+    /**
+     * Checks whether button sound effects are enabled.
+     *
+     * @return true if sound is enabled, false if not.
+     */
     public boolean isSoundEnabled() {
         return buttonSound.isSoundEnabled();
     }
 
+    /**
+     * Returns the Music object used for playing background music.
+     *
+     * @return the Music object
+     */
     public Music getMusic() {
         return music;
     }
