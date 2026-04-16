@@ -46,6 +46,7 @@ public class TestReinforcementService {
         System.out.println("Testing Methods");
 
         // Run each test method and mark the suite as failed if any individual test fails.
+
         if (!testValidReinforcement()) passed = false;
         if (!testReinforcementWhenPlayerDoesNotOwnTerritory()) passed = false;
         if (!testReinforcementServiceWith0TroopsBeingPlaced()) passed = false;
@@ -76,10 +77,14 @@ public class TestReinforcementService {
     private static boolean testValidReinforcement() {
         System.out.print("Testing valid reinforce: ");
         boolean passed = true;
+
         Player player = new Player("p1", Color.black);
+
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20, new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, false);
+
         int troopsToPlace = 20;
         player.setTroopsToPlace(troopsToPlace);
+
         ReinforcementService reinforcementService = new ReinforcementService();
 
         for (int i = 0; i < 100; i++) {
@@ -88,10 +93,12 @@ public class TestReinforcementService {
                 passed = false;
                 System.out.println("During Iteration " + i + " reinforce returned false, on a valid reinforcement call");
             }
+
             // Reset state between iterations so each call starts from the same conditions
             player.setTroopsToPlace(troopsToPlace);
             t1.setTroopAmount(1);
         }
+
         if (passed) {
             System.out.println("Passed");
         } else {
@@ -112,12 +119,16 @@ public class TestReinforcementService {
     private static boolean testReinforcementWhenPlayerDoesNotOwnTerritory() {
         System.out.print("Testing reinforce when player doesn't own territory: ");
         boolean passed = true;
+
         Player player = new Player("p1", Color.black);
         Player otherPlayer = new Player("other", Color.blue);
+
         // Territory is owned by otherPlayer — reinforcement by player should always be rejected
         Territory t1 = new Territory(otherPlayer, TerrainType.DESERT.getTerrain(), 20, new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, false);
+
         int troopsToPlace = 20;
         player.setTroopsToPlace(troopsToPlace);
+
         ReinforcementService reinforcementService = new ReinforcementService();
 
         int originalTroopCount = t1.getTroopAmount();
@@ -127,6 +138,7 @@ public class TestReinforcementService {
                 passed = false;
                 System.err.println("During iteration " + i + " reinforce result returned true, when result should have been false");
             }
+
             // A failed reinforce should never mutate the territory's troop count
             if (t1.getTroopAmount() != originalTroopCount) {
                 passed = false;
@@ -154,10 +166,14 @@ public class TestReinforcementService {
     private static boolean testReinforcementServiceWith0TroopsBeingPlaced() {
         System.out.print("Testing reinforce when player tries to place 0 troops: ");
         boolean passed = true;
+
         Player player = new Player("p1", Color.black);
+
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20, new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, false);
+
         int troopsToPlace = 20;
         player.setTroopsToPlace(troopsToPlace);
+
         ReinforcementService reinforcementService = new ReinforcementService();
 
         int originalTroopCount = t1.getTroopAmount();
@@ -194,10 +210,14 @@ public class TestReinforcementService {
     private static boolean testReinforceWithMoreTroopsThenPlayerHas() {
         System.out.print("Testing reinforce when player tries to place more troops than they have: ");
         boolean passed = true;
+
         Player player = new Player("p1", Color.black);
+
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20, new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, false);
+
         int troopsToPlace = 20;
         player.setTroopsToPlace(troopsToPlace);
+
         ReinforcementService reinforcementService = new ReinforcementService();
 
         int originalTroopCount = t1.getTroopAmount();
@@ -234,10 +254,14 @@ public class TestReinforcementService {
     private static boolean testReinforceWithNullPlayer() {
         System.out.print("Testing reinforce when player passed in is null: ");
         boolean passed = true;
+
         Player player = new Player("p1", Color.black);
+
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20, new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, false);
+
         int troopsToPlace = 20;
         player.setTroopsToPlace(troopsToPlace);
+
         ReinforcementService reinforcementService = new ReinforcementService();
 
         int originalTroopCount = t1.getTroopAmount();
@@ -274,9 +298,12 @@ public class TestReinforcementService {
     private static boolean testReinforceWithNullTerritory() {
         System.out.print("Testing reinforce when territory passed in is null: ");
         boolean passed = true;
+
         Player player = new Player("p1", Color.black);
+
         int troopsToPlace = 20;
         player.setTroopsToPlace(troopsToPlace);
+
         ReinforcementService reinforcementService = new ReinforcementService();
 
         for (int i = 0; i < 100; i++) {
@@ -308,17 +335,21 @@ public class TestReinforcementService {
     private static boolean testCalculateReinforcementBaseAmount() {
         System.out.print("Testing calculateReinforcement base case: ");
         boolean passed = true;
+
         Player player = new Player("p1", Color.black);
 
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20, new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, false);
+
         ArrayList<Territory> territories = new ArrayList<>();
         territories.add(t1);
 
         Region region = new Region(territories);
+
         ArrayList<Region> regions = new ArrayList<>();
         regions.add(region);
 
         TotalDominationWorld world = new TotalDominationWorld(regions);
+
         // 1 territory / 3 = 0, but the minimum floor is 3
         int expectedReturn = 3;
 
@@ -351,6 +382,7 @@ public class TestReinforcementService {
         final int territoryCountDivisor = 3;
         System.out.print("Testing calculateReinforcement when player owns no territories that give bonuses: ");
         boolean passed = true;
+
         Player player = new Player("p1", Color.black);
 
         ArrayList<Territory> territories = new ArrayList<>();
@@ -362,10 +394,12 @@ public class TestReinforcementService {
         }
 
         Region region = new Region(territories);
+
         ArrayList<Region> regions = new ArrayList<>();
         regions.add(region);
 
         TotalDominationWorld world = new TotalDominationWorld(regions);
+
         // 21 / 3 = 7, no terrain bonus — expected result is 7
         int expectedReturn = territories.size() / territoryCountDivisor;
 
@@ -381,6 +415,7 @@ public class TestReinforcementService {
         for (int i = 0; i < 100; i++) {
             Territory temp = new Territory(player, TerrainType.PLAIN.getTerrain(), 20, new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, false);
             territories.add(temp);
+
             // Rebuild the world each iteration to reflect the updated territory list
             region = new Region(territories);
             regions = new ArrayList<>();
@@ -415,6 +450,7 @@ public class TestReinforcementService {
         final int territoryCountDivisor = 3;
         System.out.print("Testing calculateReinforcement when player owns territories that give bonuses: ");
         boolean passed = true;
+
         Player player = new Player("p1", Color.black);
 
         ArrayList<Territory> territories = new ArrayList<>();
@@ -426,6 +462,7 @@ public class TestReinforcementService {
         }
 
         Region region = new Region(territories);
+
         ArrayList<Region> regions = new ArrayList<>();
         regions.add(region);
 
@@ -436,6 +473,7 @@ public class TestReinforcementService {
         for (Territory territory : world.getTerritoriesOwnedByPlayer(player)) {
             terrainBonus += territory.getTerrain().getTroopBonus();
         }
+
         int expectedReturn = territories.size() / territoryCountDivisor + terrainBonus;
 
         ReinforcementService reinforcementService = new ReinforcementService();
@@ -450,8 +488,10 @@ public class TestReinforcementService {
         for (int i = 0; i < 100; i++) {
             Territory temp = new Territory(player, TerrainType.PLAIN.getTerrain(), 20, new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, false);
             territories.add(temp);
+
             // Track the new territory's bonus in the running total
             terrainBonus += temp.getTerrain().getTroopBonus();
+
             // Rebuild the world to reflect the updated territory list
             region = new Region(territories);
             regions = new ArrayList<>();
