@@ -86,6 +86,9 @@ public class SetUpController {
     /** Handles logic for the troop placement phase. */
     private final TroopPlacementPhase troopPlacementPhase;
 
+    private final JButton showMapButton;
+    private final JButton showRegionsButton;
+
     /**
      * Constructs the SetUpController and initializes all setup components,
      * including the map display, region panel, and game information panel.
@@ -156,12 +159,12 @@ public class SetUpController {
         gameInfoPanel.add(successText);
 
         // Button used to toggle map view.
-        JButton showMapButton = new JButton("Show Map");
+        showMapButton = new JButton("Show Map");
         showMapButton.setBounds(gameInfoPanel.getWidth() - 200, 10, 200, 50);
         showMapButton.setVisible(false);
 
         // Button used to toggle region view.
-        JButton showRegionsButton = new JButton("Show Regions");
+        showRegionsButton = new JButton("Show Regions");
         showRegionsButton.setBounds(gameInfoPanel.getWidth() - 200, 10, 200, 50);
 
         // Switches from region view to map view.
@@ -249,6 +252,8 @@ public class SetUpController {
         } else {
             world = new CapitalDominationWorld((ArrayList<Region>) regions);
         }
+        showRegionsButton.setVisible(false);
+        showMapButton.setVisible(false);
         new GameController(world, players, display, mapDisplay.getMapDisplay(), gameInfoPanel, regionPanel, gameStatusLabel, generalInfoLabel, instructionText, errorText, successText, startController);
     }
 

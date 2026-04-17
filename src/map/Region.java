@@ -198,5 +198,19 @@ public class Region {
 
         }
     }
+
+    public String getColorName() {
+        if (color == null) return "Unknown";
+        if (color.equals(Color.RED)) return "Red";
+        if (color.equals(Color.CYAN)) return "Cyan";
+        if (color.equals(Color.GREEN)) return "Green";
+        if (color.equals(Color.YELLOW)) return "Yellow";
+        if (color.equals(Color.MAGENTA)) return "Magenta";
+        if (color.equals(new Color(215, 86, 36))) return "Orange";
+        if (color.equals(new Color(100, 0, 255))) return "Purple";
+        if (color.equals(Color.GRAY)) return "Gray";
+        if (color.equals(new Color(0, 100, 0))) return "Dark Green";
+        return "Unknown";
+    }
 }
 
