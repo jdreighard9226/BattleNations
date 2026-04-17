@@ -70,10 +70,10 @@ public class MapDisplay {
      */
     public MapDisplay(SetUpData setUpData, SetUpController setUpController) {
         screen = Toolkit.getDefaultToolkit().getScreenSize();
+        parent = setUpController.getDisplay();
         displayWidth = screen.width;
         displayHeight = (int) (screen.height * 0.8);
         loader = new MapLoaderService();
-        //startController.getGameSetUpData().getMap()
 
         mapData = loader.loadTerritories(setUpData.getMap(), screen);
         territories = mapData.territories();
@@ -83,7 +83,25 @@ public class MapDisplay {
         mapDisplay = new MapPanel(territories, setUpController);
         mapDisplay.setLayout(null);
         mapDisplay.setBounds(0, 0, displayWidth, displayHeight);
-        //mapDisplay.setBackground(Color.BLUE);
+
+        // Button that shuts program down when pressed.
+        JButton closeButton = new JButton("X");
+        closeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        closeButton.setBounds(screen.width - 52, 2, 50, 50);
+        closeButton.addActionListener(e -> {
+            System.exit(0);
+        });
+        mapDisplay.add(closeButton);
+
+        // Button that minimizes program when pressed.
+        JButton minimizeButton = new JButton("-");
+        minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
+        minimizeButton.addActionListener(e -> {
+            parent.setState(Frame.ICONIFIED);
+        });
+        mapDisplay.add(minimizeButton);
+
         mapDisplay.repaint();
     }
 
