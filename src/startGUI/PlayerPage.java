@@ -69,6 +69,7 @@ public class PlayerPage {
      * </p>
      */
     public PlayerPage() {
+
         // Initializes the player list.
         players = new ArrayList<>();
 
@@ -218,6 +219,7 @@ public class PlayerPage {
      * @return a configured {@link JLabel} representing the page title
      */
     private static JLabel createTitle(Dimension screen) {
+
         // Creates the label.
         JLabel title = new JLabel("PLAYER CREATION");
         title.setForeground(Color.WHITE);
@@ -260,6 +262,7 @@ public class PlayerPage {
      * @param startController the controller managing GUI navigation.
      */
     public void addPlayerPage(StartController startController) {
+
         // Adds the setup options panel to the main JFrame and repaints it.
         this.startController = startController;
         this.parent = startController.getDisplay();
@@ -287,6 +290,7 @@ public class PlayerPage {
      * Handles adding a player after validating input fields.
      */
     private void addPlayer() {
+
         // Gets the information from the player creation fields
         String name = playerName.getText().trim();
         String color = (String) playerColor.getSelectedItem();
@@ -340,7 +344,7 @@ public class PlayerPage {
             errorMessage += "Name is " + name.length() + " characters long, \nnames must be shorter than 20 characters.";
         }
 
-        // Only shows the errror message if there was something wrong with the information given.
+        // Only shows the error message if there was something wrong with the information given.
         if (!errorMessage.isEmpty()) {
             JOptionPane.showMessageDialog(parent, errorMessage);
             return;
@@ -374,7 +378,6 @@ public class PlayerPage {
     private void removePlayer() {
         int playerLocation = playerList.getSelectedIndex();
         Player playerToRemove = players.remove(playerLocation);
-
         playerListModel.remove(playerLocation);
         playerColor.addItem(playerToRemove.getColorName());
         removePlayer.setEnabled(false);

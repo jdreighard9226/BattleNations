@@ -52,18 +52,20 @@ public class StartController {
      * displays the start menu page.
      */
     public StartController() {
+
         // Initializes display and formats it.
         display = new JFrame();
         display.setExtendedState(JFrame.MAXIMIZED_BOTH);
         display.setUndecorated(true);
         display.setLayout(null);
 
+        // Creates an image to use for the toolbar.
         ImageIcon icon = new ImageIcon("src/gameImages/GameIcon.png");
         display.setIconImage(icon.getImage());
 
-        buttonSound = new ButtonSound("src/soundFiles/buttonSound.wav");
-
-        music = new Music("src/soundFiles/Start_GUI_Music.wav");
+        // Creates the sound objects for the games.
+        buttonSound = new ButtonSound("src/soundFiles/ButtonSound.wav");
+        music = new Music("src/soundFiles/StartGUIMusic.wav");
 
         // Initialize pages
         start = new StartMenuPage();
@@ -83,27 +85,37 @@ public class StartController {
         displayStartMenuPage();
     }
 
-    /** Displays the start menu page on the main JFrame display. */
+    /**
+     * Displays the start menu page on the main JFrame display.
+     */
     public void displayStartMenuPage() {
         start.addStartMenuPage(this);
     }
 
-    /** Displays the settings page on the main JFrame display. */
+    /**
+     * Displays the settings page on the main JFrame display.
+     */
     public void displaySettingsPage() {
         settings.addSettingsPage(this);
     }
 
-    /** Displays the game setup page on the main JFrame display. */
+    /**
+     * Displays the game setup page on the main JFrame display.
+     */
     public void displayPlayerPage() {
         playerPage.addPlayerPage(this);
     }
 
-    /** Displays the map choice page on the main JFrame display. */
+    /**
+     * Displays the map choice page on the main JFrame display.
+     */
     public void displayMapChoicePage() {
         mapChoice.addMapChoicePage(this);
     }
 
-    /** Displays set up options page. */
+    /**
+     * Displays set up options page.
+     */
     public void displaySetUpOptionsPage() {
         placementChoice.addSetUpOptionsPage(this);
     }
@@ -126,12 +138,16 @@ public class StartController {
         return gameSetUpData;
     }
 
-    /** Creates a new SetUpController object passing it the JFrame display, and game set up data. */
+    /**
+     * Creates a new SetUpController object passing it the JFrame display, and game set up data.
+     */
     public void changeToSetUpController() {
         new SetUpController(this.display, this.gameSetUpData, this);
     }
 
-    /** Playes the button click sound effect. */
+    /**
+     * Players the button click sound effect.
+     */
     public void makeSound() {
         buttonSound.playSound(2000);
     }
@@ -172,7 +188,9 @@ public class StartController {
         return music;
     }
 
-    /** Resets all the pages to their default state. */
+    /**
+     * Resets all the pages to their default state.
+     */
     public void reset() {
         gameSetUpData = new SetUpData();
         mapChoice.reset();

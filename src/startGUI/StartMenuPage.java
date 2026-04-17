@@ -37,6 +37,7 @@ public class StartMenuPage {
      * </p>
      */
     public StartMenuPage() {
+
         // Gets the screen size of the host device.
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -81,6 +82,7 @@ public class StartMenuPage {
      * @param startController the controller managing GUI navigation.
      */
     public void addStartMenuPage(StartController startController) {
+
         // Adds the setup options panel to the main JFrame and repaints it.
         this.startController = startController;
         this.parent = startController.getDisplay();

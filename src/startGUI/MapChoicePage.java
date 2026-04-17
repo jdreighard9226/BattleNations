@@ -52,6 +52,7 @@ public class MapChoicePage {
      * buttons, images, and event listeners.
      */
     public MapChoicePage() {
+
         // Creates the background panel with an image.
         mapChoicePanel = new ImagePanel("src/gameImages/OptionScreen.png");
 
@@ -179,6 +180,7 @@ public class MapChoicePage {
      * @return a configured {@link JLabel} representing the page title
      */
     private static JLabel createTitle(Dimension screen) {
+
         // Creates the label.
         JLabel title = new JLabel("MAP SELECTION");
         title.setForeground(Color.WHITE);
@@ -221,6 +223,7 @@ public class MapChoicePage {
      * @param startController the controller managing GUI navigation.
      */
     public void addMapChoicePage(StartController startController) {
+
         // Adds the map choice panel to the main JFrame and repaints it.
         this.startController = startController;
         this.parent = startController.getDisplay();

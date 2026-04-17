@@ -38,7 +38,7 @@ public class SetUpController {
 
     private final Territory[][] territories;
 
-    private String faze;
+    private String phase;
 
     private Player activePlayer;
 
@@ -52,11 +52,13 @@ public class SetUpController {
 
     private StartController startController;
 
+    private TerritorySelectionPhase territorySelectionPhase;
+
     public SetUpController(JFrame display, SetUpData setUpData, StartController startController) {
         this.display = display;
         this.gameSetUpData = setUpData;
         this.startController = startController;
-        faze = "Territory";
+        phase = "Territory";
 
         mapDisplay = new MapDisplay(gameSetUpData, this);
         territories = mapDisplay.getTerritories();
@@ -136,9 +138,7 @@ public class SetUpController {
 
         displayMapDisplay();
 
-        if (gameSetUpData.isRandomTerritories()) {
-            randomlyAssigningTerritories();
-        }
+        territorySelectionPhase = new TerritorySelectionPhase(this, territories, players, gameSetUpData.isRandomTerritories());
 
     }
 
@@ -146,89 +146,94 @@ public class SetUpController {
         return display;
     }
 
-    public SetUpData getGameSetUpData() {
-        return gameSetUpData;
-    }
-
     public void displayMapDisplay() {
         mapDisplay.addMapDisplay(this.display);
     }
 
     public void getTerritoryClicked(Point point) {
-        for (Territory[] row : territories) {
-            for (Territory territory : row) {
-                if (territory != null && territory.contains(point)) {
-                    if (faze.equals("Territory")) {
-                        assigningTerritory(territory);
-                    } else if (faze.equals("Troop")) {
-                        placeTroop(territory);
-                    }
-                }
-            }
+        if (phase.equals("Territory")) {
+            territorySelectionPhase.dealWithClick(point);
+        } else if (phase.equals("Troop")) {
+            placeTroop(territory);
         }
     }
 
-    public void assigningTerritory(Territory territory) {
-        if (territory.getPlayer() == null) {
-            if (territory.getTerrain() instanceof WaterTerrain || territory.getTerrain() instanceof WaterRouteTerrain) {
-                errorText.setText("Cannot select a water or water route Territory. Select A different one ");
-                gameInfoPanel.repaint();
-            } else {
-                territory.setPlayer(activePlayer);
-                territory.setTroopAmount(1);
-                playerTurn++;
-                if (playerTurn >= players.size()) {
-                    playerTurn = 0;
-                }
-                activePlayer = players.get(playerTurn);
-                updateGameInfoText();
-                if (!unownedTerritory()) {
-                    placeTroopFaze();
-                }
-            }
-        } else {
-            errorText.setText("Territory is already Owned, Select A different one");
-            gameInfoPanel.repaint();
-        }
 
-    }
+//    public void getTerritoryClicked(Point point) {
+//        for (Territory[] row : territories) {
+//            for (Territory territory : row) {
+//                if (territory != null && territory.contains(point)) {
+//                    if (phase.equals("Territory")) {
+//                        assigningTerritory(territory);
+//                    } else if (phase.equals("Troop")) {
+//                        placeTroop(territory);
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    public void assigningTerritory(Territory territory) {
+//        if (territory.getPlayer() == null) {
+//            if (territory.getTerrain() instanceof WaterTerrain || territory.getTerrain() instanceof WaterRouteTerrain) {
+//                errorText.setText("Cannot select a water or water route Territory. Select A different one ");
+//                gameInfoPanel.repaint();
+//            } else {
+//                territory.setPlayer(activePlayer);
+//                territory.setTroopAmount(1);
+//                playerTurn++;
+//                if (playerTurn >= players.size()) {
+//                    playerTurn = 0;
+//                }
+//                activePlayer = players.get(playerTurn);
+//                updateGameInfoText();
+//                if (!unownedTerritory()) {
+//                    placeTroopPhase();
+//                }
+//            }
+//        } else {
+//            errorText.setText("Territory is already Owned, Select A different one");
+//            gameInfoPanel.repaint();
+//        }
+//
+//    }
+//
+//    public boolean unownedTerritory() {
+//        for (Territory[] row : territories) {
+//            for (Territory territory : row) {
+//                if (territory != null && territory.getPlayer() == null && !(territory.getTerrain() instanceof WaterTerrain) && !(territory.getTerrain() instanceof WaterRouteTerrain)) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
+//
+//    public void randomlyAssigningTerritories() {
+//        Random random = new Random();
+//        while (unownedTerritory()) {
+//            int row = random.nextInt(territories.length);
+//            int col = random.nextInt(territories[row].length);
+//            if (territories[row][col] != null && territories[row][col].getPlayer() == null && !(territories[row][col].getTerrain() instanceof WaterTerrain) && !(territories[row][col].getTerrain() instanceof WaterRouteTerrain)) {
+//                territories[row][col].setPlayer(activePlayer);
+//                territories[row][col].setTroopAmount(1);
+//                playerTurn++;
+//                if (playerTurn >= players.size()) {
+//                    playerTurn = 0;
+//                }
+//                activePlayer = players.get(playerTurn);
+//                updateGameInfoText();
+//            }
+//        }
+//        placeTroopPhase();
+//    }
 
-    public boolean unownedTerritory() {
-        for (Territory[] row : territories) {
-            for (Territory territory : row) {
-                if (territory != null && territory.getPlayer() == null && !(territory.getTerrain() instanceof WaterTerrain) && !(territory.getTerrain() instanceof WaterRouteTerrain)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public void randomlyAssigningTerritories() {
-        Random random = new Random();
-        while (unownedTerritory()) {
-            int row = random.nextInt(territories.length);
-            int col = random.nextInt(territories[row].length);
-            if (territories[row][col] != null && territories[row][col].getPlayer() == null && !(territories[row][col].getTerrain() instanceof WaterTerrain) && !(territories[row][col].getTerrain() instanceof WaterRouteTerrain)) {
-                territories[row][col].setPlayer(activePlayer);
-                territories[row][col].setTroopAmount(1);
-                playerTurn++;
-                if (playerTurn >= players.size()) {
-                    playerTurn = 0;
-                }
-                activePlayer = players.get(playerTurn);
-                updateGameInfoText();
-            }
-        }
-        placeTroopFaze();
-    }
-
-    public void placeTroopFaze() {
+    public void placeTroopPhase() {
         giveTroopsToPlace(60);
         if (gameSetUpData.isRandomTroopPlacement()) {
             randomlyPlaceTroops();
         } else {
-            faze = "Troop";
+            phase = "Troop";
             updateGameInfoText();
         }
     }
@@ -314,18 +319,26 @@ public class SetUpController {
         return false;
     }
 
-    private void updateGameInfoText() {
+    public void updateGameInfoText() {
         errorText.setText("");
 
-        if (faze.equals("Territory")) {
+        if (phase.equals("Territory")) {
             gameStatusLabel.setText("Player: " + activePlayer.getName() + " | Color: " + activePlayer.getColorName());
             instructionText.setText("Select a territory");
-        } else if (faze.equals("Troop")) {
+        } else if (phase.equals("Troop")) {
             gameStatusLabel.setText("Player: " + activePlayer.getName() + " | Color: " + activePlayer.getColorName());
             instructionText.setText("Troops left: " + activePlayer.getTroopsToPlace() + " | Place this turn: " + troopsToPlace);
         }
 
         gameInfoPanel.repaint();
+    }
+
+    public JLabel getErrorText() {
+        return errorText;
+    }
+
+    public ImagePanel getGameInfoPanel() {
+        return gameInfoPanel;
     }
 
 }
