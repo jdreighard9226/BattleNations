@@ -48,7 +48,7 @@ public class MapPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (activeController.equals("Set Up")) {
-                    setUpController.getTerritoryClicked(e.getPoint());
+                    setUpController.dealWithClick(e.getPoint());
                 } else {
                     gameController.getTerritoryClicked(e.getPoint());
                 }
