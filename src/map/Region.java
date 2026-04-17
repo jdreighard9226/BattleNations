@@ -175,14 +175,14 @@ public class Region {
      * @param g the graphics context used for rendering
      */
     public void draw(Graphics g) {
-        g.setColor(color);
         for (Territory t : territories) {
+            g.setColor(color);
             int[] xpoints = t.getXPoints();
             int[] ypoints = t.getYPoints();
             int npoints = t.getNPoints();
 
             g.drawPolygon(xpoints, ypoints, npoints);
-            g.setColor(color.brighter());
+            g.setColor(color.darker());
 
             g.fillPolygon(xpoints, ypoints, npoints);
             ImageIcon watermarkIcon = new ImageIcon(t.getTerrain().getImageFile());

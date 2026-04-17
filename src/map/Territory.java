@@ -216,7 +216,7 @@ public class Territory extends Polygon {
         if (isHighlighted) {
             g.setColor(Color.WHITE);
         } else if (this.getCurrentColor() != null) {
-            g.setColor(this.getCurrentColor().brighter());
+            g.setColor(this.getCurrentColor().darker());
         } else {
             if (this.getTerrain() instanceof WaterTerrain || this.getTerrain() instanceof WaterRouteTerrain) {
                 g.setColor(Color.BLUE);
