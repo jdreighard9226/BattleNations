@@ -123,7 +123,7 @@ public class GameController {
      * @param successText      label showing success messages
      * @param startController  controller in charge of the setting up of a new game
      */
-    public GameController(World world, List<Player> players, JFrame display, MapPanel mapPanel, JPanel gameInfoPanel, RegionPanel regionPanel, JLabel gameStatusLabel, JLabel generalInfoLabel, JLabel instructionText, JLabel errorText, JLabel successText, StartController startController, JButton changeDisplayButton) {
+    public GameController(World world, List<Player> players, JFrame display, MapPanel mapPanel, JPanel gameInfoPanel, RegionPanel regionPanel, JLabel gameStatusLabel, JLabel generalInfoLabel, JLabel instructionText, JLabel errorText, JLabel successText, StartController startController) {
         gameLogic = new GameLogic(world, players, new AttackService(), new ReinforcementService(), new FortifyService());
         gameLogic.calculateReinforcement();
         territories = world.getAllTerritories();
@@ -138,10 +138,10 @@ public class GameController {
         this.errorText = errorText;
         this.successText = successText;
         this.regionPanel = regionPanel;
-        this.changeDisplayButton = changeDisplayButton;
 
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-
+        changeDisplayButton = new JButton("Show Map");
+        changeDisplayButton.setVisible(true);
         changeDisplayButton.addActionListener(e -> {
             // If the button currently says "Show Map", switch back to the map display
             if (changeDisplayButton.getText().equals("Show Map")) {
