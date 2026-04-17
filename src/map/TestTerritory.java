@@ -6,7 +6,8 @@ import terrain.TerrainType;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static java.awt.Color.*;
+import static java.awt.Color.BLUE;
+import static java.awt.Color.GREEN;
 
 /**
  * <p>Tests the core functionality of the Territory class.</p>
@@ -47,10 +48,9 @@ public class TestTerritory {
     }
 
 
-
     /**
      * Tests the Territory constructor.
-     *
+     * <p>
      * Verifies that player, terrain, troop amount,
      * and capital status are correctly initialized.
      *
@@ -96,7 +96,7 @@ public class TestTerritory {
 
     /**
      * Tests the setPlayer method.
-     *
+     * <p>
      * Ensures that the player is updated correctly and
      * that repeated updates behave consistently.
      *
@@ -144,7 +144,7 @@ public class TestTerritory {
 
     /**
      * Tests adding neighboring territories.
-     *
+     * <p>
      * Verifies that territories are properly added to the
      * neighbor list and can be retrieved using hasNeighbor().
      *
@@ -216,7 +216,7 @@ public class TestTerritory {
 
     /**
      * Tests the hasNeighbor method.
-     *
+     * <p>
      * Ensures that the method correctly identifies whether
      * a territory exists in the neighbor list.
      *
@@ -288,7 +288,7 @@ public class TestTerritory {
 
     /**
      * Tests that the Draw method executes without throwing exceptions.
-     *
+     * <p>
      * This test does not verify rendering correctness, only that
      * the method runs safely under repeated calls.
      *

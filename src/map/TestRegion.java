@@ -30,7 +30,7 @@ public class TestRegion {
 
     /**
      * Runs all Region tests.
-     *
+     * <p>
      * Executes each test method and prints whether all tests passed.
      *
      * @param args command-line arguments (not used)
@@ -53,7 +53,7 @@ public class TestRegion {
 
     /**
      * Tests initializing a Region with multiple territories.
-     *
+     * <p>
      * Verifies that the region size is correct, the territories list
      * matches the input, and all territories are contained in the region.
      *
@@ -111,7 +111,7 @@ public class TestRegion {
 
     /**
      * Tests adding territories to a Region.
-     *
+     * <p>
      * Ensures that the region size increases correctly and that
      * added territories are properly stored.
      *
@@ -169,7 +169,7 @@ public class TestRegion {
 
     /**
      * Tests whether a Region is correctly identified as conquered.
-     *
+     * <p>
      * A region should be conquered when all territories belong
      * to the same player and not conquered otherwise.
      *
@@ -222,7 +222,7 @@ public class TestRegion {
 
     /**
      * Tests clearing all territories from a Region.
-     *
+     * <p>
      * Verifies that the region becomes empty and that no
      * territories remain after clearing.
      *
@@ -292,7 +292,7 @@ public class TestRegion {
 
     /**
      * Tests the hasTerritory method.
-     *
+     * <p>
      * Ensures that the method correctly identifies whether
      * a territory exists in the region before and after removal.
      *
@@ -409,9 +409,9 @@ public class TestRegion {
      * We do not know if we will implement Capital Territories to game yet.
      * No need to test it until we actually implement it for our game
      *
-    private static boolean testSingleCapitalTerritory() {
-        return false;
-    }
-    */
+     private static boolean testSingleCapitalTerritory() {
+     return false;
+     }
+     */
 
 }

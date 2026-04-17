@@ -55,7 +55,7 @@ public class MapDisplay {
     /**
      * Parent JFrame that contains the map display.
      */
-    private JFrame parent;
+    private final JFrame parent;
 
     private final MapLoaderService loader;
 

@@ -56,8 +56,8 @@ public class TestWorld {
      * Wrapper class used to return both a world and its associated player.
      */
     private static class WorldSetupWrapper {
-        private DummyWorld world;
-        private Player player1;
+        private final DummyWorld world;
+        private final Player player1;
 
         /**
          * Constructs a wrapper containing a world and player.
@@ -630,7 +630,7 @@ public class TestWorld {
 
         TotalDominationWorld world = new TotalDominationWorld(regions);
 
-        Player player2  = new Player("p2", Color.RED);
+        Player player2 = new Player("p2", Color.RED);
         List<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
@@ -714,7 +714,7 @@ public class TestWorld {
 
         CapitalDominationWorld world = new CapitalDominationWorld(regions);
 
-        Player player2  = new Player("p2", Color.RED);
+        Player player2 = new Player("p2", Color.RED);
         List<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);

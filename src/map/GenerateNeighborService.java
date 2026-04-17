@@ -2,7 +2,6 @@ package map;
 
 import terrain.WaterRouteTerrain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GenerateNeighborService {
@@ -120,7 +119,7 @@ public class GenerateNeighborService {
 
         if (!neighbor.hasNeighbor(current)) {
             neighbor.addToTerritoryNeighbors(current);
-            returnValue =  true;
+            returnValue = true;
         }
         return returnValue;
     }
@@ -147,7 +146,7 @@ public class GenerateNeighborService {
         }
     }
 
-    private void moreWaterRoutes(Territory current){
+    private void moreWaterRoutes(Territory current) {
         List<Territory> neighbors = current.getNeighboringTerritories();
         boolean newNeighbors = false;
         outer:
@@ -156,8 +155,8 @@ public class GenerateNeighborService {
             for (Territory n : neighbors) {
                 if (n.getTerrain() instanceof WaterRouteTerrain) {
                     List<Territory> waterRoutesNeighbors = n.getNeighboringTerritories();
-                    for (Territory wrn: waterRoutesNeighbors) {
-                        if(addTerritoryNeighbor(current,wrn)) {
+                    for (Territory wrn : waterRoutesNeighbors) {
+                        if (addTerritoryNeighbor(current, wrn)) {
                             newNeighbors = false;
                             continue outer;
                         }

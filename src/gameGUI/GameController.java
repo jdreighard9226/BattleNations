@@ -98,12 +98,12 @@ public class GameController {
     /**
      * Button used to switch between map and region displays.
      */
-    private JButton changeDisplayButton;
+    private final JButton changeDisplayButton;
 
     /**
      * Start Controller used to return back to the main menu after the game
      */
-    private StartController startController;
+    private final StartController startController;
 
     private boolean showingRegions = false;
 
@@ -153,7 +153,7 @@ public class GameController {
                 // Otherwise remove the map and region panel to prepare for region view
                 display.remove(mapPanel);
                 display.add(regionPanel);
-                regionPanel.setBounds(0, 0, screen.width, (int)(screen.height * 0.8));
+                regionPanel.setBounds(0, 0, screen.width, (int) (screen.height * 0.8));
                 changeDisplayButton.setText("Show Map");
                 showingRegions = true;
                 regionPanel.repaint();
@@ -537,7 +537,7 @@ public class GameController {
             errorText.setVisible(false);
             successText.setVisible(false);
             World world = gameLogic.getWorld();
-            if (world instanceof  TotalDominationWorld) {
+            if (world instanceof TotalDominationWorld) {
                 int territoriesOwned = world.getTerritoryCountOwnedByPlayer(currentPlayer);
                 int totalTerritories = world.getTerritoryCount();
 
@@ -639,40 +639,40 @@ public class GameController {
 
     private void showTerrainInfo() {
         String info = """
-            TERRAIN TYPES & BONUSES
-            ________________________
-            
-            Plain
-              - Attack Bonus:   0%
-              - Defense Bonus:  0%
-              - Troop Bonus:    +0
-            
-            Desert
-              - Attack Bonus:   +9%
-              - Defense Bonus:  0%
-              - Troop Bonus:    +0
-            
-            Mountain
-              - Attack Bonus:   0%
-              - Defense Bonus:  +10%
-              - Troop Bonus:    +0
-            
-            City
-              - Attack Bonus:   0%
-              - Defense Bonus:  0%
-              - Troop Bonus:    +1
-            
-            Water
-              - Not ownable or attackable
-            
-            Water Route
-              - Connects non-adjacent territories
-              - Not ownable or attackable
-            
-            Capital (Star on map)
-              - No combat bonuses
-              - Must be captured to win in Capital Domination
-            """;
+                TERRAIN TYPES & BONUSES
+                ________________________
+                
+                Plain
+                  - Attack Bonus:   0%
+                  - Defense Bonus:  0%
+                  - Troop Bonus:    +0
+                
+                Desert
+                  - Attack Bonus:   +9%
+                  - Defense Bonus:  0%
+                  - Troop Bonus:    +0
+                
+                Mountain
+                  - Attack Bonus:   0%
+                  - Defense Bonus:  +10%
+                  - Troop Bonus:    +0
+                
+                City
+                  - Attack Bonus:   0%
+                  - Defense Bonus:  0%
+                  - Troop Bonus:    +1
+                
+                Water
+                  - Not ownable or attackable
+                
+                Water Route
+                  - Connects non-adjacent territories
+                  - Not ownable or attackable
+                
+                Capital (Star on map)
+                  - No combat bonuses
+                  - Must be captured to win in Capital Domination
+                """;
         JOptionPane.showMessageDialog(display, info, "Terrain Info", JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -49,9 +49,9 @@ public class TerritorySelectionPhase {
      * </p>
      *
      * @param setUpController controller used for UI updates and phase transitions
-     * @param territories 2D grid of map territories
-     * @param players list of players participating in the game
-     * @param isRandom whether territories should be randomly assigned
+     * @param territories     2D grid of map territories
+     * @param players         list of players participating in the game
+     * @param isRandom        whether territories should be randomly assigned
      */
     public TerritorySelectionPhase(SetUpController setUpController, Territory[][] territories, List<Player> players, Boolean isRandom) {
         this.setUpController = setUpController;

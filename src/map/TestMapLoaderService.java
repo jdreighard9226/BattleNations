@@ -86,8 +86,7 @@ public class TestMapLoaderService {
                 if (territories[i][j] == null) {
                     passed = false;
                     System.err.println("Found null territories where territories should have been.");
-                }
-                else if (!(territories[i][j].getTerrain() instanceof CityTerrain)) {
+                } else if (!(territories[i][j].getTerrain() instanceof CityTerrain)) {
                     passed = false;
                     System.err.println("Found non city territories in city only map.");
                 } else if (!territories[i][j].isCapital()) {
@@ -122,8 +121,7 @@ public class TestMapLoaderService {
                 if (territories[i][j] == null) {
                     passed = false;
                     System.err.println("Found null territories where territories should have been.");
-                }
-                else if (!(territories[i][j].getTerrain() instanceof CityTerrain)) {
+                } else if (!(territories[i][j].getTerrain() instanceof CityTerrain)) {
                     passed = false;
                     System.err.println("Found non city territories in city only map.");
                 } else if (territories[i][j].isCapital()) {
@@ -157,8 +155,7 @@ public class TestMapLoaderService {
                 if (territories[i][j] == null) {
                     passed = false;
                     System.err.println("Found null territories where territories should have been.");
-                }
-                else if (!(territories[i][j].getTerrain() instanceof DesertTerrain)) {
+                } else if (!(territories[i][j].getTerrain() instanceof DesertTerrain)) {
                     passed = false;
                     System.err.println("Found non desert territories in desert only map.");
                 }
@@ -189,8 +186,7 @@ public class TestMapLoaderService {
                 if (territories[i][j] == null) {
                     passed = false;
                     System.err.println("Found null territories where territories should have been.");
-                }
-                else if (!(territories[i][j].getTerrain() instanceof MountainTerrain)) {
+                } else if (!(territories[i][j].getTerrain() instanceof MountainTerrain)) {
                     passed = false;
                     System.err.println("Found non mountain territories in mountain only map.");
                 }
@@ -221,8 +217,7 @@ public class TestMapLoaderService {
                 if (territories[i][j] == null) {
                     passed = false;
                     System.err.println("Found null territories where territories should have been.");
-                }
-                else if (!(territories[i][j].getTerrain() instanceof PlainTerrain)) {
+                } else if (!(territories[i][j].getTerrain() instanceof PlainTerrain)) {
                     passed = false;
                     System.err.println("Found non plains territories in plain only map.");
                 }
@@ -320,7 +315,7 @@ public class TestMapLoaderService {
         MapLoaderService service = new MapLoaderService();
         MapLoaderData data = service.loadTerritories("src/mapLoaderServiceTestTextFiles/all_capitals", new Dimension(1000, 800));
         Territory[][] territories = data.territories();
-        List<Region> regions =  data.regions();
+        List<Region> regions = data.regions();
         int regionCheck = 0;
         for (int i = 0; i < territories.length; i++) {
             int alternator = (i % 2 != 0) ? 1 : 0;
@@ -374,10 +369,10 @@ public class TestMapLoaderService {
                             passed = false;
                         }
                         break;
-                    }
-                regionCheck++;
                 }
+                regionCheck++;
             }
+        }
         if (passed) System.out.println("Passed");
         else System.err.println("Failed");
         return passed;
@@ -394,18 +389,19 @@ public class TestMapLoaderService {
         MapLoaderService service = new MapLoaderService();
         MapLoaderData data = service.loadTerritories("src/mapLoaderServiceTestTextFiles/mixed", new Dimension(1000, 800));
         Territory[][] territories = data.territories();
-        List<Region> regions =  data.regions();
+        List<Region> regions = data.regions();
         int regionCheck = 0;
         for (int i = 0; i < territories.length; i++) {
             int alternator = (i % 2 != 0) ? 1 : 0;
             for (int j = 0; j < territories[i].length - alternator; j++) {
                 if (regionCheck < 5) {
-                    if(!regions.getFirst().hasTerritory(territories[i][j])) {
+                    if (!regions.getFirst().hasTerritory(territories[i][j])) {
                         System.err.println("Region 1 should have contained territory (" + i + "," + j + ")");
                         passed = false;
                     }
-                } if (regionCheck > 7 && regionCheck < 12){
-                    if(!regions.get(1).hasTerritory(territories[i][j])) {
+                }
+                if (regionCheck > 7 && regionCheck < 12) {
+                    if (!regions.get(1).hasTerritory(territories[i][j])) {
                         System.err.println("Region 2 should have contained territory (" + i + "," + j + ")");
                         passed = false;
                     }

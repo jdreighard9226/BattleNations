@@ -2,7 +2,6 @@ package gameGUI;
 
 import player.Player;
 import startGUI.ImagePanel;
-import startGUI.StartController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,10 +36,10 @@ public class WinPage {
      * displaying the winner, and adding navigation buttons.</p>
      *
      * @param gameController controller used to handle navigation back to the main menu
-     * @param winner the player who won the game
-     * @param mode the game mode used (e.g., "Capital Domination")
+     * @param winner         the player who won the game
+     * @param mode           the game mode used (e.g., "Capital Domination")
      */
-    public WinPage(GameController  gameController, Player winner, String mode) {
+    public WinPage(GameController gameController, Player winner, String mode) {
 
         // Initialize background panel with victory image
         winPanel = new ImagePanel("src/gameImages/VictoryScreen.png");

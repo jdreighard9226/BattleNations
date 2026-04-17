@@ -79,6 +79,7 @@ public class StartController {
 
         music.startMusic();
 
+        //First part of sound file is silent.
         buttonSound.playSound(19580);
 
         // Show the start menu by default
