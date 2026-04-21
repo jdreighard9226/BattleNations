@@ -2,6 +2,7 @@ package map; //rename packages
 
 import setUpGUI.SetUpController;
 import startGUI.SetUpData;
+import startGUI.StartController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,7 +64,6 @@ public class MapDisplay {
 
     private final List<Region> regions;
 
-
     /**
      * Constructs a MapDisplay object, initializes the screen size,
      * loads the map file, and creates the territory grid.
@@ -84,12 +84,12 @@ public class MapDisplay {
         mapDisplay.setLayout(null);
         mapDisplay.setBounds(0, 0, displayWidth, displayHeight);
 
-        // Button that shuts program down when pressed.
+        // Button that returns program to start when pressed.
         JButton closeButton = new JButton("X");
         closeButton.setFont(new Font("Arial", Font.BOLD, 14));
         closeButton.setBounds(screen.width - 52, 2, 50, 50);
         closeButton.addActionListener(e -> {
-            System.exit(0);
+            setUpController.reset();
         });
         mapDisplay.add(closeButton);
 
@@ -98,7 +98,7 @@ public class MapDisplay {
         minimizeButton.setFont(new Font("Arial", Font.BOLD, 14));
         minimizeButton.setBounds(screen.width - 104, 2, 50, 50);
         minimizeButton.addActionListener(e -> {
-            parent.setState(Frame.ICONIFIED);
+            setUpController.minimize();
         });
         mapDisplay.add(minimizeButton);
 

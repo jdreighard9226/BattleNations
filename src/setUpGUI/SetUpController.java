@@ -111,7 +111,7 @@ public class SetUpController {
         mapDisplay = new MapDisplay(gameSetUpData, this);
         territories = mapDisplay.getTerritories();
         regions = mapDisplay.getRegions();
-        regionPanel = new RegionPanel(territories, regions);
+        regionPanel = new RegionPanel(territories, regions, this);
         players = gameSetUpData.getPlayers();
 
         //Gets the dimensions of the screen for reference.
@@ -302,6 +302,23 @@ public class SetUpController {
      */
     public void setPhase(String phase) {
         this.phase = phase;
+    }
+
+    /**
+     * Resets the game back to the start.
+     */
+    public void reset() {
+        mapDisplay.removeMapDisplay(display);
+        display.remove(regionPanel);
+        display.remove(gameInfoPanel);
+        startController.reset();
+    }
+
+    /**
+     * Closes the game screen without shutting down the program.
+     */
+    public void minimize(){
+        startController.getDisplay().setState(Frame.ICONIFIED);
     }
 
 }
