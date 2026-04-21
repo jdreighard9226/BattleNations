@@ -305,7 +305,7 @@ public class SetUpOptionsPage {
 
         // Checks to see if the instruction box should be displayed.
         if (stillShow) {
-            JCheckBox checkBox = new JCheckBox("Don't show again");
+            JCheckBox checkBox = new JCheckBox("Don't show again this session");
             Object[] message = {"""
 Please select options for territory assignment, troop placement, and game mode.
 

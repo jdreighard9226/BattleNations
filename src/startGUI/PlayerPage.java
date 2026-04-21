@@ -268,7 +268,7 @@ public class PlayerPage {
 
         // Checks to see if the instruction box should be displayed.
         if (stillShow) {
-            JCheckBox checkBox = new JCheckBox("Don't show again");
+            JCheckBox checkBox = new JCheckBox("Don't show again this session");
             Object[] message = {"Welcome to the Player Creation Page.\n" +
                     "To create a player, enter a name shorter than 20 characters into the text box,\n" +
                     "select a color from the drop down list, and then click add, to add player.\n" +

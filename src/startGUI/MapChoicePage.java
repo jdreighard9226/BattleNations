@@ -229,7 +229,7 @@ public class MapChoicePage {
 
         // Checks to see if the instruction box should be displayed.
         if (stillShow) {
-            JCheckBox checkBox = new JCheckBox("Don't show again");
+            JCheckBox checkBox = new JCheckBox("Don't show again this session");
             Object[] message = {"Please click on a map to select it to be the map used for your game.\n" +
                     "If you wish to change it simply click on the new map of your choice.", checkBox};
 
