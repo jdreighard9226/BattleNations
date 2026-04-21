@@ -29,6 +29,12 @@ public class StartMenuPage {
     private StartController startController;
 
     /**
+     * Determines whether the instruction popup should be shown.
+     * Set to false if the user selects "Don't show again".
+     */
+    private boolean stillShow = true;
+
+    /**
      * Constructs the StartMenuPage and initializes all buttons and the background image.
      *
      * <p>
@@ -86,6 +92,22 @@ public class StartMenuPage {
         this.parent = startController.getDisplay();
         parent.add(startMenuPanel);
         parent.repaint();
+
+        // Checks to see if the instruction box should be displayed.
+        if (stillShow) {
+            JCheckBox checkBox = new JCheckBox("Don't show again");
+            Object[] message = {"Welcom to Battle Nations!\n" +
+                    "To set up and play a game click Start Game\n" +
+                    "To change sound settings click Settings, or press 's' on your keyboard at any time.\n" +
+                    "To stop the game click Quit.", checkBox};
+
+            JOptionPane.showMessageDialog(parent, message, "Player Creation", JOptionPane.INFORMATION_MESSAGE);
+
+            startController.makeSound();
+            if (checkBox.isSelected()) {
+                stillShow = false;
+            }
+        }
 
         // Creates an error message if either the sound or music is not working.
         String message = "";

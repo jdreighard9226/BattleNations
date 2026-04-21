@@ -109,7 +109,6 @@ public class StartController {
 
                 // Creates a popup window with the message.
                 JOptionPane.showMessageDialog(display, message, "Settings", JOptionPane.INFORMATION_MESSAGE);
-                makeSound();
 
                 // Modifies if button sound or music are enabled based on if their respective checkboxes are selected.
                 if (music.isSelected()) {
@@ -118,6 +117,7 @@ public class StartController {
                     getMusic().disableMusic();
                 }
                 setSound(buttonSound.isSelected());
+                makeSound();
             }
         });
 
