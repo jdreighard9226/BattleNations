@@ -41,7 +41,6 @@ public class ButtonSound {
      * @param fileName the file path of the sound file to be loaded
      */
     public ButtonSound(String fileName) {
-
         // Gets the file type of the file that's trying to be opened.
         String fileExtension = fileName.substring(fileName.lastIndexOf("."));
 

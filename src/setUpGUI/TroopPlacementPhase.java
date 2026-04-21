@@ -169,7 +169,6 @@ public class TroopPlacementPhase {
      * @param territory the territory where the troop is to be placed
      */
     public void placeTroop(Territory territory) {
-
         //Checks to see if the territories owner is the active player.
         if (territory.getPlayer() == activePlayer) {
 

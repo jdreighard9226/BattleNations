@@ -67,7 +67,6 @@ public class SetUpOptionsPage {
      * </p>
      */
     public SetUpOptionsPage() {
-
         // Creates the background image panel.
         setUpOptionsPanel = new ImagePanel("src/gameImages/OptionScreen.png");
 
@@ -262,7 +261,6 @@ public class SetUpOptionsPage {
      * @return a configured {@link JLabel} representing the page title
      */
     private static JLabel createTitle(Dimension screen) {
-
         // Creates the label.
         JLabel title = new JLabel("GAME SET UP");
         title.setForeground(Color.WHITE);
@@ -299,7 +297,6 @@ public class SetUpOptionsPage {
      * @param startController the controller managing GUI navigation.
      */
     public void addSetUpOptionsPage(StartController startController) {
-
         // Adds the setup options panel to the main JFrame and repaints it.
         this.startController = startController;
         parent = startController.getDisplay();

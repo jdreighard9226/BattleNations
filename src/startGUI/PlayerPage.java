@@ -69,7 +69,6 @@ public class PlayerPage {
      * </p>
      */
     public PlayerPage() {
-
         // Initializes the player list.
         players = new ArrayList<>();
 
@@ -219,7 +218,6 @@ public class PlayerPage {
      * @return a configured {@link JLabel} representing the page title
      */
     private static JLabel createTitle(Dimension screen) {
-
         // Creates the label.
         JLabel title = new JLabel("PLAYER CREATION");
         title.setForeground(Color.WHITE);
@@ -262,7 +260,6 @@ public class PlayerPage {
      * @param startController the controller managing GUI navigation.
      */
     public void addPlayerPage(StartController startController) {
-
         // Adds the setup options panel to the main JFrame and repaints it.
         this.startController = startController;
         this.parent = startController.getDisplay();
@@ -290,7 +287,6 @@ public class PlayerPage {
      * Handles adding a player after validating input fields.
      */
     private void addPlayer() {
-
         // Gets the information from the player creation fields
         String name = playerName.getText().trim();
         String color = (String) playerColor.getSelectedItem();

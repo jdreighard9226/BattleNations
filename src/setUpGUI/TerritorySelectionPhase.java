@@ -96,7 +96,6 @@ public class TerritorySelectionPhase {
      * @param territory the territory being assigned
      */
     public void assigningTerritory(Territory territory) {
-
         // Checks to make sure the territory isn't already owned.
         if (territory.getPlayer() == null) {
 

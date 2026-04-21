@@ -40,7 +40,6 @@ public class Music {
      * @param fileName the file path of the audio file to be loaded
      */
     public Music(String fileName) {
-
         // Gets the file type of the file that's trying to be opened.
         String fileExtension = fileName.substring(fileName.lastIndexOf("."));
 

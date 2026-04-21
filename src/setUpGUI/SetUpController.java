@@ -103,7 +103,6 @@ public class SetUpController {
      * @param startController the controller responsible for navigation between GUI pages
      */
     public SetUpController(JFrame display, SetUpData setUpData, StartController startController) {
-
         //Populates all variable information.
         this.display = display;
         this.gameSetUpData = setUpData;

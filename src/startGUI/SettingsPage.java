@@ -46,7 +46,6 @@ public class SettingsPage {
      * Constructs the SettingsPage and initializes all components.
      */
     public SettingsPage() {
-
         // Initialize background panel with image
         settingsPanel = new ImagePanel("src/gameImages/SettingsImage.png");
 

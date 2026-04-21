@@ -5,6 +5,9 @@ import soundMaker.ButtonSound;
 import soundMaker.Music;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 /**
  * Controls the main GUI flow of Battle Nations.
@@ -52,7 +55,6 @@ public class StartController {
      * displays the start menu page.
      */
     public StartController() {
-
         // Initializes display and formats it.
         display = new JFrame();
         display.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -79,8 +81,45 @@ public class StartController {
 
         music.startMusic();
 
-        //First part of sound file is silent.
+        // Preps the sound file so when the first button is pressed there is no delay.
         buttonSound.playSound(19580);
+
+        // Gets the root of the display so that input and action maps can be retrieved and modified.
+        JRootPane root = display.getRootPane();
+
+        // Adds a new input map to the root so that if the s key is pressed the root tries to trigger the associated action map.
+        root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0), "openSettings");
+        // Adds a new action, to the action map.
+        root.getActionMap().put("openSettings", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Finds what is the current keyboard focus to make sure that the action does not trigger while trying
+                // to enter an s in a text field.
+                Component focus = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+                if (focus instanceof JTextField) {
+                    return;
+                }
+
+                // Creates a checkbox for both sound options.
+                JCheckBox music = new JCheckBox("Music", getMusic().isMusicEnabled());
+                JCheckBox buttonSound = new JCheckBox("Click Sound", isSoundEnabled());
+
+                // Creates an Object list that holds the message text and the two checkboxes.
+                Object[] message = {"Sound Settings", music, buttonSound};
+
+                // Creates a popup window with the message.
+                JOptionPane.showMessageDialog(display, message, "Settings", JOptionPane.INFORMATION_MESSAGE);
+                makeSound();
+
+                // Modifies if button sound or music are enabled based on if their respective checkboxes are selected.
+                if (music.isSelected()) {
+                    getMusic().enableMusic();
+                } else {
+                    getMusic().disableMusic();
+                }
+                setSound(buttonSound.isSelected());
+            }
+        });
 
         // Show the start menu by default
         displayStartMenuPage();
@@ -150,6 +189,7 @@ public class StartController {
      * Players the button click sound effect.
      */
     public void makeSound() {
+        // First part of sound file is silent so starts it 2000 frames in.
         buttonSound.playSound(2000);
     }
 
