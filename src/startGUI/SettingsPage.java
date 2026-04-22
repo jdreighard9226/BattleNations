@@ -54,22 +54,45 @@ public class SettingsPage {
         settingsPanel.setLayout(null);
         settingsPanel.setBounds(0, 0, screen.width, screen.height);
 
+        // Creates a buffer for spacing.
+        int formattingBuffer = 10;
+
+        // Creates a label for the button volume slider.
+        JLabel musicLabel = new JLabel("Music Volume:");
+        musicLabel.setOpaque(true);
+        musicLabel.setBackground(Color.BLACK);
+        musicLabel.setForeground(Color.WHITE);
+        musicLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        Dimension musicLabelSize = musicLabel.getPreferredSize();
+        musicLabel.setBounds(screen.width / 2 - musicLabelSize.width - formattingBuffer, screen.height * 2 / 5, musicLabelSize.width + formattingBuffer, 40);
+        settingsPanel.add(musicLabel);
+
         // Initializes music slider which controls the sound at which music plays.
         musicSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, 10);
         musicSlider.setMajorTickSpacing(1);
         musicSlider.setPaintTicks(true);
-        musicSlider.setBounds(screen.width/2 - screen.width / 12, screen.height / 2 + 80, screen.width / 6, 40);
+        musicSlider.setBounds(screen.width / 2 + formattingBuffer, screen.height * 2 / 5, screen.width / 6, 40);
         settingsPanel.add(musicSlider);
         musicSlider.addChangeListener(e -> {
-            startController.makeSound();
             startController.getMusic().setVolume(musicSlider.getValue());
+            startController.makeSound();
         });
+
+        // Creates a label for the button volume slider.
+        JLabel buttonLabel = new JLabel("Button Volume:");
+        buttonLabel.setOpaque(true);
+        buttonLabel.setBackground(Color.BLACK);
+        buttonLabel.setForeground(Color.WHITE);
+        buttonLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        Dimension buttonLabelSize = buttonLabel.getPreferredSize();
+        buttonLabel.setBounds(screen.width / 2 - buttonLabelSize.width - formattingBuffer, screen.height / 2, buttonLabelSize.width + formattingBuffer, 40);
+        settingsPanel.add(buttonLabel);
 
         // Initializes button sound slider which controls how loud button clicks sound.
         buttonSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, 10);
         buttonSlider.setMajorTickSpacing(1);
         buttonSlider.setPaintTicks(true);
-        buttonSlider.setBounds(screen.width/2 - screen.width / 12, screen.height / 3 + 80, screen.width / 6, 40);
+        buttonSlider.setBounds(screen.width / 2 + formattingBuffer, screen.height / 2, screen.width / 6, 40);
         settingsPanel.add(buttonSlider);
         buttonSlider.addChangeListener(e -> {
             startController.setButtonSoundVolume(buttonSlider.getValue());

@@ -116,7 +116,7 @@ public class StartController {
                 });
 
                 // Creates an Object list that holds the message text and the two checkboxes.
-                Object[] message = {"Sound Settings", "-----------------------", "Button Sound Volume:", buttonSoundSlider, "Music Volume:", musicSlider};
+                Object[] message = {"Sound Settings", "-----------------------", "Music Volume:", musicSlider, "Button Sound Volume:", buttonSoundSlider};
                 // Creates a popup window with the message.
                 JOptionPane.showMessageDialog(display, message, "Settings", JOptionPane.INFORMATION_MESSAGE);
 
