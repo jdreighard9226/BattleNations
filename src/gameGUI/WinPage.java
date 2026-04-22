@@ -40,7 +40,6 @@ public class WinPage {
      * @param mode           the game mode used (e.g., "Capital Domination")
      */
     public WinPage(GameController gameController, Player winner, String mode) {
-
         // Initialize background panel with victory image
         winPanel = new ImagePanel("src/gameImages/VictoryScreen.png");
 

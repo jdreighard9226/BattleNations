@@ -22,14 +22,10 @@ import player.Player;
  */
 public class ReinforcementService {
 
-    /**
-     * The divisor used to calculate base reinforcements from territory count.
-     */
+    /** The divisor used to calculate base reinforcements from territory count. */
     private static final int TERRITORY_COUNT_DIVISOR = 3;
 
-    /**
-     * The minimum number of reinforcements a player may receive.
-     */
+    /** The minimum number of reinforcements a player may receive. */
     private static final int MINIMUM_TROOPS_RETURNED = 3;
 
     /**

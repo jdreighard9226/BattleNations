@@ -20,10 +20,7 @@ import java.util.List;
  */
 public class CapitalDominationWorld extends AbstractWorld {
 
-    /**
-     * The total number of capital territories in the world.
-     * set on construction to avoid recomputing each turn.
-     */
+    /** The total number of capital territories in the world, set on construction to avoid recomputing each turn. */
     private int territoryCapitals;
 
     /**
@@ -34,15 +31,7 @@ public class CapitalDominationWorld extends AbstractWorld {
     public CapitalDominationWorld(ArrayList<Region> regions) {
         super(regions);
 
-        // set the capital count once on construction
-        setTerritoryCapitals();
-    }
-
-    /**
-     * Constructs an empty CapitalDominationWorld with no regions.
-     */
-    public CapitalDominationWorld() {
-        super();
+        // Set the capital count once on construction
         setTerritoryCapitals();
     }
 

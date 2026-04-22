@@ -70,18 +70,21 @@ public class AttackService {
 
                 // Defender has been wiped out — transfer ownership to attacker
                 if (territoryDefending.getTroopAmount() <= 0) {
+                    // Move all but one attacker troop into the captured territory
                     territoryDefending.setPlayer(territoryAttacking.getPlayer());
                     territoryDefending.setTroopAmount(territoryAttacking.getTroopAmount() - 1);
+                    // Leave one troop behind in the attacking territory
                     territoryAttacking.setTroopAmount(1);
                     return new ValidationResult(true, "Attacker Wins");
                 }
             } else {
+                // Attacker lost this round — increment loss counter
                 territoryAttacking.setTroopAmount(territoryAttacking.getTroopAmount() - 1);
                 attackersLost++;
             }
         }
 
-        // Attacker retreated after hitting their loss limit
+        // Attacker has lost half their initial troops and retreats
         return new ValidationResult(true, "Attacker Lost");
     }
 

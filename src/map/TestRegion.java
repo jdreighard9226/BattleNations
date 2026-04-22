@@ -50,7 +50,6 @@ public class TestRegion {
         }
     }
 
-
     /**
      * Tests initializing a Region with multiple territories.
      * <p>
@@ -62,7 +61,8 @@ public class TestRegion {
     private static boolean testMultipleTerritoriesInit() {
         boolean passed = true;
         System.out.print("Testing Initializer with multiple territores as paramater: ");
-        // setting up all required elements for a region
+
+        // Setting up all required elements for a region
         Player player = new Player("p1", BLUE);
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
@@ -81,9 +81,11 @@ public class TestRegion {
                 new int[]{1, 2, 3, 4, 5, 6}, false);
         List<Territory> temp = new ArrayList<>();
         Collections.addAll(temp, t1, t2, t3, t4, t5);
+
+        // Store expected size before passing to region to compare against later
         int regionSize = temp.size();
 
-        // add all territories to a region
+        // Add all territories to a region
         Region region = new Region(temp);
         if (region.getSize() != regionSize) {
             passed = false;
@@ -129,6 +131,8 @@ public class TestRegion {
         territories.add(t1);
         Region region = new Region(territories);
         int size = region.getSize();
+
+        // Confirm initializer worked correctly before testing addTerritory
         if (size != 1) {
             System.err.println("Error has occurred in region initializer. Test cannot be ran");
             return false;
@@ -205,6 +209,7 @@ public class TestRegion {
             }
         }
 
+        // Transfer t1 to red player so all territories are now owned by red
         t1.setPlayer(redPlayer);
 
         if (!region.isRegionConquered()) {
@@ -231,7 +236,8 @@ public class TestRegion {
     private static boolean testClearRegion() {
         boolean passed = true;
         System.out.print("Testing clearRegion method: ");
-        // setting up all required elements for a region
+
+        // Setting up all required elements for a region
         Player player = new Player("p1", BLUE);
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
@@ -251,7 +257,7 @@ public class TestRegion {
         List<Territory> temp = new ArrayList<>();
         Collections.addAll(temp, t1, t2, t3, t4, t5);
 
-        // add all territories to a region
+        // Add all territories to a region
         Region region = new Region(temp);
 
         region.clearRegion();
@@ -260,7 +266,7 @@ public class TestRegion {
             System.err.println("The size of the region was not zero after the clear.");
         }
 
-
+        // Verify no individual territory remains after clearing
         if (region.hasTerritory(t1) || region.hasTerritory(t2) || region.hasTerritory(t3) ||
                 region.hasTerritory(t4) || region.hasTerritory(t5)) {
             passed = false;
@@ -301,7 +307,8 @@ public class TestRegion {
     private static boolean testHasTerritory() {
         boolean passed = true;
         System.out.print("Testing hasTerritory method: ");
-        // setting up all required elements for a region
+
+        // Setting up all required elements for a region
         Player player = new Player("p1", BLUE);
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20,
                 new int[]{1, 2, 3, 4, 5, 6},
@@ -321,7 +328,7 @@ public class TestRegion {
         List<Territory> temp = new ArrayList<>();
         Collections.addAll(temp, t1, t2, t3, t4, t5);
 
-        // add all territories to a region
+        // Add all territories to a region
         Region region = new Region(temp);
 
         if (!region.hasTerritory(t1)) {
@@ -356,30 +363,25 @@ public class TestRegion {
             System.err.println("Region hasTerritory returned true after t1 was removed");
         }
 
-
         if (region.hasTerritory(t2)) {
             passed = false;
             System.err.println("Region hasTerritory returned true after t2 was removed");
         }
-
 
         if (region.hasTerritory(t3)) {
             passed = false;
             System.err.println("Region hasTerritory returned true after t3 was removed");
         }
 
-
         if (region.hasTerritory(t4)) {
             passed = false;
             System.err.println("Region hasTerritory returned true after t4 was removed");
         }
 
-
         if (region.hasTerritory(t5)) {
             passed = false;
             System.err.println("Region hasTerritory returned true after t5 was removed");
         }
-
 
         for (int i = 0; i < 1000; i++) {
             region.addTerritory(t2);
@@ -402,16 +404,4 @@ public class TestRegion {
         }
         return passed;
     }
-
-    /**
-     *
-     * DONT WRITE TEST YET
-     * We do not know if we will implement Capital Territories to game yet.
-     * No need to test it until we actually implement it for our game
-     *
-     private static boolean testSingleCapitalTerritory() {
-     return false;
-     }
-     */
-
 }

@@ -118,7 +118,7 @@ public class TestFortifyService {
         Player player = new Player("p1", Color.BLUE);
         Player player2 = new Player("p2", Color.GREEN);
 
-        // Create two different players
+        // Create territories owned by each player
         Territory t1 = new Territory(player, TerrainType.DESERT.getTerrain(), 20, new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, false);
         Territory t2 = new Territory(player2, TerrainType.DESERT.getTerrain(), 20, new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, false);
 

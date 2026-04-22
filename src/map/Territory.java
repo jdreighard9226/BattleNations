@@ -32,31 +32,23 @@ import java.util.List;
  * </ul>
  */
 public class Territory extends Polygon {
-    /**
-     * The player that currently owns this territory.
-     */
+
+    /** The player that currently owns this territory. */
     private Player player;
 
-    /**
-     * The terrain type associated with this territory.
-     */
+    /** The terrain type associated with this territory. */
     private final Terrain terrain;
 
-    /**
-     * The number of troops stationed in the territory.
-     */
+    /** The number of troops stationed in the territory. */
     private int troopAmount;
 
-    /**
-     * boolean to see if a Territory is a capital or not
-     */
+    /** Whether this territory is designated as a capital. */
     private final boolean isCapital;
 
-    /**
-     * The list of neighboring territories
-     */
+    /** The list of neighboring territories adjacent to this one. */
     private final List<Territory> neighboringTerritories;
 
+    /** Whether this territory is currently highlighted on the map. */
     private boolean isHighlighted = false;
 
     /**
@@ -108,7 +100,7 @@ public class Territory extends Polygon {
     /**
      * Returns the color used to represent the territory on the map.
      *
-     * <p>If the territory has no owner, a default color is returned.</p>
+     * <p>If the territory has no owner, null is returned.</p>
      *
      * @return the color representing the territory's owner, or null if territory not assigned
      */
@@ -137,12 +129,17 @@ public class Territory extends Polygon {
         return terrain;
     }
 
+    /**
+     * Returns whether this territory is currently highlighted.
+     *
+     * @return true if the territory is highlighted, false otherwise
+     */
     public boolean isHighlighted() {
         return isHighlighted;
     }
 
     /**
-     * Returns the X points associated with the territory
+     * Returns the x-coordinates of the territory's polygon.
      *
      * @return the int array of x points
      */
@@ -151,7 +148,7 @@ public class Territory extends Polygon {
     }
 
     /**
-     * Returns the Y points associated with the territory
+     * Returns the y-coordinates of the territory's polygon.
      *
      * @return the int array of y points
      */
@@ -160,7 +157,7 @@ public class Territory extends Polygon {
     }
 
     /**
-     * returns the int value of how many points the polygon has
+     * Returns the number of points in the territory's polygon.
      *
      * @return the int value of the number of points the polygon has
      */
@@ -177,6 +174,11 @@ public class Territory extends Polygon {
         return isCapital;
     }
 
+    /**
+     * Sets whether this territory is highlighted on the map.
+     *
+     * @param isHighlighted true to highlight the territory, false to remove the highlight
+     */
     public void setIsHighlighted(boolean isHighlighted) {
         this.isHighlighted = isHighlighted;
     }
@@ -202,9 +204,14 @@ public class Territory extends Polygon {
     /**
      * Draws the territory polygon onto the game map.
      *
+     * <p>Renders the territory outline, fill color, terrain image, and troop count.
+     * Highlighted territories are drawn in white. Owned territories use the player's
+     * color. Unowned territories use a default gray or blue for water.</p>
+     *
      * @param g the graphics context used for rendering
      */
     public void Draw(Graphics g) {
+        // Set outline color based on highlight or ownership
         if (isHighlighted) {
             g.setColor(Color.WHITE);
         } else if (this.getCurrentColor() != null) {
@@ -213,6 +220,8 @@ public class Territory extends Polygon {
             g.setColor(Color.DARK_GRAY);
         }
         g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
+
+        // Set fill color — water gets blue, unowned land gets light gray
         if (isHighlighted) {
             g.setColor(Color.WHITE);
         } else if (this.getCurrentColor() != null) {
@@ -224,8 +233,9 @@ public class Territory extends Polygon {
                 g.setColor(Color.LIGHT_GRAY);
             }
         }
-
         g.fillPolygon(super.xpoints, super.ypoints, super.xpoints.length);
+
+        // Draw the terrain image centered within the territory bounds
         ImageIcon watermarkIcon = new ImageIcon(this.getTerrain().getImageFile());
         Image watermark = watermarkIcon.getImage();
         int xLeft = super.xpoints[1];
@@ -234,6 +244,7 @@ public class Territory extends Polygon {
         int yBottom = super.ypoints[5];
         g.drawImage(watermark, xLeft, yTop, xRight - xLeft, yBottom - yTop, g.getColor(), null);
 
+        // Calculate the center and radius for the troop count circle
         int xCenter = (xRight + xLeft) / 2;
         int yCenter = (yTop + yBottom) / 2;
         int radius = (xRight - xLeft) / 4;
@@ -243,12 +254,14 @@ public class Territory extends Polygon {
             drawCapitalStar(g);
         }
 
-        // Compute middle, then draw circle of color, then draw string in middle of circle.
+        // Draw the troop count circle and number if the territory is owned
         if (this.getPlayer() != null) {
+            // Fill the circle with a darker version of the player's color
             g.setColor(player.getColor().darker());
             g.fillOval(xCenter - radius, yCenter - radius, 2 * radius, 2 * radius);
             g.setColor(Color.WHITE);
 
+            // Scale the font down until the troop number fits within the circle
             boolean smallEnough = false;
             int startingFontSize = 18;
             Graphics2D g2 = (Graphics2D) g;
@@ -265,16 +278,29 @@ public class Territory extends Polygon {
                     startingFontSize--;
                 }
             }
+
+            // Draw the troop count centered inside the circle
             g.setFont(numberFont);
             g.drawString(troopCount, xCenter - (int) (dimentions.getWidth() / 2), yCenter + (int) (dimentions.getHeight() / 4));
         }
     }
 
+    /**
+     * Draws a five-pointed star on this territory to indicate it is a capital.
+     *
+     * <p>The star is constructed by drawing five triangles around a center point.
+     * If the territory is unowned, the inner pentagon is also filled in.
+     * A center circle is drawn on top to complete the visual.</p>
+     *
+     * @param g the graphics context used for rendering
+     */
     public void drawCapitalStar(Graphics g) {
         double[] xStarPoints = new double[3];
         double[] yStarPoints = new double[3];
         int[] insideHexegonX = new int[5];
         int[] insideHexegonY = new int[5];
+
+        // Calculate the bounds and center of the territory
         int xLeft = super.xpoints[1];
         int xRight = super.xpoints[2];
         int yTop = super.ypoints[2];
@@ -284,43 +310,55 @@ public class Territory extends Polygon {
         int radius = (xRight - xLeft) / 4;
 
         g.setColor(Color.BLACK);
+
+        // Draw 5 triangles evenly spaced around the center to form the star points
         for (int i = 0; i < 5; i++) {
+            // Calculate the two outer points of this triangle using polar coordinates
             xStarPoints[0] = xCenter + radius * Math.cos(((2 * Math.PI * i) / 5) - (3 * Math.PI / 10));
             xStarPoints[1] = xCenter + radius * Math.cos(((2 * Math.PI * (i + 1)) / 5) - (3 * Math.PI / 10));
-
             yStarPoints[0] = yCenter + radius * Math.sin(((2 * Math.PI * (i)) / 5) - (3 * Math.PI / 10));
             yStarPoints[1] = yCenter + radius * Math.sin(((2 * Math.PI * (i + 1)) / 5) - (3 * Math.PI / 10));
 
-            double midleX = (xStarPoints[0] + xStarPoints[1]) / 2;
-            double midleY = (yStarPoints[0] + yStarPoints[1]) / 2;
+            // Find the midpoint between the two outer points
+            double middleX = (xStarPoints[0] + xStarPoints[1]) / 2;
+            double middleY = (yStarPoints[0] + yStarPoints[1]) / 2;
 
-            double changeX = (xCenter - midleX);
-            double changeY = (yCenter - midleY);
+            // Reflect the midpoint through the center to get the inward tip of the star
+            double changeX = (xCenter - middleX);
+            double changeY = (yCenter - middleY);
+            xStarPoints[2] = changeX * (-2) + middleX;
+            yStarPoints[2] = changeY * (-2) + middleY;
 
-            xStarPoints[2] = changeX * (-2) + midleX;
-            yStarPoints[2] = changeY * (-2) + midleY;
-
-
+            // Convert to int for drawing
             int[] xPoints = new int[3];
             int[] yPoints = new int[3];
             for (int k = 0; k < 3; k++) {
-                // Converts the double values into int values by rounding so that the values can be used for drawing
-                // in java swing.
+                // Converts the double values into int values by rounding so that the values can be used for drawing in java swing
                 xPoints[k] = (int) Math.round(xStarPoints[k]);
                 yPoints[k] = (int) Math.round(yStarPoints[k]);
             }
+
+            // Store the outer point for the inner pentagon fill
             insideHexegonX[i] = xPoints[0];
             insideHexegonY[i] = yPoints[0];
             g.fillPolygon(xPoints, yPoints, 3);
-
-
         }
+
+        // Fill the inner pentagon if the territory has no owner
         if (this.getPlayer() == null) {
             g.fillPolygon(insideHexegonX, insideHexegonY, 5);
         }
+
         drawCenterCircle(g);
     }
 
+    /**
+     * Draws a filled black circle at the center of the territory.
+     *
+     * <p>Used as part of the capital star rendering to complete the visual.</p>
+     *
+     * @param g the graphics context used for rendering
+     */
     private void drawCenterCircle(Graphics g) {
         int xLeft = super.xpoints[1];
         int xRight = super.xpoints[2];
@@ -347,9 +385,9 @@ public class Territory extends Polygon {
     }
 
     /**
-     * Adds a neighboring territory.
+     * Adds a neighboring territory to this territory's adjacency list.
      *
-     * <p>This is used during map initialization to establish adjacency
+     * <p>Used during map initialization to establish adjacency
      * relationships between territories.</p>
      *
      * @param t the neighboring territory to add
@@ -359,7 +397,7 @@ public class Territory extends Polygon {
     }
 
     /**
-     * Returns all neighboring territories.
+     * Returns all neighboring territories adjacent to this one.
      *
      * @return the list of adjacent territories
      */

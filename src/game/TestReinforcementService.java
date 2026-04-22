@@ -46,7 +46,6 @@ public class TestReinforcementService {
         System.out.println("Testing Methods");
 
         // Run each test method and mark the suite as failed if any individual test fails.
-
         if (!testValidReinforcement()) passed = false;
         if (!testReinforcementWhenPlayerDoesNotOwnTerritory()) passed = false;
         if (!testReinforcementServiceWith0TroopsBeingPlaced()) passed = false;

@@ -15,18 +15,12 @@ package game;
  */
 public enum TurnPhase {
 
-    /**
-     * Phase where players place reinforcement troops.
-     */
+    /** Phase where players place reinforcement troops. */
     REINFORCEMENT,
 
-    /**
-     * Phase where players may attack enemy territories.
-     */
+    /** Phase where players may attack enemy territories. */
     ATTACK,
 
-    /**
-     * Phase where players may move troops between owned territories.
-     */
+    /** Phase where players may move troops between owned territories. */
     FORTIFY
 }

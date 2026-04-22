@@ -21,9 +21,7 @@ import java.util.List;
  */
 public abstract class AbstractWorld implements World {
 
-    /**
-     * The list of regions that make up this world.
-     */
+    /** The list of regions that make up this world. */
     protected final List<Region> regions;
 
     /**
@@ -34,13 +32,6 @@ public abstract class AbstractWorld implements World {
     public AbstractWorld(List<Region> regions) {
         // Defensive copy — prevents external mutation of the world's region list
         this.regions = new ArrayList<>(regions);
-    }
-
-    /**
-     * Constructs an empty AbstractWorld with no regions.
-     */
-    public AbstractWorld() {
-        this.regions = new ArrayList<>();
     }
 
     /**

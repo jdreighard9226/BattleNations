@@ -65,7 +65,6 @@ public class TestMapLoaderService {
         } else {
             System.err.println("At least One Test Failed");
         }
-
     }
 
     /**
@@ -81,6 +80,7 @@ public class TestMapLoaderService {
         MapLoaderData data = service.loadTerritories("src/mapLoaderServiceTestTextFiles/all_capitals", new Dimension(1000, 800));
         Territory[][] territories = data.territories();
         for (int i = 0; i < territories.length; i++) {
+            // Alternator accounts for hex grid rows having one fewer column on odd rows
             int alternator = (i % 2 != 0) ? 1 : 0;
             for (int j = 0; j < territories[i].length - alternator; j++) {
                 if (territories[i][j] == null) {
@@ -116,6 +116,7 @@ public class TestMapLoaderService {
         MapLoaderData data = service.loadTerritories("src/mapLoaderServiceTestTextFiles/all_city", new Dimension(1000, 800));
         Territory[][] territories = data.territories();
         for (int i = 0; i < territories.length; i++) {
+            // Alternator accounts for hex grid rows having one fewer column on odd rows
             int alternator = (i % 2 != 0) ? 1 : 0;
             for (int j = 0; j < territories[i].length - alternator; j++) {
                 if (territories[i][j] == null) {
@@ -150,6 +151,7 @@ public class TestMapLoaderService {
         MapLoaderData data = service.loadTerritories("src/mapLoaderServiceTestTextFiles/all_desert", new Dimension(1000, 800));
         Territory[][] territories = data.territories();
         for (int i = 0; i < territories.length; i++) {
+            // Alternator accounts for hex grid rows having one fewer column on odd rows
             int alternator = (i % 2 != 0) ? 1 : 0;
             for (int j = 0; j < territories[i].length - alternator; j++) {
                 if (territories[i][j] == null) {
@@ -181,6 +183,7 @@ public class TestMapLoaderService {
         MapLoaderData data = service.loadTerritories("src/mapLoaderServiceTestTextFiles/all_mountains", new Dimension(1000, 800));
         Territory[][] territories = data.territories();
         for (int i = 0; i < territories.length; i++) {
+            // Alternator accounts for hex grid rows having one fewer column on odd rows
             int alternator = (i % 2 != 0) ? 1 : 0;
             for (int j = 0; j < territories[i].length - alternator; j++) {
                 if (territories[i][j] == null) {
@@ -212,6 +215,7 @@ public class TestMapLoaderService {
         MapLoaderData data = service.loadTerritories("src/mapLoaderServiceTestTextFiles/all_plains", new Dimension(1000, 800));
         Territory[][] territories = data.territories();
         for (int i = 0; i < territories.length; i++) {
+            // Alternator accounts for hex grid rows having one fewer column on odd rows
             int alternator = (i % 2 != 0) ? 1 : 0;
             for (int j = 0; j < territories[i].length - alternator; j++) {
                 if (territories[i][j] == null) {
@@ -243,6 +247,8 @@ public class TestMapLoaderService {
         MapLoaderService service = new MapLoaderService();
         MapLoaderData data = service.loadTerritories("src/mapLoaderServiceTestTextFiles/mixed", new Dimension(1000, 800));
         Territory[][] territories = data.territories();
+
+        // Verify each expected terrain type and capital status at specific grid positions
         if (territories[0][0] == null || !(territories[0][0].getTerrain() instanceof CityTerrain) || !territories[0][0].isCapital()) {
             passed = false;
             System.err.println("Expected Capital City at (0,0)");
@@ -316,8 +322,11 @@ public class TestMapLoaderService {
         MapLoaderData data = service.loadTerritories("src/mapLoaderServiceTestTextFiles/all_capitals", new Dimension(1000, 800));
         Territory[][] territories = data.territories();
         List<Region> regions = data.regions();
+
+        // regionCheck tracks which territory we are on so we can verify it belongs to the correct region
         int regionCheck = 0;
         for (int i = 0; i < territories.length; i++) {
+            // Alternator accounts for hex grid rows having one fewer column on odd rows
             int alternator = (i % 2 != 0) ? 1 : 0;
             for (int j = 0; j < territories[i].length - alternator; j++) {
                 switch (regionCheck) {
@@ -390,16 +399,23 @@ public class TestMapLoaderService {
         MapLoaderData data = service.loadTerritories("src/mapLoaderServiceTestTextFiles/mixed", new Dimension(1000, 800));
         Territory[][] territories = data.territories();
         List<Region> regions = data.regions();
+
+        // regionCheck tracks the current territory index across the full grid
         int regionCheck = 0;
         for (int i = 0; i < territories.length; i++) {
+            // Alternator accounts for hex grid rows having one fewer column on odd rows
             int alternator = (i % 2 != 0) ? 1 : 0;
             for (int j = 0; j < territories[i].length - alternator; j++) {
+
+                // Territories 0-4 belong to region 1
                 if (regionCheck < 5) {
                     if (!regions.getFirst().hasTerritory(territories[i][j])) {
                         System.err.println("Region 1 should have contained territory (" + i + "," + j + ")");
                         passed = false;
                     }
                 }
+
+                // Territories 8-11 belong to region 2
                 if (regionCheck > 7 && regionCheck < 12) {
                     if (!regions.get(1).hasTerritory(territories[i][j])) {
                         System.err.println("Region 2 should have contained territory (" + i + "," + j + ")");
