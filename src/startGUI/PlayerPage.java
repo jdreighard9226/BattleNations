@@ -119,6 +119,9 @@ public class PlayerPage {
         playerColor.setSelectedIndex(0);
         playerColor.setBounds(screen.width / 2 + 2 * formattingBuffer + colorLabelSize.width, screen.height * 3 / 10, screen.width / 8, 30);
         playerCreationPanel.add(playerColor);
+        playerColor.addActionListener(e -> {
+            startController.makeSound();
+        });
 
         // Button to add a player using the provided name and color.
         JButton addPlayer = new JButton("Add");
@@ -343,6 +346,7 @@ public class PlayerPage {
         // Only shows the error message if there was something wrong with the information given.
         if (!errorMessage.isEmpty()) {
             JOptionPane.showMessageDialog(parent, errorMessage);
+            startController.makeSound();
             return;
         }
 

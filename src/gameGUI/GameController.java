@@ -143,6 +143,8 @@ public class GameController {
         changeDisplayButton = new JButton("Show Regions");
         changeDisplayButton.setVisible(true);
         changeDisplayButton.addActionListener(e -> {
+            startController.makeSound();
+
             // If the button currently says "Show Map", switch back to the map display
             if (changeDisplayButton.getText().equals("Show Map")) {
                 display.remove(regionPanel);
@@ -169,7 +171,10 @@ public class GameController {
 
         JButton terrainInfoButton = new JButton("Terrain Info");
         terrainInfoButton.setBounds(gameInfoPanel.getWidth() - 200, 65, 200, 50);
-        terrainInfoButton.addActionListener(e -> showTerrainInfo());
+        terrainInfoButton.addActionListener(e -> {
+            startController.makeSound();
+            showTerrainInfo();
+        });
         gameInfoPanel.add(terrainInfoButton);
 
         continueButton = new JButton("Continue");
@@ -179,6 +184,7 @@ public class GameController {
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                startController.makeSound();
                 // Advances the game to the next phase or player turn
                 endTurn();
             }
@@ -204,6 +210,7 @@ public class GameController {
     public void getTerritoryClicked(Point point) {
         errorText.setText("");
         successText.setText("");
+        startController.makeSound();
 
         // Check each territory to see if the clicked point falls inside it
         for (Territory territory : territories) {
@@ -415,6 +422,8 @@ public class GameController {
                 options[0]
         );
 
+        startController.makeSound();
+
         // Return null if the user closes or cancels the dialog
         if (selection == null) {
             return null;
@@ -446,6 +455,8 @@ public class GameController {
                 options,
                 options[0]
         );
+
+        startController.makeSound();
 
         // Return null if the user closes or cancels the dialog
         if (selection == null) {
@@ -616,12 +627,14 @@ public class GameController {
                 "\n" + "Each player will take turns Reinforcing Their Territories, Attacking Territories, Then Fortifying Territories.\n" +
                 "The game Does not end until a player has reached the objective of " + worldType +
                 "\n" + "Refer to bottom of the screen to see what players turn it is, as well as directions on what to do next", "Battle Nations", JOptionPane.INFORMATION_MESSAGE);
+        startController.makeSound();
     }
 
     /**
      * Returns the player to the main menu and resets the game.
      */
     public void returnToMainMenu() {
+        startController.makeSound();
         display.getContentPane().removeAll();
         startController.reset(); // resets game
     }
@@ -697,5 +710,6 @@ public class GameController {
                   - Must be captured to win in Capital Domination
                 """;
         JOptionPane.showMessageDialog(display, info, "Terrain Info", JOptionPane.INFORMATION_MESSAGE);
+        startController.makeSound();
     }
 }

@@ -172,6 +172,7 @@ public class SetUpController {
             showRegionsButton.setVisible(true);
             showMapButton.setVisible(false);
             displayMapDisplay();
+            startController.makeSound();
         });
 
         // Switches from map view to region view.
@@ -181,6 +182,7 @@ public class SetUpController {
             display.add(regionPanel);
             showRegionsButton.setVisible(false);
             showMapButton.setVisible(true);
+            startController.makeSound();
         });
 
         // Adds buttons to the info panel.
@@ -196,6 +198,14 @@ public class SetUpController {
         // Initializes the two phases.
         troopPlacementPhase = new TroopPlacementPhase(this, territories, players, gameSetUpData.isRandomTroopPlacement());
         territorySelectionPhase = new TerritorySelectionPhase(this, territories, players, gameSetUpData.isRandomTerritories());
+        if(!gameSetUpData.isRandomTerritories()){
+            JOptionPane.showMessageDialog(display, "Welcome to the territory selection phase.\n" +
+                    "You will take turns choosing territories you want to own until\n" +
+                    "no territories are left unowned.\n" +
+                    "You can refer to the bottom left of the screen to see\n" +
+                    "which players turn it is and their color.", "Choose Territories", JOptionPane.INFORMATION_MESSAGE);
+            startController.makeSound();
+        }
         territorySelectionPhase.initializeGameInfoText();
     }
 
@@ -222,9 +232,12 @@ public class SetUpController {
      */
     public void dealWithClick(Point point) {
         if (phase.equals("Territory")) {
+            startController.makeSound();
             territorySelectionPhase.dealWithClick(point);
         } else if (phase.equals("Troop")) {
+            startController.makeSound();
             troopPlacementPhase.dealWithClick(point);
+
         }
     }
 
@@ -233,6 +246,16 @@ public class SetUpController {
      */
     public void placeTroopPhase() {
         troopPlacementPhase.start();
+
+        if(!gameSetUpData.isRandomTroopPlacement()){
+            JOptionPane.showMessageDialog(display, "Welcome to the troop placement phase.\n" +
+                "You will take turns placing three troops at a time on your territories until\n" +
+                    "no players have any troops left to place.\n" +
+                    "You can refer to the bottom left of the screen to see\n" +
+                    "which players turn it is, their color, and how many troops\n" +
+                    "they have to place.", "Place Troops", JOptionPane.INFORMATION_MESSAGE);
+            startController.makeSound();
+        }
         setPhase("Troop");
     }
 
