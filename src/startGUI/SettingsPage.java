@@ -30,13 +30,11 @@ public class SettingsPage {
     /** Background panel displaying the settings image. */
     private final ImagePanel settingsPanel;
 
-    /** Checkbox for enabling/disabling sound effects. */
-    private final JCheckBox sound;
-
-    /** Checkbox for enabling/disabling music. */
-    private final JCheckBox musicBt;
-
+    /** Slider for controlling volume of music. */
     private final JSlider musicSlider;
+
+    /** Slider for controlling volume of sound. */
+    private final JSlider buttonSlider;
 
     /** Parent JFrame that contains this settings page. */
     private JFrame parent;
@@ -56,19 +54,7 @@ public class SettingsPage {
         settingsPanel.setLayout(null);
         settingsPanel.setBounds(0, 0, screen.width, screen.height);
 
-        // Initialize sound checkbox which controls whether buttons make sound.
-        sound = new JCheckBox("Sound Affects", true);
-        sound.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2, screen.width / 6, 40);
-        sound.addActionListener(e -> {
-            startController.setSound(sound.isSelected());
-
-            if (sound.isSelected()) {
-                startController.makeSound();
-            }
-
-        });
-        settingsPanel.add(sound);
-
+        // Initializes music slider which controls the sound at which music plays.
         musicSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, 10);
         musicSlider.setMajorTickSpacing(1);
         musicSlider.setPaintTicks(true);
@@ -79,17 +65,15 @@ public class SettingsPage {
             startController.getMusic().setVolume(musicSlider.getValue());
         });
 
-        // Initialize music checkbox which controls whether music plays.
-        musicBt = new JCheckBox("Music", true);
-        musicBt.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2 + 80, screen.width / 6, 40);
-        //settingsPanel.add(musicBt);
-        musicBt.addActionListener(e -> {
+        // Initializes button sound slider which controls how loud button clicks sound.
+        buttonSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, 10);
+        buttonSlider.setMajorTickSpacing(1);
+        buttonSlider.setPaintTicks(true);
+        buttonSlider.setBounds(screen.width/2 - screen.width / 12, screen.height / 3 + 80, screen.width / 6, 40);
+        settingsPanel.add(buttonSlider);
+        buttonSlider.addChangeListener(e -> {
+            startController.setButtonSoundVolume(buttonSlider.getValue());
             startController.makeSound();
-            if (musicBt.isSelected()) {
-                startController.getMusic().enableMusic();
-            } else {
-                startController.getMusic().disableMusic();
-            }
         });
 
         // Initialize back button
@@ -132,8 +116,8 @@ public class SettingsPage {
     public void addSettingsPage(StartController startController) {
         this.parent = startController.getDisplay();
         this.startController = startController;
-        sound.setSelected(startController.isSoundEnabled());
-        musicBt.setSelected(startController.getMusic().isMusicEnabled());
+        buttonSlider.setValue((int) startController.getButtonSoundVolume());
+        musicSlider.setValue((int) startController.getMusic().getVolume());
         parent.add(settingsPanel);
         parent.repaint();
     }

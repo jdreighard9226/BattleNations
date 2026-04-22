@@ -27,8 +27,8 @@ public class ButtonSound {
     /** Determines whether the audio system is working correctly. */
     private boolean soundWorking = true;
 
-    /** Determines whether button sound effects are enabled. */
-    private boolean soundEnabled = true;
+    /** Stores the current volume level on a scale from 0 to 10. */
+    private float volume;
 
     /**
      * Constructs a ButtonSound object and attempts to load the specified sound file.
@@ -69,6 +69,8 @@ public class ButtonSound {
             System.err.println("Audio System unavailable");
             soundWorking = false;
         }
+
+        volume = 10;
     }
 
     /**
@@ -78,24 +80,6 @@ public class ButtonSound {
      */
     public boolean isSoundWorking() {
         return soundWorking;
-    }
-
-    /**
-     * Enables or disables button sound effects.
-     *
-     * @param enabled true to enable sound effects, false to disable them
-     */
-    public void setEnabled(boolean enabled) {
-        soundEnabled = enabled;
-    }
-
-    /**
-     * Checks whether button sound effects are currently enabled.
-     *
-     * @return true if sound effects are enabled, false otherwise
-     */
-    public boolean isSoundEnabled() {
-        return soundEnabled;
     }
 
     /**
@@ -109,10 +93,52 @@ public class ButtonSound {
      * @param frameStart the frame position within the audio clip to begin playback
      */
     public void playSound(int frameStart) {
-        if (soundWorking && soundEnabled) {
+        if (soundWorking) {
             buttonSound.stop();
             buttonSound.setFramePosition(frameStart);
             buttonSound.start();
         }
     }
+
+    /**
+     * Retrieves the current volume level.
+     *
+     * @return the volume level on a scale from 0 (muted) to 10 (maximum)
+     */
+    public float getVolume() {
+        return volume;
+    }
+
+    /**
+     * Sets the volume of the button sound.
+     *
+     * <p>
+     * The provided value is expected to be between 0 and 10 and is mapped
+     * to the audio system's internal decibel range using a linear scale.
+     * </p>
+     *
+     * <p>
+     * A value of 0 will mute the audio by setting it to the minimum gain.
+     * </p>
+     *
+     * @param volume the desired volume level (0–10)
+     */
+    public void setVolume(float volume) {
+        // The controller which is in charge of increasing or decreasing the decibels of an audio clip.
+        FloatControl volumeControl = (FloatControl) buttonSound.getControl(FloatControl.Type.MASTER_GAIN);
+        this.volume = volume;
+
+        // If volume is zero, set to the minimum sound level (muted).
+        if (volume == 0) {
+            volumeControl.setValue(volumeControl.getMinimum());
+        }
+
+        float min = volumeControl.getMinimum();
+        float max = volumeControl.getMaximum();
+
+        // Linearly maps 0-10 range to the system's decibel range.
+        volumeControl.setValue((min + (volume * (max - min) / 10)));
+    }
+
+
 }
