@@ -140,7 +140,7 @@ public class GameController {
         this.regionPanel = regionPanel;
 
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        changeDisplayButton = new JButton("Show Map");
+        changeDisplayButton = new JButton("Show Regions");
         changeDisplayButton.setVisible(true);
         changeDisplayButton.addActionListener(e -> {
             // If the button currently says "Show Map", switch back to the map display
@@ -407,7 +407,7 @@ public class GameController {
 
         Object selection = JOptionPane.showInputDialog(
                 display,
-                "Select number of troops to place:",
+                "Select number of troops to place (max: " + maxTroops + "):",
                 "Troop Placement",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -439,7 +439,7 @@ public class GameController {
 
         Object selection = JOptionPane.showInputDialog(
                 display,
-                "Select number of troops to move:",
+                "Select number of troops to move (max: " + maxTroops + "):",
                 "Troop Movement",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -501,6 +501,7 @@ public class GameController {
                 );
 
                 instructionText.setText("Select a territory you own to reinforce.");
+                continueButton.setText("Go to Attack");
 
                 // Continue is only enabled once all reinforcement troops are placed
                 continueButton.setEnabled(currentPlayer.getTroopsToPlace() <= 0);
@@ -516,6 +517,7 @@ public class GameController {
                     instructionText.setText("Select a territory to attack.");
                 }
 
+                continueButton.setText("Go to Fortify");
                 continueButton.setEnabled(true);
 
             } else {
@@ -531,11 +533,25 @@ public class GameController {
                     instructionText.setText("Select a territory to move troops to.");
                 }
 
+                continueButton.setText("Go to Reinforce");
                 continueButton.setEnabled(true);
             }
         } else {
             errorText.setVisible(false);
             successText.setVisible(false);
+
+            // Match button text to the current phase even while showing regions
+            if (gameLogic.getCurrentPhase() == TurnPhase.REINFORCEMENT) {
+                continueButton.setText("Go to Attack");
+                continueButton.setEnabled(gameLogic.getCurrentPlayer().getTroopsToPlace() <= 0);
+            } else if (gameLogic.getCurrentPhase() == TurnPhase.ATTACK) {
+                continueButton.setText("Go to Fortify");
+                continueButton.setEnabled(true);
+            } else {
+                continueButton.setText("Go to Reinforce");
+                continueButton.setEnabled(true);
+            }
+
             World world = gameLogic.getWorld();
             if (world instanceof TotalDominationWorld) {
                 int territoriesOwned = world.getTerritoryCountOwnedByPlayer(currentPlayer);
@@ -642,34 +658,41 @@ public class GameController {
                 TERRAIN TYPES & BONUSES
                 ________________________
                 
-                Plain
+                Plain:
+                  - Wide, flat land (territories with no image).
                   - Attack Bonus:   0%
                   - Defense Bonus:  0%
                   - Troop Bonus:    +0
                 
-                Desert
+                Desert:
+                  - Image: Rolling sand dunes.
                   - Attack Bonus:   +9%
                   - Defense Bonus:  0%
                   - Troop Bonus:    +0
                 
-                Mountain
+                Mountain:
+                  - Image: Jagged peaks rising sharply to the skyline.
                   - Attack Bonus:   0%
                   - Defense Bonus:  +10%
                   - Troop Bonus:    +0
                 
-                City
+                City:
+                  - Image: A cluster of tall city buildings packed tightly together.
                   - Attack Bonus:   0%
                   - Defense Bonus:  0%
                   - Troop Bonus:    +1
                 
-                Water
+                Water:
+                  - Image: A massive crashing wave — uncrossable.
                   - Not ownable or attackable
                 
                 Water Route
+                  - Image: A sailing boat navigating the seas between territories.
                   - Connects non-adjacent territories
                   - Not ownable or attackable
                 
-                Capital (Star on map)
+                Capital
+                  - Image: Star on the map
                   - No combat bonuses
                   - Must be captured to win in Capital Domination
                 """;
