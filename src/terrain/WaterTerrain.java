@@ -15,24 +15,16 @@ package terrain;
  */
 public class WaterTerrain extends Terrain {
 
-    /**
-     * Attack bonus percentage provided by water terrain.
-     */
+    /** Attack bonus percentage provided by water terrain. */
     private static final double ATTACK_BONUS_PERCENTAGE = 0;
 
-    /**
-     * Defense bonus percentage provided by water terrain.
-     */
+    /** Defense bonus percentage provided by water terrain. */
     private static final double DEFENSE_BONUS_PERCENTAGE = 0;
 
-    /**
-     * Additional troops granted by water terrain.
-     */
+    /** Additional troops granted by water terrain. */
     private static final int TROOP_BONUS = 0;
 
-    /**
-     * Image file used to represent water terrain on the map.
-     */
+    /** Image file used to represent water terrain on the map. */
     private static final String ICON_FILENAME = "src/gameImages/WaterTerrain.png";
 
     /**

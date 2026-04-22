@@ -14,21 +14,16 @@ package terrain;
  */
 public class PlainTerrain extends Terrain {
 
-    /**
-     * Attack bonus percentage provided by plain terrain.
-     */
+    /** Attack bonus percentage provided by plain terrain. */
     private static final double ATTACK_BONUS_PERCENTAGE = 0;
-    /**
-     * Defense bonus percentage provided by plain terrain.
-     */
+
+    /** Defense bonus percentage provided by plain terrain. */
     private static final double DEFENSE_BONUS_PERCENTAGE = 0;
-    /**
-     * Additional troops granted by plain terrain.
-     */
+
+    /** Additional troops granted by plain terrain. */
     private static final int TROOP_BONUS = 0;
-    /**
-     * Image file used to represent plain terrain on the map.
-     */
+
+    /** Image file used to represent plain terrain on the map. (for Plain there is no image) */
     private static final String ICON_FILENAME = "temp";
 
     /**

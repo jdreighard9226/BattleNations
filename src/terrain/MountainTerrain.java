@@ -15,24 +15,16 @@ package terrain;
  */
 public class MountainTerrain extends Terrain {
 
-    /**
-     * Attack bonus percentage provided by mountain terrain.
-     */
+    /** Attack bonus percentage provided by mountain terrain. */
     private static final double ATTACK_BONUS_PERCENTAGE = 0;
 
-    /**
-     * Defense bonus percentage provided by mountain terrain.
-     */
+    /** Defense bonus percentage provided by mountain terrain. */
     private static final double DEFENSE_BONUS_PERCENTAGE = .1;
 
-    /**
-     * Additional troops granted by mountain terrain.
-     */
+    /** Additional troops granted by mountain terrain. */
     private static final int TROOP_BONUS = 0;
 
-    /**
-     * Image file used to represent mountain terrain on the map.
-     */
+    /** Image file used to represent mountain terrain on the map. */
     private static final String ICON_FILENAME = "src/gameImages/MountainTerrain.png";
 
     /**

@@ -3,9 +3,8 @@ package terrain;
 /**
  * Represents city terrain in Battle Nations.
  *
- * <p>City terrain provides an attack bonus and grants additional troops
- * when controlled. Cities are intended to represent strategic locations
- * that encourage players to fight for control of populated areas.</p>
+ * <p>City terrain grants additional troops when controlled, representing
+ * strategic populated areas that players are encouraged to fight over.</p>
  *
  * <p><b>Sources Used:</b></p>
  * <ul>
@@ -16,24 +15,16 @@ package terrain;
  */
 public class CityTerrain extends Terrain {
 
-    /**
-     * Attack bonus percentage provided by city terrain.
-     */
+    /** Attack bonus percentage provided by city terrain. */
     private static final double ATTACK_BONUS_PERCENTAGE = 0;
 
-    /**
-     * Defense bonus percentage provided by city terrain.
-     */
+    /** Defense bonus percentage provided by city terrain. */
     private static final double DEFENSE_BONUS_PERCENTAGE = 0;
 
-    /**
-     * Additional troops granted by city terrain.
-     */
+    /** Additional troops granted by city terrain. */
     private static final int TROOP_BONUS = 1;
 
-    /**
-     * Image file used to represent city terrain on the map.
-     */
+    /** Image file used to represent city terrain on the map. */
     private static final String ICON_FILENAME = "src/gameImages/CityTerrain.png";
 
     /**

@@ -22,41 +22,25 @@ package terrain;
  * by the 'public enum Planet' example.</p>
  */
 public enum TerrainType {
-    /**
-     * Represents a city terrain type.
-     */
+    /** Represents a city terrain type. */
     CITY(new CityTerrain()),
 
-    /**
-     * Represents a desert terrain type.
-     */
-
+    /** Represents a desert terrain type. */
     DESERT(new DesertTerrain()),
 
-    /**
-     * Represents a mountain terrain type.
-     */
+    /** Represents a mountain terrain type. */
     MOUNTAIN(new MountainTerrain()),
 
-    /**
-     * Represents a water terrain type.
-     *
-     */
+    /** Represents a water terrain type. */
     WATER(new WaterTerrain()),
 
-    /**
-     * Represents a plain terrain.
-     */
+    /** Represents a plain terrain type. */
     PLAIN(new PlainTerrain()),
 
-    /**
-     * Represents a water route terrain.
-     */
+    /** Represents a water route terrain type. */
     WATERROUTE(new WaterRouteTerrain());
 
-    /**
-     * The terrain instance associated with this terrain type.
-     */
+    /** The terrain instance associated with this terrain type. */
     private final Terrain terrain;
 
     /**

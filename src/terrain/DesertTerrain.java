@@ -15,24 +15,16 @@ package terrain;
  */
 public class DesertTerrain extends Terrain {
 
-    /**
-     * Attack bonus percentage provided by desert terrain.
-     */
+    /** Attack bonus percentage provided by desert terrain. */
     private static final double ATTACK_BONUS_PERCENTAGE = .09;
 
-    /**
-     * Defense bonus percentage provided by desert terrain.
-     */
+    /** Defense bonus percentage provided by desert terrain. */
     private static final double DEFENSE_BONUS_PERCENTAGE = 0;
 
-    /**
-     * Additional troops granted by desert terrain.
-     */
+    /** Additional troops granted by desert terrain. */
     private static final int TROOP_BONUS = 0;
 
-    /**
-     * Image file used to represent desert terrain on the map.
-     */
+    /** Image file used to represent desert terrain on the map. */
     private static final String ICON_FILENAME = "src/gameImages/DesertTerrain.png";
 
     /**

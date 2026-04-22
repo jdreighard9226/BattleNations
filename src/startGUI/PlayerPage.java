@@ -287,7 +287,11 @@ public class PlayerPage {
     }
 
     /**
-     * Handles adding a player after validating input fields.
+     * Validates the player name and color inputs and adds a new player to the list.
+     *
+     * <p>Displays an error message if the name is empty, too long, already taken,
+     * or no color has been selected. Enables the continue button once at least
+     * two players have been added.</p>
      */
     private void addPlayer() {
         // Gets the information from the player creation fields

@@ -86,7 +86,11 @@ public class SetUpController {
     /** Handles logic for the troop placement phase. */
     private final TroopPlacementPhase troopPlacementPhase;
 
+
+    /** Button used to switch to the map view during setup. */
     private final JButton showMapButton;
+
+    /** Button used to switch to the region view during setup. */
     private final JButton showRegionsButton;
 
     /**
@@ -114,7 +118,7 @@ public class SetUpController {
         regionPanel = new RegionPanel(territories, regions, this);
         players = gameSetUpData.getPlayers();
 
-        //Gets the dimensions of the screen for reference.
+        // Gets the dimensions of the screen for reference.
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
         // Creates the game information panel shown at the bottom of the screen.
@@ -198,7 +202,7 @@ public class SetUpController {
         // Initializes the two phases.
         troopPlacementPhase = new TroopPlacementPhase(this, territories, players, gameSetUpData.isRandomTroopPlacement());
         territorySelectionPhase = new TerritorySelectionPhase(this, territories, players, gameSetUpData.isRandomTerritories());
-        if(!gameSetUpData.isRandomTerritories()){
+        if (!gameSetUpData.isRandomTerritories()) {
             JOptionPane.showMessageDialog(display, "Welcome to the territory selection phase.\n" +
                     "You will take turns choosing territories you want to own until\n" +
                     "no territories are left unowned.\n" +
@@ -246,17 +250,17 @@ public class SetUpController {
      */
     public void placeTroopPhase() {
         troopPlacementPhase.start();
+        setPhase("Troop");
 
-        if(!gameSetUpData.isRandomTroopPlacement()){
+        if (!gameSetUpData.isRandomTroopPlacement()) {
             JOptionPane.showMessageDialog(display, "Welcome to the troop placement phase.\n" +
-                "You will take turns placing three troops at a time on your territories until\n" +
+                    "You will take turns placing three troops at a time on your territories until\n" +
                     "no players have any troops left to place.\n" +
                     "You can refer to the bottom left of the screen to see\n" +
                     "which players turn it is, their color, and how many troops\n" +
                     "they have to place.", "Place Troops", JOptionPane.INFORMATION_MESSAGE);
             startController.makeSound();
         }
-        setPhase("Troop");
     }
 
     /**
@@ -340,7 +344,7 @@ public class SetUpController {
     /**
      * Closes the game screen without shutting down the program.
      */
-    public void minimize(){
+    public void minimize() {
         startController.getDisplay().setState(Frame.ICONIFIED);
     }
 

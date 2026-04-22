@@ -25,7 +25,11 @@ public class ImagePanel extends JPanel {
         backgroundImage = new ImageIcon(path).getImage();
     }
 
-    /** Overrides the paint component. */
+    /**
+     * Paints the background image scaled to fill the entire panel.
+     *
+     * @param g the graphics context used for rendering
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

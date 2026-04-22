@@ -21,8 +21,10 @@ import java.io.IOException;
  */
 public class ButtonSound {
 
-    /** Two audio clips used for allowing rapid fire button sound effects. */
+    /** First audio clip used for button sound playback. */
     private Clip buttonSound1;
+
+    /** Second audio clip used to allow rapid back-to-back button sounds. */
     private Clip buttonSound2;
 
     /** Determines whether the audio system is working correctly. */
@@ -158,6 +160,5 @@ public class ButtonSound {
         volumeControl1.setValue((min + (volume * (max - min) / 10)));
         volumeControl2.setValue((min + (volume * (max - min) / 10)));
     }
-
 
 }

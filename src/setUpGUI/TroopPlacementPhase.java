@@ -51,7 +51,7 @@ public class TroopPlacementPhase {
     /** Determines if troop placement is random. */
     private final boolean isRandom;
 
-    /** Keeps track of it troop placement is allowed to process information yet. */
+    /** Keeps track of if troop placement is allowed to process information yet. */
     private boolean started = false;
 
     /**
@@ -76,6 +76,12 @@ public class TroopPlacementPhase {
         this.isRandom = isRandom;
     }
 
+    /**
+     * Starts the troop placement phase by distributing troops to all players.
+     *
+     * <p>If random placement is enabled, troops are distributed automatically.
+     * Otherwise the phase begins and waits for manual user input.</p>
+     */
     public void start() {
         // Distributes troops evenly among players.
         giveTroopsToPlace(60);

@@ -303,13 +303,13 @@ public class SetUpOptionsPage {
         title.setBackground(Color.BLACK);
 
         // Creates several variables used for resizing the text font.
-        boolean toBig = true;
+        boolean tooBig = true;
         int fontSize = 100;
         int textBuffer = screen.width / 2;
         Dimension titleSize = null;
 
         // Continues shrinking the font size until it fits within the text box with a buffer.
-        while (toBig) {
+        while (tooBig) {
             title.setFont(new Font("Arial", Font.BOLD, fontSize));
             titleSize = title.getPreferredSize();
 
@@ -317,7 +317,7 @@ public class SetUpOptionsPage {
             if (titleSize.width > screen.width - textBuffer) {
                 fontSize--;
             } else {
-                toBig = false;
+                tooBig = false;
             }
         }
 

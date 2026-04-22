@@ -30,81 +30,53 @@ import java.util.List;
  *
  */
 public class GameController {
-    /**
-     * Handles the main game logic and phase progression.
-     */
+
+    /** Handles the main game logic and phase progression. */
     private final GameLogic gameLogic;
 
-    /**
-     * List of all territories in the current world.
-     */
+    /** List of all territories in the current world. */
     private final List<Territory> territories;
 
-    /**
-     * Main game window display.
-     */
+    /** Main game window display. */
     private final JFrame display;
 
-    /**
-     * Label showing the current phase of the game.
-     */
+    /** Label showing the current phase of the game. */
     private final JLabel gameStatusLabel;
 
-    /**
-     * Label showing instructions for the current player.
-     */
+    /** Label showing instructions for the current player. */
     private final JLabel instructionText;
 
-    /**
-     * Label showing general information about the current player and turn.
-     */
+    /** Label showing general information about the current player and turn. */
     private final JLabel generalInfoLabel;
 
-    /**
-     * Label used to display error messages to the user.
-     */
+    /** Label used to display error messages to the user. */
     private final JLabel errorText;
 
-    /**
-     * Label used to display success messages to the user.
-     */
+    /** Label used to display success messages to the user. */
     private final JLabel successText;
 
-    /**
-     * Panel containing game information and buttons.
-     */
+    /** Panel containing game information and buttons. */
     private final JPanel gameInfoPanel;
 
-    /**
-     * Panel used to display region information.
-     */
+    /** Panel used to display region information. */
     private final RegionPanel regionPanel;
 
-    /**
-     * Button used to continue to the next phase or turn.
-     */
+    /** Button used to continue to the next phase or turn. */
     private final JButton continueButton;
 
-    /**
-     * Stores the first selected territory during attack or fortify actions.
-     */
+    /** Stores the first selected territory during attack or fortify actions. */
     private Territory firstTerritoryClicked;
 
-    /**
-     * Tracks whether the player has already used fortify during the current turn.
-     */
+    /** Tracks whether the player has already used fortify during the current turn. */
     private boolean fortifyUsedThisTurn;
 
-    /**
-     * Button used to switch between map and region displays.
-     */
+    /** Button used to switch between map and region displays. */
     private final JButton changeDisplayButton;
 
-    /**
-     * Start Controller used to return back to the main menu after the game
-     */
+    /** Start Controller used to return back to the main menu after the game. */
     private final StartController startController;
 
+    /** Tracks whether the region view is currently being shown instead of the map. */
     private boolean showingRegions = false;
 
     /**
@@ -166,7 +138,6 @@ public class GameController {
         });
 
         changeDisplayButton.setBounds(gameInfoPanel.getWidth() - 200, 10, 200, 50);
-
         gameInfoPanel.add(changeDisplayButton);
 
         JButton terrainInfoButton = new JButton("Terrain Info");
@@ -395,7 +366,6 @@ public class GameController {
         firstTerritoryClicked = null;
         fortifyUsedThisTurn = true;
         continueButton.setEnabled(true);
-
     }
 
     /**
@@ -636,7 +606,7 @@ public class GameController {
     public void returnToMainMenu() {
         startController.makeSound();
         display.getContentPane().removeAll();
-        startController.reset(); // resets game
+        startController.reset();
     }
 
     /**
@@ -666,6 +636,9 @@ public class GameController {
         display.repaint();
     }
 
+    /**
+     * Displays a popup showing terrain type descriptions and their combat bonuses.
+     */
     private void showTerrainInfo() {
         String info = """
                 TERRAIN TYPES & BONUSES

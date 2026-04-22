@@ -17,24 +17,17 @@ package terrain;
  * </ul>
  */
 public abstract class Terrain {
-    /**
-     * The percentage attack bonus provided by this terrain.
-     */
+
+    /** The percentage attack bonus provided by this terrain. */
     protected final double attackBonusPercentage;
 
-    /**
-     * The percentage defense bonus provided by this terrain.
-     */
+    /** The percentage defense bonus provided by this terrain. */
     protected final double defenseBonusPercentage;
 
-    /**
-     * Additional troops granted by this terrain.
-     */
+    /** Additional troops granted by this terrain. */
     protected final int troopBonus;
 
-    /**
-     * The image file used to represent the terrain on the game map.
-     */
+    /** The image file used to represent the terrain on the game map. */
     protected final String imageFile;
 
     /**

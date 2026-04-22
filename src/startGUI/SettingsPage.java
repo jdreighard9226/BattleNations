@@ -43,7 +43,11 @@ public class SettingsPage {
     private StartController startController;
 
     /**
-     * Constructs the SettingsPage and initializes all components.
+     * Constructs the SettingsPage and initializes all UI components.
+     *
+     * <p>Creates sliders for music and button sound volume, a back button
+     * to return to the start menu, and close and minimize window controls.
+     * All components are positioned manually based on screen dimensions.</p>
      */
     public SettingsPage() {
         // Initialize background panel with image

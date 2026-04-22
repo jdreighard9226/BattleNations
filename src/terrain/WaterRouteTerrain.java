@@ -15,24 +15,16 @@ package terrain;
  */
 public class WaterRouteTerrain extends Terrain {
 
-    /**
-     * Attack bonus percentage provided by water route terrain.
-     */
+    /** Attack bonus percentage provided by water route terrain. */
     private static final double ATTACK_BONUS_PERCENTAGE = 0;
 
-    /**
-     * Defense bonus percentage provided by water route terrain.
-     */
+    /** Defense bonus percentage provided by water route terrain. */
     private static final double DEFENSE_BONUS_PERCENTAGE = 0;
 
-    /**
-     * Additional troops granted by water route terrain.
-     */
+    /** Additional troops granted by water route terrain. */
     private static final int TROOP_BONUS = 0;
 
-    /**
-     * Image file used to represent water route terrain on the map.
-     */
+    /** Image file used to represent water route terrain on the map. */
     private static final String ICON_FILENAME = "src/gameImages/WaterRouteTerrain.png";
 
     /**

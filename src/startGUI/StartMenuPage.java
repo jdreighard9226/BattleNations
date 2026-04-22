@@ -96,7 +96,7 @@ public class StartMenuPage {
         // Checks to see if the instruction box should be displayed.
         if (stillShow) {
             JCheckBox checkBox = new JCheckBox("Don't show again this session");
-            Object[] message = {"Welcom to Battle Nations!\n" +
+            Object[] message = {"Welcome to Battle Nations!\n" +
                     "To set up and play a game click Start Game\n" +
                     "To change sound settings click Settings, or press 's' on your keyboard at any time.\n" +
                     "To stop the game click Quit.", checkBox};
