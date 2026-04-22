@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>game</OriginalElement>
+  <nodes>
+    <node x="969.5" y="207.0">game.AttackService</node>
+    <node x="244.0" y="714.4663865546219">game.GameLogic</node>
+    <node x="829.0" y="463.0">game.TurnPhase</node>
+    <node x="517.922268907563" y="231.0">game.ReinforcementService</node>
+    <node x="225.5" y="427.0">game.FortifyService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="game.GameLogic" target="game.ReinforcementService" relationship="TO_ONE">
+      <point x="0.0" y="-237.0" />
+      <point x="456.0" y="679.0" />
+      <point x="713.922268907563" y="679.0" />
+      <point x="0.0" y="68.0" />
+    </edge>
+    <edge source="game.GameLogic" target="game.TurnPhase" relationship="TO_ONE">
+      <point x="0.0" y="-237.0" />
+      <point x="456.0" y="679.0" />
+      <point x="936.0" y="679.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="game.GameLogic" target="game.AttackService" relationship="TO_ONE">
+      <point x="0.0" y="-237.0" />
+      <point x="456.0" y="679.0" />
+      <point x="1156.0" y="679.0" />
+      <point x="0.0" y="92.0" />
+    </edge>
+    <edge source="game.GameLogic" target="game.FortifyService" relationship="TO_ONE">
+      <point x="0.0" y="-237.0" />
+      <point x="0.0" y="92.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.481294236602629" showDependencies="true" x="891.7312762605044" y="802.9711922268907" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
