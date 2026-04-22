@@ -155,7 +155,7 @@ public class PlayerPage {
 
         // Scroll pane to contain the player list.
         JScrollPane scroll = new JScrollPane(playerList);
-        scroll.setBounds(screen.width / 2 - screen.width / 8, screen.height * 9 / 20, screen.width / 4, screen.height * 9 / 12 - screen.height * 9 / 20);
+        scroll.setBounds(screen.width / 2 - screen.width / 8, screen.height * 9 / 20 + formattingBuffer, screen.width / 4, screen.height * 9 / 12 - screen.height * 9 / 20 - formattingBuffer);
         playerCreationPanel.add(scroll);
 
         // Button to go back a page
