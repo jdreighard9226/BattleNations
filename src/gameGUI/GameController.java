@@ -140,7 +140,7 @@ public class GameController {
         this.regionPanel = regionPanel;
 
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        changeDisplayButton = new JButton("Show Map");
+        changeDisplayButton = new JButton("Show Regions");
         changeDisplayButton.setVisible(true);
         changeDisplayButton.addActionListener(e -> {
             // If the button currently says "Show Map", switch back to the map display
