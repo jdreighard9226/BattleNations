@@ -45,8 +45,8 @@ public class RegionPanel extends JPanel {
      * and adding control buttons for closing and minimizing the application window.
      * </p>
      *
-     * @param territories the 2D array of territories to be displayed
-     * @param regions the list of regions to be rendered
+     * @param territories     the 2D array of territories to be displayed
+     * @param regions         the list of regions to be rendered
      * @param setUpController controller used to handle reset and minimize actions
      */
     public RegionPanel(Territory[][] territories, List<Region> regions, SetUpController setUpController) {
@@ -91,16 +91,26 @@ public class RegionPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Draws all regions.
+        // Draw all regions and their territories first
         for (Region region : regions) {
             region.draw(g);
         }
 
-        // Draws water and water route territories.
+        // First pass — fill all water and water route territories
         for (Territory[] row : territories) {
             for (Territory t : row) {
                 if (t != null && (t.getTerrain() instanceof WaterTerrain || t.getTerrain() instanceof WaterRouteTerrain)) {
                     t.Draw(g);
+                }
+            }
+        }
+
+        // Second pass — redraw water borders on top so they are never covered
+        for (Territory[] row : territories) {
+            for (Territory t : row) {
+                if (t != null && (t.getTerrain() instanceof WaterTerrain || t.getTerrain() instanceof WaterRouteTerrain)) {
+                    g.setColor(Color.BLUE.brighter());
+                    g.drawPolygon(t.getXPoints(), t.getYPoints(), t.getNPoints());
                 }
             }
         }
