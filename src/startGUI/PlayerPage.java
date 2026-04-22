@@ -119,6 +119,9 @@ public class PlayerPage {
         playerColor.setSelectedIndex(0);
         playerColor.setBounds(screen.width / 2 + 2 * formattingBuffer + colorLabelSize.width, screen.height * 3 / 10, screen.width / 8, 30);
         playerCreationPanel.add(playerColor);
+        playerColor.addActionListener(e -> {
+            startController.makeSound();
+        });
 
         // Button to add a player using the provided name and color.
         JButton addPlayer = new JButton("Add");
@@ -155,7 +158,7 @@ public class PlayerPage {
 
         // Scroll pane to contain the player list.
         JScrollPane scroll = new JScrollPane(playerList);
-        scroll.setBounds(screen.width / 2 - screen.width / 8, screen.height * 9 / 20, screen.width / 4, screen.height * 9 / 12 - screen.height * 9 / 20);
+        scroll.setBounds(screen.width / 2 - screen.width / 8, screen.height * 9 / 20 + formattingBuffer, screen.width / 4, screen.height * 9 / 12 - screen.height * 9 / 20 - formattingBuffer);
         playerCreationPanel.add(scroll);
 
         // Button to go back a page
@@ -343,6 +346,7 @@ public class PlayerPage {
         // Only shows the error message if there was something wrong with the information given.
         if (!errorMessage.isEmpty()) {
             JOptionPane.showMessageDialog(parent, errorMessage);
+            startController.makeSound();
             return;
         }
 

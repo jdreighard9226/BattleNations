@@ -100,23 +100,26 @@ public class StartController {
                     return;
                 }
 
-                // Creates a checkbox for both sound options.
-                JCheckBox music = new JCheckBox("Music", getMusic().isMusicEnabled());
-                JCheckBox buttonSound = new JCheckBox("Click Sound", isSoundEnabled());
+                // Creates a slider for both sound options.
+                JSlider musicSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, (int) music.getVolume());
+                JSlider buttonSoundSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, (int) buttonSound.getVolume());
+
+                // Creates action listeners for each to update the volumes for both sound options.
+                musicSlider.addChangeListener(f -> {
+                    // Changes the volume of the sounds made based on the slider results.
+                    music.setVolume(musicSlider.getValue());
+                    makeSound();
+                });
+                buttonSoundSlider.addChangeListener(f -> {
+                    buttonSound.setVolume(buttonSoundSlider.getValue());
+                    makeSound();
+                });
 
                 // Creates an Object list that holds the message text and the two checkboxes.
-                Object[] message = {"Sound Settings", music, buttonSound};
-
+                Object[] message = {"Sound Settings", "-----------------------", "Music Volume:", musicSlider, "Button Sound Volume:", buttonSoundSlider};
                 // Creates a popup window with the message.
                 JOptionPane.showMessageDialog(display, message, "Settings", JOptionPane.INFORMATION_MESSAGE);
 
-                // Modifies if button sound or music are enabled based on if their respective checkboxes are selected.
-                if (music.isSelected()) {
-                    getMusic().enableMusic();
-                } else {
-                    getMusic().disableMusic();
-                }
-                setSound(buttonSound.isSelected());
                 makeSound();
             }
         });
@@ -203,21 +206,21 @@ public class StartController {
     }
 
     /**
-     * Sets whether the button sound effects are enabled.
+     * Sets the volume of the button sound.
      *
-     * @param enabled true to enable sound effects, false to disable.
+     * @param volume the desired volume level (0–10).
      */
-    public void setSound(boolean enabled) {
-        buttonSound.setEnabled(enabled);
+    public void setButtonSoundVolume(float volume) {
+        buttonSound.setVolume(volume);
     }
 
     /**
-     * Checks whether button sound effects are enabled.
+     * Gets the volume of the button sound.
      *
-     * @return true if sound is enabled, false if not.
+     * @return The volume off the button on a scale from 1-10
      */
-    public boolean isSoundEnabled() {
-        return buttonSound.isSoundEnabled();
+    public float getButtonSoundVolume() {
+        return buttonSound.getVolume();
     }
 
     /**

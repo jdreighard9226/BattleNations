@@ -21,14 +21,18 @@ import java.io.IOException;
  */
 public class ButtonSound {
 
-    /** The audio clip used for button sound effects. */
-    private Clip buttonSound;
+    /** Two audio clips used for allowing rapid fire button sound effects. */
+    private Clip buttonSound1;
+    private Clip buttonSound2;
 
     /** Determines whether the audio system is working correctly. */
     private boolean soundWorking = true;
 
-    /** Determines whether button sound effects are enabled. */
-    private boolean soundEnabled = true;
+    /** Stores the current volume level on a scale from 0 to 10. */
+    private float volume;
+
+    /** Toggles which clip should play next. */
+    private boolean useFirst = true;
 
     /**
      * Constructs a ButtonSound object and attempts to load the specified sound file.
@@ -56,9 +60,15 @@ public class ButtonSound {
 
         // Loads the audio file and give it to a clip. If an error occurs creates an error message based on what happened.
         try {
-            AudioInputStream audio = AudioSystem.getAudioInputStream(soundFile);
-            buttonSound = AudioSystem.getClip();
-            buttonSound.open(audio);
+            // Load first clip
+            AudioInputStream audio1 = AudioSystem.getAudioInputStream(soundFile);
+            buttonSound1 = AudioSystem.getClip();
+            buttonSound1.open(audio1);
+
+            // Load second clip
+            AudioInputStream audio2 = AudioSystem.getAudioInputStream(soundFile);
+            buttonSound2 = AudioSystem.getClip();
+            buttonSound2.open(audio2);
         } catch (UnsupportedAudioFileException e) {
             System.err.println("Unsupported audio type: " + fileExtension);
             soundWorking = false;
@@ -69,6 +79,8 @@ public class ButtonSound {
             System.err.println("Audio System unavailable");
             soundWorking = false;
         }
+
+        volume = 10;
     }
 
     /**
@@ -78,24 +90,6 @@ public class ButtonSound {
      */
     public boolean isSoundWorking() {
         return soundWorking;
-    }
-
-    /**
-     * Enables or disables button sound effects.
-     *
-     * @param enabled true to enable sound effects, false to disable them
-     */
-    public void setEnabled(boolean enabled) {
-        soundEnabled = enabled;
-    }
-
-    /**
-     * Checks whether button sound effects are currently enabled.
-     *
-     * @return true if sound effects are enabled, false otherwise
-     */
-    public boolean isSoundEnabled() {
-        return soundEnabled;
     }
 
     /**
@@ -109,10 +103,61 @@ public class ButtonSound {
      * @param frameStart the frame position within the audio clip to begin playback
      */
     public void playSound(int frameStart) {
-        if (soundWorking && soundEnabled) {
-            buttonSound.stop();
-            buttonSound.setFramePosition(frameStart);
-            buttonSound.start();
+        if (soundWorking) {
+            if (useFirst) {
+                buttonSound1.stop();
+                buttonSound1.setFramePosition(frameStart);
+                buttonSound1.start();
+            } else {
+                buttonSound2.stop();
+                buttonSound2.setFramePosition(frameStart);
+                buttonSound2.start();
+            }
         }
     }
+
+    /**
+     * Retrieves the current volume level.
+     *
+     * @return the volume level on a scale from 0 (muted) to 10 (maximum)
+     */
+    public float getVolume() {
+        return volume;
+    }
+
+    /**
+     * Sets the volume of the button sound.
+     *
+     * <p>
+     * The provided value is expected to be between 0 and 10 and is mapped
+     * to the audio system's internal decibel range using a linear scale.
+     * </p>
+     *
+     * <p>
+     * A value of 0 will mute the audio by setting it to the minimum gain.
+     * </p>
+     *
+     * @param volume the desired volume level (0–10)
+     */
+    public void setVolume(float volume) {
+        // The controller which is in charge of increasing or decreasing the decibels of an audio clip.
+        FloatControl volumeControl1 = (FloatControl) buttonSound1.getControl(FloatControl.Type.MASTER_GAIN);
+        FloatControl volumeControl2 = (FloatControl) buttonSound2.getControl(FloatControl.Type.MASTER_GAIN);
+        this.volume = volume;
+
+        // If volume is zero, set to the minimum sound level (muted).
+        if (volume == 0) {
+            volumeControl1.setValue(volumeControl1.getMinimum());
+            volumeControl2.setValue(volumeControl1.getMinimum());
+        }
+
+        float min = volumeControl1.getMinimum();
+        float max = volumeControl1.getMaximum();
+
+        // Linearly maps 0-10 range to the system's decibel range.
+        volumeControl1.setValue((min + (volume * (max - min) / 10)));
+        volumeControl2.setValue((min + (volume * (max - min) / 10)));
+    }
+
+
 }

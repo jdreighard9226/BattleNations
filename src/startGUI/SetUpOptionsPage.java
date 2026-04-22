@@ -85,7 +85,7 @@ public class SetUpOptionsPage {
         setUpOptionsPanel.add(title);
 
         // Creates a buffer so that objects on screen don't touch but have space in between.
-        int formattingBuffer = 10;
+        int formattingBuffer = 30;
 
         // Button to go back a page.
         JButton backBt = new JButton("Back");
@@ -110,6 +110,16 @@ public class SetUpOptionsPage {
         // Groups the territory selection buttons so only one can be selected.
         territoryButtons = new ButtonGroup();
 
+        // Creates a label for the territory options.
+        JLabel territoryLabel = new JLabel("Territory Selection Options:");
+        territoryLabel.setOpaque(true);
+        territoryLabel.setBackground(Color.BLACK);
+        territoryLabel.setForeground(Color.WHITE);
+        territoryLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        Dimension territoryLabelSize = territoryLabel.getPreferredSize();
+        territoryLabel.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height / 2, screen.width / 6, 40);
+        setUpOptionsPanel.add(territoryLabel);
+
         // Button for random territory selection.
         JRadioButton randomTerritories = new JRadioButton("Random Territory Selection");
         randomTerritories.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height * 2 / 5, screen.width / 6, 40);
@@ -126,6 +136,16 @@ public class SetUpOptionsPage {
 
         // Groups the troop placement buttons so only one can be selected.
         troopButtons = new ButtonGroup();
+
+        // Creates a label for the troop options.
+        JLabel troopLabel = new JLabel("Troop Placement Options:");
+        troopLabel.setOpaque(true);
+        troopLabel.setBackground(Color.BLACK);
+        troopLabel.setForeground(Color.WHITE);
+        troopLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        Dimension troopLabelSize = troopLabel.getPreferredSize();
+        troopLabel.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2, screen.width / 6, 40);
+        setUpOptionsPanel.add(troopLabel);
 
         // Buttons for random troop placement.
         JRadioButton randomTroops = new JRadioButton("Random Troop Placement");
@@ -144,6 +164,16 @@ public class SetUpOptionsPage {
 
         // Groups the troop placement buttons so only one can be selected.
         gameModeButtons = new ButtonGroup();
+
+        // Creates a label for the game options.
+        JLabel gameLabel = new JLabel("Game Mode Options:");
+        gameLabel.setOpaque(true);
+        gameLabel.setBackground(Color.BLACK);
+        gameLabel.setForeground(Color.WHITE);
+        gameLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        Dimension gameLabelSize = gameLabel.getPreferredSize();
+        gameLabel.setBounds(screen.width / 2 + screen.width / 12 + formattingBuffer, screen.height / 2, screen.width / 6, 40);
+        setUpOptionsPanel.add(gameLabel);
 
         // Buttons for random troop placement.
         JRadioButton totalDomination = new JRadioButton("Total Domination");
