@@ -211,16 +211,6 @@ public class Territory extends Polygon {
      * @param g the graphics context used for rendering
      */
     public void Draw(Graphics g) {
-        // Set outline color based on highlight or ownership
-        if (isHighlighted) {
-            g.setColor(Color.WHITE);
-        } else if (this.getCurrentColor() != null) {
-            g.setColor(this.getCurrentColor());
-        } else {
-            g.setColor(Color.DARK_GRAY);
-        }
-        g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
-
         // Set fill color — water gets blue, unowned land gets light gray
         if (isHighlighted) {
             g.setColor(Color.WHITE);
@@ -228,7 +218,7 @@ public class Territory extends Polygon {
             g.setColor(this.getCurrentColor().darker());
         } else {
             if (this.getTerrain() instanceof WaterTerrain || this.getTerrain() instanceof WaterRouteTerrain) {
-                g.setColor(Color.BLUE);
+                g.setColor(Color.BLUE.darker());
             } else {
                 g.setColor(Color.LIGHT_GRAY);
             }
@@ -282,6 +272,20 @@ public class Territory extends Polygon {
             // Draw the troop count centered inside the circle
             g.setFont(numberFont);
             g.drawString(troopCount, xCenter - (int) (dimentions.getWidth() / 2), yCenter + (int) (dimentions.getHeight() / 4));
+        }
+
+        // Draw outline on top of everything so it is never covered by fills or images
+        if (isHighlighted) {
+            g.setColor(Color.WHITE);
+            g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
+        } else if (this.getCurrentColor() != null) {
+            g.setColor(this.getCurrentColor().brighter());
+            g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
+        } else if (this.getTerrain() instanceof WaterTerrain || this.getTerrain() instanceof WaterRouteTerrain) {
+            // Skip — water borders are handled separately in RegionPanel to avoid being painted over
+        } else {
+            g.setColor(Color.DARK_GRAY);
+            g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
         }
     }
 
