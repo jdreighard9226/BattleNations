@@ -107,87 +107,93 @@ public class SetUpOptionsPage {
         // Adds the continue button to the panel.
         setUpOptionsPanel.add(continueBt);
 
-        // Groups the territory selection buttons so only one can be selected.
+        // Territory selection group — bordered panel makes the one-or-the-other choice clear
+        JPanel territoryPanel = new JPanel();
+        territoryPanel.setLayout(null);
+        territoryPanel.setOpaque(false);
+        territoryPanel.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height * 2 / 5, screen.width / 6, 120);
+        territoryPanel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(Color.WHITE), "Territory Selection",
+                javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 18), Color.WHITE));
+
+        JRadioButton randomTerritories = new JRadioButton("Random");
+        randomTerritories.setBounds(10, 25, screen.width / 6 - 20, 35);
+        randomTerritories.setOpaque(false);
+        randomTerritories.setForeground(Color.WHITE);
+        randomTerritories.setFont(new Font("Arial", Font.PLAIN, 16));
+
+        JRadioButton manualTerritories = new JRadioButton("Manual");
+        manualTerritories.setBounds(10, 65, screen.width / 6 - 20, 35);
+        manualTerritories.setOpaque(false);
+        manualTerritories.setForeground(Color.WHITE);
+        manualTerritories.setFont(new Font("Arial", Font.PLAIN, 16));
+
         territoryButtons = new ButtonGroup();
-
-        // Creates a label for the territory options.
-        JLabel territoryLabel = new JLabel("Territory Selection Options:");
-        territoryLabel.setOpaque(true);
-        territoryLabel.setBackground(Color.BLACK);
-        territoryLabel.setForeground(Color.WHITE);
-        territoryLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        Dimension territoryLabelSize = territoryLabel.getPreferredSize();
-        territoryLabel.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height / 2, screen.width / 6, 40);
-        setUpOptionsPanel.add(territoryLabel);
-
-        // Button for random territory selection.
-        JRadioButton randomTerritories = new JRadioButton("Random Territory Selection");
-        randomTerritories.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height * 2 / 5, screen.width / 6, 40);
-
-        // Button for manual territory selection.
-        JRadioButton manualTerritories = new JRadioButton("Manual Territory Selection");
-        manualTerritories.setBounds(screen.width / 2 - screen.width * 3 / 12 - formattingBuffer, screen.height * 3 / 5, screen.width / 6, 40);
-
-        // Adds buttons to the group and panel.
         territoryButtons.add(randomTerritories);
         territoryButtons.add(manualTerritories);
-        setUpOptionsPanel.add(randomTerritories);
-        setUpOptionsPanel.add(manualTerritories);
+        territoryPanel.add(randomTerritories);
+        territoryPanel.add(manualTerritories);
+        setUpOptionsPanel.add(territoryPanel);
 
-        // Groups the troop placement buttons so only one can be selected.
+        // Troop placement group — bordered panel makes the one-or-the-other choice clear
+        JPanel troopPanel = new JPanel();
+        troopPanel.setLayout(null);
+        troopPanel.setOpaque(false);
+        troopPanel.setBounds(screen.width / 2 - screen.width / 12, screen.height * 2 / 5, screen.width / 6, 120);
+        troopPanel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(Color.WHITE), "Troop Placement",
+                javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 20), Color.WHITE));
+
+        JRadioButton randomTroops = new JRadioButton("Random");
+        randomTroops.setBounds(10, 25, screen.width / 6 - 20, 35);
+        randomTroops.setOpaque(false);
+        randomTroops.setForeground(Color.WHITE);
+        randomTroops.setFont(new Font("Arial", Font.BOLD, 16));
+
+        JRadioButton manualTroops = new JRadioButton("Manual");
+        manualTroops.setBounds(10, 65, screen.width / 6 - 20, 35);
+        manualTroops.setOpaque(false);
+        manualTroops.setForeground(Color.WHITE);
+        manualTroops.setFont(new Font("Arial", Font.BOLD, 16));
+
         troopButtons = new ButtonGroup();
-
-        // Creates a label for the troop options.
-        JLabel troopLabel = new JLabel("Troop Placement Options:");
-        troopLabel.setOpaque(true);
-        troopLabel.setBackground(Color.BLACK);
-        troopLabel.setForeground(Color.WHITE);
-        troopLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        Dimension troopLabelSize = troopLabel.getPreferredSize();
-        troopLabel.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2, screen.width / 6, 40);
-        setUpOptionsPanel.add(troopLabel);
-
-        // Buttons for random troop placement.
-        JRadioButton randomTroops = new JRadioButton("Random Troop Placement");
-        randomTroops.setBounds(screen.width / 2 - screen.width / 12, screen.height * 2 / 5, screen.width / 6, 40);
-
-        // Buttons for manual troop placement.
-        JRadioButton manualTroops = new JRadioButton("Manual Troop Placement");
-        manualTroops.setBounds(screen.width / 2 - screen.width / 12, screen.height * 3 / 5, screen.width / 6, 40);
-
-        // Adds buttons to the group and panel.
         troopButtons.add(randomTroops);
         troopButtons.add(manualTroops);
-        setUpOptionsPanel.add(randomTroops);
-        setUpOptionsPanel.add(manualTroops);
+        troopPanel.add(randomTroops);
+        troopPanel.add(manualTroops);
+        setUpOptionsPanel.add(troopPanel);
 
+        // Game mode group — bordered panel makes the one-or-the-other choice clear
+        JPanel gameModePanel = new JPanel();
+        gameModePanel.setLayout(null);
+        gameModePanel.setOpaque(false);
+        gameModePanel.setBounds(screen.width / 2 + screen.width / 12 + formattingBuffer, screen.height * 2 / 5, screen.width / 6, 120);
+        gameModePanel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(Color.WHITE), "Game Mode",
+                javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 20), Color.WHITE));
 
-        // Groups the troop placement buttons so only one can be selected.
-        gameModeButtons = new ButtonGroup();
-
-        // Creates a label for the game options.
-        JLabel gameLabel = new JLabel("Game Mode Options:");
-        gameLabel.setOpaque(true);
-        gameLabel.setBackground(Color.BLACK);
-        gameLabel.setForeground(Color.WHITE);
-        gameLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        Dimension gameLabelSize = gameLabel.getPreferredSize();
-        gameLabel.setBounds(screen.width / 2 + screen.width / 12 + formattingBuffer, screen.height / 2, screen.width / 6, 40);
-        setUpOptionsPanel.add(gameLabel);
-
-        // Buttons for random troop placement.
         JRadioButton totalDomination = new JRadioButton("Total Domination");
-        totalDomination.setBounds(screen.width / 2 + screen.width / 12 + formattingBuffer, screen.height * 2 / 5, screen.width / 6, 40);
+        totalDomination.setBounds(10, 25, screen.width / 6 - 20, 35);
+        totalDomination.setOpaque(false);
+        totalDomination.setForeground(Color.WHITE);
+        totalDomination.setFont(new Font("Arial", Font.BOLD, 16));
 
-        // Buttons for manual troop placement.
+
         JRadioButton capitalDomination = new JRadioButton("Capital Domination");
-        capitalDomination.setBounds(screen.width / 2 + screen.width / 12 + formattingBuffer, screen.height * 3 / 5, screen.width / 6, 40);
+        capitalDomination.setBounds(10, 65, screen.width / 6 - 20, 35);
+        capitalDomination.setOpaque(false);
+        capitalDomination.setForeground(Color.WHITE);
+        capitalDomination.setFont(new Font("Arial", Font.BOLD, 16));
 
-        // Adds buttons to the group and panel.
+        gameModeButtons = new ButtonGroup();
         gameModeButtons.add(totalDomination);
         gameModeButtons.add(capitalDomination);
-        setUpOptionsPanel.add(totalDomination);
-        setUpOptionsPanel.add(capitalDomination);
+        gameModePanel.add(totalDomination);
+        gameModePanel.add(capitalDomination);
+        setUpOptionsPanel.add(gameModePanel);
 
         // Sets game setup data to be random territory assignment based on selected territory option.
         randomTerritories.addActionListener(e -> {
@@ -217,7 +223,6 @@ public class SetUpOptionsPage {
             if (territoriesSelected && dominationSelected) {
                 continueBt.setEnabled(true);
             }
-
         });
 
         // Sets game setup data to be manual troop placement based on selected troop placement option.
