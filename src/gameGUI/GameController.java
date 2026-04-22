@@ -137,11 +137,11 @@ public class GameController {
             updateText();
         });
 
-        changeDisplayButton.setBounds(gameInfoPanel.getWidth() - 200, 10, 200, 50);
+        changeDisplayButton.setBounds(gameInfoPanel.getWidth() - 200, 10, 200, 40);
         gameInfoPanel.add(changeDisplayButton);
 
         JButton terrainInfoButton = new JButton("Terrain Info");
-        terrainInfoButton.setBounds(gameInfoPanel.getWidth() - 200, 65, 200, 50);
+        terrainInfoButton.setBounds(gameInfoPanel.getWidth() - 200, 55, 200, 40);
         terrainInfoButton.addActionListener(e -> {
             startController.makeSound();
             showTerrainInfo();
@@ -149,7 +149,7 @@ public class GameController {
         gameInfoPanel.add(terrainInfoButton);
 
         continueButton = new JButton("Continue");
-        continueButton.setBounds(gameInfoPanel.getWidth() - 200, 120, 200, 50);
+        continueButton.setBounds(gameInfoPanel.getWidth() - 200, 100, 200, 40);
         continueButton.setEnabled(false);
 
         continueButton.addActionListener(new ActionListener() {
@@ -643,7 +643,6 @@ public class GameController {
         String info = """
                 TERRAIN TYPES & BONUSES
                 ________________________
-                
                 Plain:
                   - Wide, flat land (territories with no image).
                   - Attack Bonus:   0%
@@ -677,8 +676,7 @@ public class GameController {
                   - Connects non-adjacent territories
                   - Not ownable or attackable
                 
-                Capital
-                  - Image: Star on the map
+                Capital (Star on Map)
                   - No combat bonuses
                   - Must be captured to win in Capital Domination
                 """;
