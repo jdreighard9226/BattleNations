@@ -2,6 +2,8 @@ package map;
 
 import gameGUI.GameController;
 import setUpGUI.SetUpController;
+import terrain.WaterRouteTerrain;
+import terrain.WaterTerrain;
 
 import javax.swing.*;
 import java.awt.*;
@@ -84,10 +86,21 @@ public class MapPanel extends JPanel {
         super.paintComponent(g);
         if (territories == null) return;
 
+        // First pass — draw all territories
         for (Territory[] row : territories) {
             for (Territory territory : row) {
                 if (territory != null) {
                     territory.Draw(g);
+                }
+            }
+        }
+
+        // Second pass — draw water borders on top so nothing covers them
+        for (Territory[] row : territories) {
+            for (Territory territory : row) {
+                if (territory != null && (territory.getTerrain() instanceof WaterTerrain || territory.getTerrain() instanceof WaterRouteTerrain)) {
+                    g.setColor(Color.BLUE.brighter());
+                    g.drawPolygon(territory.getXPoints(), territory.getYPoints(), territory.getNPoints());
                 }
             }
         }
