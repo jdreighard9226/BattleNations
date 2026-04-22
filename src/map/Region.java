@@ -196,20 +196,16 @@ public class Region {
      * @param g the graphics context used for rendering
      */
     public void draw(Graphics g) {
+        // First pass — fill all territories
         for (Territory t : territories) {
             int[] xpoints = t.getXPoints();
             int[] ypoints = t.getYPoints();
             int npoints = t.getNPoints();
 
-            // Fill the territory with the region color
-            g.setColor(color);
-            g.drawPolygon(xpoints, ypoints, npoints);
-
-            // Fill with a darker shade to give a bordered effect
             g.setColor(color.darker());
             g.fillPolygon(xpoints, ypoints, npoints);
 
-            // Draw the terrain image centered within the territory bounds
+            // Draw terrain image
             ImageIcon watermarkIcon = new ImageIcon(t.getTerrain().getImageFile());
             Image watermark = watermarkIcon.getImage();
             int xLeft = xpoints[1];
@@ -218,10 +214,19 @@ public class Region {
             int yBottom = ypoints[5];
             g.drawImage(watermark, xLeft, yTop, xRight - xLeft, yBottom - yTop, g.getColor(), null);
 
-            // Draw the capital star on top if this territory is a capital
             if (t.isCapital()) {
                 t.drawCapitalStar(g);
             }
+        }
+
+        // Second pass — draw all borders on top so they are never covered by a fill
+        for (Territory t : territories) {
+            int[] xpoints = t.getXPoints();
+            int[] ypoints = t.getYPoints();
+            int npoints = t.getNPoints();
+
+            g.setColor(color.brighter());
+            g.drawPolygon(xpoints, ypoints, npoints);
         }
     }
 
