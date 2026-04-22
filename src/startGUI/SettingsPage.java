@@ -36,6 +36,8 @@ public class SettingsPage {
     /** Checkbox for enabling/disabling music. */
     private final JCheckBox musicBt;
 
+    private final JSlider musicSlider;
+
     /** Parent JFrame that contains this settings page. */
     private JFrame parent;
 
@@ -67,10 +69,20 @@ public class SettingsPage {
         });
         settingsPanel.add(sound);
 
+        musicSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, 10);
+        musicSlider.setMajorTickSpacing(1);
+        musicSlider.setPaintTicks(true);
+        musicSlider.setBounds(screen.width/2 - screen.width / 12, screen.height / 2 + 80, screen.width / 6, 40);
+        settingsPanel.add(musicSlider);
+        musicSlider.addChangeListener(e -> {
+            startController.makeSound();
+            startController.getMusic().setVolume(musicSlider.getValue());
+        });
+
         // Initialize music checkbox which controls whether music plays.
         musicBt = new JCheckBox("Music", true);
         musicBt.setBounds(screen.width / 2 - screen.width / 12, screen.height / 2 + 80, screen.width / 6, 40);
-        settingsPanel.add(musicBt);
+        //settingsPanel.add(musicBt);
         musicBt.addActionListener(e -> {
             startController.makeSound();
             if (musicBt.isSelected()) {

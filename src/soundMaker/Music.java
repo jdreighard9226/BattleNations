@@ -29,6 +29,8 @@ public class Music {
     /** Determines whether music playback is enabled. */
     private boolean soundEnabled = true;
 
+    private float volume;
+
     /**
      * Constructs a Music object and attempts to load the specified audio file.
      *
@@ -115,6 +117,25 @@ public class Music {
         if (soundWorking && soundEnabled) {
             music.loop(Clip.LOOP_CONTINUOUSLY);
         }
+    }
+
+    public float getVolume() {
+        return volume;
+    }
+
+    public void setVolume(float volume) {
+        FloatControl volumeControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
+
+        if (volume == 0) {
+            volumeControl.setValue(volumeControl.getMinimum());
+        }
+
+        float min = volumeControl.getMinimum();
+        float max = volumeControl.getMaximum();
+
+        this.volume = volume;
+
+        volumeControl.setValue((min + (volume * (max - min) / 10)));
     }
 }
 
