@@ -1,8 +1,7 @@
-package map; //rename packages
+package map;
 
 import setUpGUI.SetUpController;
 import startGUI.SetUpData;
-import startGUI.StartController;
 
 import javax.swing.*;
 import java.awt.*;
