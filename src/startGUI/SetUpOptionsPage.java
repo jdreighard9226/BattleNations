@@ -117,18 +117,21 @@ public class SetUpOptionsPage {
                 javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP,
                 new Font("Arial", Font.BOLD, 18), Color.WHITE));
 
+        // Creates a button for the random territory seleciton option.
         JRadioButton randomTerritories = new JRadioButton("Random");
         randomTerritories.setBounds(10, 25, screen.width / 6 - 20, 35);
         randomTerritories.setOpaque(false);
         randomTerritories.setForeground(Color.WHITE);
         randomTerritories.setFont(new Font("Arial", Font.PLAIN, 16));
 
+        // Creates a button for the manual territory selection option.
         JRadioButton manualTerritories = new JRadioButton("Manual");
         manualTerritories.setBounds(10, 65, screen.width / 6 - 20, 35);
         manualTerritories.setOpaque(false);
         manualTerritories.setForeground(Color.WHITE);
         manualTerritories.setFont(new Font("Arial", Font.PLAIN, 16));
 
+        // Creates a button group for the territory selection options and adds the two territory selection buttons to it.
         territoryButtons = new ButtonGroup();
         territoryButtons.add(randomTerritories);
         territoryButtons.add(manualTerritories);
@@ -146,18 +149,21 @@ public class SetUpOptionsPage {
                 javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP,
                 new Font("Arial", Font.BOLD, 20), Color.WHITE));
 
+        // Creates a button for the random troop placement option.
         JRadioButton randomTroops = new JRadioButton("Random");
         randomTroops.setBounds(10, 25, screen.width / 6 - 20, 35);
         randomTroops.setOpaque(false);
         randomTroops.setForeground(Color.WHITE);
         randomTroops.setFont(new Font("Arial", Font.BOLD, 16));
 
+        // Creates a button for the manual troop placement option.
         JRadioButton manualTroops = new JRadioButton("Manual");
         manualTroops.setBounds(10, 65, screen.width / 6 - 20, 35);
         manualTroops.setOpaque(false);
         manualTroops.setForeground(Color.WHITE);
         manualTroops.setFont(new Font("Arial", Font.BOLD, 16));
 
+        // Creates a button group for the troop placement options and adds the two troop placement buttons to it.
         troopButtons = new ButtonGroup();
         troopButtons.add(randomTroops);
         troopButtons.add(manualTroops);
@@ -175,19 +181,21 @@ public class SetUpOptionsPage {
                 javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP,
                 new Font("Arial", Font.BOLD, 20), Color.WHITE));
 
+        // Creates a button for the total domination game option.
         JRadioButton totalDomination = new JRadioButton("Total Domination");
         totalDomination.setBounds(10, 25, screen.width / 6 - 20, 35);
         totalDomination.setOpaque(false);
         totalDomination.setForeground(Color.WHITE);
         totalDomination.setFont(new Font("Arial", Font.BOLD, 16));
 
-
+        // Creates a button for the capital domination game option.
         JRadioButton capitalDomination = new JRadioButton("Capital Domination");
         capitalDomination.setBounds(10, 65, screen.width / 6 - 20, 35);
         capitalDomination.setOpaque(false);
         capitalDomination.setForeground(Color.WHITE);
         capitalDomination.setFont(new Font("Arial", Font.BOLD, 16));
 
+        // Creates a button group for the game mode options and adds the two game mode buttons to the group.
         gameModeButtons = new ButtonGroup();
         gameModeButtons.add(totalDomination);
         gameModeButtons.add(capitalDomination);
@@ -329,7 +337,7 @@ public class SetUpOptionsPage {
     /**
      * Adds the setup options panel to the main JFrame display.
      *
-     * @param startController the controller managing GUI navigation.
+     * @param startController the controller managing GUI navigation
      */
     public void addSetUpOptionsPage(StartController startController) {
         // Adds the setup options panel to the main JFrame and repaints it.
@@ -355,7 +363,6 @@ Troop Options:
 Game Modes:
 - Total Domination: control all territories to win.
 - Capital Domination: control all capitals to win.""", checkBox};
-
             JOptionPane.showMessageDialog(parent, message, "Map Choice", JOptionPane.INFORMATION_MESSAGE);
             startController.makeSound();
             if (checkBox.isSelected()) {

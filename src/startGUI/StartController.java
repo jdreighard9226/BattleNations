@@ -1,7 +1,7 @@
 package startGUI;
 
 import setUpGUI.SetUpController;
-import soundMaker.ButtonSound;
+import soundMaker.ClickSound;
 import soundMaker.Music;
 
 import javax.swing.*;
@@ -44,8 +44,8 @@ public class StartController {
     /** Creates a new instance of the Setup Data class for storing information. */
     private SetUpData gameSetUpData = new SetUpData();
 
-    /** Handles button click sound effects for the GUI. */
-    private final ButtonSound buttonSound;
+    /** Handles click sound effects for the GUI. */
+    private final ClickSound clickSound;
 
     /** Handles background music for the GUI. */
     private final Music music;
@@ -66,7 +66,7 @@ public class StartController {
         display.setIconImage(icon.getImage());
 
         // Creates the sound objects for the games.
-        buttonSound = new ButtonSound("src/soundFiles/ButtonSound.wav");
+        clickSound = new ClickSound("src/soundFiles/ClickSound.wav");
         music = new Music("src/soundFiles/StartGUIMusic.wav");
 
         // Initialize pages
@@ -76,19 +76,19 @@ public class StartController {
         playerPage = new PlayerPage();
         placementChoice = new SetUpOptionsPage();
 
-        // Show the display
+        // Show the display and starts the music.
         display.setVisible(true);
-
         music.startMusic();
 
-        // Preps the sound file so when the first button is pressed there is no delay.
-        buttonSound.playSound(19580);
+        // Preps the sound file so when the first click is pressed there is no delay.
+        clickSound.playSound(19580);
 
         // Gets the root of the display so that input and action maps can be retrieved and modified.
         JRootPane root = display.getRootPane();
 
         // Adds a new input map to the root so that if the s key is pressed the root tries to trigger the associated action map.
         root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0), "openSettings");
+
         // Adds a new action, to the action map.
         root.getActionMap().put("openSettings", new AbstractAction() {
             @Override
@@ -102,7 +102,7 @@ public class StartController {
 
                 // Creates a slider for both sound options.
                 JSlider musicSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, (int) music.getVolume());
-                JSlider buttonSoundSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, (int) buttonSound.getVolume());
+                JSlider clickSoundSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, (int) clickSound.getVolume());
 
                 // Creates action listeners for each to update the volumes for both sound options.
                 musicSlider.addChangeListener(f -> {
@@ -110,13 +110,13 @@ public class StartController {
                     music.setVolume(musicSlider.getValue());
                     makeSound();
                 });
-                buttonSoundSlider.addChangeListener(f -> {
-                    buttonSound.setVolume(buttonSoundSlider.getValue());
+                clickSoundSlider.addChangeListener(f -> {
+                    clickSound.setVolume(clickSoundSlider.getValue());
                     makeSound();
                 });
 
                 // Creates an Object list that holds the message text and the two checkboxes.
-                Object[] message = {"Sound Settings", "-----------------------", "Music Volume:", musicSlider, "Button Sound Volume:", buttonSoundSlider};
+                Object[] message = {"Sound Settings", "-----------------------", "Music Volume:", musicSlider, "Click Sound Volume:", clickSoundSlider};
                 // Creates a popup window with the message.
                 JOptionPane.showMessageDialog(display, message, "Settings", JOptionPane.INFORMATION_MESSAGE);
 
@@ -166,7 +166,7 @@ public class StartController {
     /**
      * Returns the main JFrame used for the GUI
      *
-     * @return The main JFrame used for displaying.
+     * @return the main JFrame used for displaying
      */
     public JFrame getDisplay() {
         return display;
@@ -175,7 +175,7 @@ public class StartController {
     /**
      * Returns the setup data object used for storing users choices.
      *
-     * @return The SetUpData that stores the users choices.
+     * @return the SetUpData that stores the users choices
      */
     public SetUpData getGameSetUpData() {
         return gameSetUpData;
@@ -189,38 +189,38 @@ public class StartController {
     }
 
     /**
-     * Players the button click sound effect.
+     * Plays the click sound effect.
      */
     public void makeSound() {
         // First part of sound file is silent so starts it 2000 frames in.
-        buttonSound.playSound(2000);
+        clickSound.playSound(2000);
     }
 
     /**
-     * Checks whether button sound effects are working properly
+     * Checks whether click sound effects are working properly
      *
-     * @return true if sound effects are working, false if not.
+     * @return true if sound effects are working, false if not
      */
     public boolean isSoundWorking() {
-        return buttonSound.isSoundWorking();
+        return clickSound.isSoundWorking();
     }
 
     /**
-     * Sets the volume of the button sound.
+     * Sets the volume of the click sound.
      *
-     * @param volume the desired volume level (0–10).
+     * @param volume the desired volume level (0–10)
      */
-    public void setButtonSoundVolume(float volume) {
-        buttonSound.setVolume(volume);
+    public void setClickSoundVolume(float volume) {
+        clickSound.setVolume(volume);
     }
 
     /**
-     * Gets the volume of the button sound.
+     * Gets the volume of the click sound.
      *
-     * @return The volume off the button on a scale from 1-10
+     * @return the volume off the click on a scale from 1-10
      */
-    public float getButtonSoundVolume() {
-        return buttonSound.getVolume();
+    public float getClickSoundVolume() {
+        return clickSound.getVolume();
     }
 
     /**
@@ -246,7 +246,7 @@ public class StartController {
     /**
      * Starting point of the code.
      *
-     * @param args The command line arguments passed to the program.
+     * @param args the command line arguments passed to the program
      */
     public static void main(String[] args) {
         new StartController();

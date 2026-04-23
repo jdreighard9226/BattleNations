@@ -38,7 +38,6 @@ public class TestAttackService {
         System.out.println("Testing Methods");
 
         // Run each test method and mark the suite as failed if any individual test fails.
-
         if (!testValidAttack()) passed = false;
         if (!testNullAttackingTerritory()) passed = false;
         if (!testNullDefendingTerritory()) passed = false;
@@ -125,6 +124,7 @@ public class TestAttackService {
         AttackService attackService = new AttackService();
 
         for (int i = 0; i < 100; i++) {
+
             // null attacking territory — service must not throw a NullPointerException
             ValidationResult result = attackService.attack(null, defendingTerritory);
             if (result.isValid()) {

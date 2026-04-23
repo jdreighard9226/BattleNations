@@ -34,7 +34,7 @@ public class SettingsPage {
     private final JSlider musicSlider;
 
     /** Slider for controlling volume of sound. */
-    private final JSlider buttonSlider;
+    private final JSlider clickSlider;
 
     /** Parent JFrame that contains this settings page. */
     private JFrame parent;
@@ -45,15 +45,15 @@ public class SettingsPage {
     /**
      * Constructs the SettingsPage and initializes all UI components.
      *
-     * <p>Creates sliders for music and button sound volume, a back button
+     * <p>Creates sliders for music and click sound volume, a back button
      * to return to the start menu, and close and minimize window controls.
      * All components are positioned manually based on screen dimensions.</p>
      */
     public SettingsPage() {
-        // Initialize background panel with image
+        // Initialize background panel with image.
         settingsPanel = new ImagePanel("src/gameImages/SettingsImage.png");
 
-        // Get screen dimensions
+        // Get screen dimensions.
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         settingsPanel.setLayout(null);
         settingsPanel.setBounds(0, 0, screen.width, screen.height);
@@ -61,7 +61,7 @@ public class SettingsPage {
         // Creates a buffer for spacing.
         int formattingBuffer = 10;
 
-        // Creates a label for the button volume slider.
+        // Creates a label for the music volume slider.
         JLabel musicLabel = new JLabel("Music Volume:");
         musicLabel.setOpaque(true);
         musicLabel.setBackground(Color.BLACK);
@@ -82,32 +82,32 @@ public class SettingsPage {
             startController.makeSound();
         });
 
-        // Creates a label for the button volume slider.
-        JLabel buttonLabel = new JLabel("Button Volume:");
-        buttonLabel.setOpaque(true);
-        buttonLabel.setBackground(Color.BLACK);
-        buttonLabel.setForeground(Color.WHITE);
-        buttonLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        Dimension buttonLabelSize = buttonLabel.getPreferredSize();
-        buttonLabel.setBounds(screen.width / 2 - buttonLabelSize.width - formattingBuffer, screen.height / 2, buttonLabelSize.width + formattingBuffer, 40);
-        settingsPanel.add(buttonLabel);
+        // Creates a label for the click volume slider.
+        JLabel clickLabel = new JLabel("Click Volume:");
+        clickLabel.setOpaque(true);
+        clickLabel.setBackground(Color.BLACK);
+        clickLabel.setForeground(Color.WHITE);
+        clickLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        Dimension clickLabelSize = clickLabel.getPreferredSize();
+        clickLabel.setBounds(screen.width / 2 - clickLabelSize.width - formattingBuffer, screen.height / 2, clickLabelSize.width + formattingBuffer, 40);
+        settingsPanel.add(clickLabel);
 
-        // Initializes button sound slider which controls how loud button clicks sound.
-        buttonSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, 10);
-        buttonSlider.setMajorTickSpacing(1);
-        buttonSlider.setPaintTicks(true);
-        buttonSlider.setBounds(screen.width / 2 + formattingBuffer, screen.height / 2, screen.width / 6, 40);
-        settingsPanel.add(buttonSlider);
-        buttonSlider.addChangeListener(e -> {
-            startController.setButtonSoundVolume(buttonSlider.getValue());
+        // Initializes click sound slider which controls how loud click clicks sound.
+        clickSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, 10);
+        clickSlider.setMajorTickSpacing(1);
+        clickSlider.setPaintTicks(true);
+        clickSlider.setBounds(screen.width / 2 + formattingBuffer, screen.height / 2, screen.width / 6, 40);
+        settingsPanel.add(clickSlider);
+        clickSlider.addChangeListener(e -> {
+            startController.setClickSoundVolume(clickSlider.getValue());
             startController.makeSound();
         });
 
-        // Initialize back button
+        // Initialize back button.
         JButton back = new JButton("Back To Start");
         back.setBounds(screen.width / 2 - 100, 2 * screen.height / 3, 200, 50);
         back.addActionListener(e -> {
-            // Remove settings page and return to start menu
+            // Remove settings page and return to start menu.
             startController.makeSound();
             parent.remove(settingsPanel);
             startController.displayStartMenuPage();
@@ -143,7 +143,7 @@ public class SettingsPage {
     public void addSettingsPage(StartController startController) {
         this.parent = startController.getDisplay();
         this.startController = startController;
-        buttonSlider.setValue((int) startController.getButtonSoundVolume());
+        clickSlider.setValue((int) startController.getClickSoundVolume());
         musicSlider.setValue((int) startController.getMusic().getVolume());
         parent.add(settingsPanel);
         parent.repaint();

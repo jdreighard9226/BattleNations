@@ -147,7 +147,7 @@ public class PlayerPage {
         // Model and list for displaying added players.
         playerListModel = new DefaultListModel<>();
 
-        // List that holds all player objects
+        // List that holds all player objects.
         playerList = new JList<>(playerListModel);
         playerList.addListSelectionListener(e -> {
             if (playerList.getSelectedIndex() >= 0) {
@@ -161,7 +161,7 @@ public class PlayerPage {
         scroll.setBounds(screen.width / 2 - screen.width / 8, screen.height * 9 / 20 + formattingBuffer, screen.width / 4, screen.height * 9 / 12 - screen.height * 9 / 20 - formattingBuffer);
         playerCreationPanel.add(scroll);
 
-        // Button to go back a page
+        // Button to go back a page.
         JButton backBt = new JButton("Back");
         backBt.setBounds(screen.width / 2 - screen.width / 8 - formattingBuffer, screen.height * 5 / 6, screen.width / 8, 80);
         backBt.addActionListener(e -> {
@@ -260,8 +260,8 @@ public class PlayerPage {
      * the popup will not be shown in future calls.
      * </p>
      *
-     * @param startController the controller managing GUI navigation.
-     */
+     * @param startController the controller managing GUI navigation
+     * */
     public void addPlayerPage(StartController startController) {
         // Adds the setup options panel to the main JFrame and repaints it.
         this.startController = startController;

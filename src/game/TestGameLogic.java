@@ -1,6 +1,8 @@
 package game;
 
-import map.*;
+import map.Region;
+import map.Territory;
+import map.TotalDominationWorld;
 import player.Player;
 import terrain.TerrainType;
 

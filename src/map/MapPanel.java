@@ -38,7 +38,7 @@ public class MapPanel extends JPanel {
     /**
      * Constructs a MapPanel with the specified grid of territories.
      *
-     * @param territories a 2D array of {@link Territory} objects to render
+     * @param territories     a 2D array of {@link Territory} objects to render
      * @param setUpController controller responsible for handling setup-phase clicks
      */
     public MapPanel(Territory[][] territories, SetUpController setUpController) {

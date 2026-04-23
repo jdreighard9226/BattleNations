@@ -50,7 +50,7 @@ public class MapDisplay {
     /** Container object holding loaded territories and regions. */
     private final MapLoaderData mapData;
 
-    /** List of regions associated with the loaded map.*/
+    /** List of regions associated with the loaded map. */
     private final List<Region> regions;
 
     /**

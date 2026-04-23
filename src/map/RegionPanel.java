@@ -1,7 +1,6 @@
 package map;
 
 import setUpGUI.SetUpController;
-import startGUI.StartController;
 import terrain.WaterRouteTerrain;
 import terrain.WaterTerrain;
 

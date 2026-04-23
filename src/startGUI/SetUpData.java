@@ -38,7 +38,7 @@ public class SetUpData {
 
     /**
      * Constructs an empty SetUpData object.
-     * All fields are initialized with default values until set by the setup screens.
+     * All fields are initialized with default values until set by the setup screens
      */
     public SetUpData() {
     }
@@ -46,7 +46,7 @@ public class SetUpData {
     /**
      * Gets the selected map.
      *
-     * @return the map name or identifier.
+     * @return the map name or identifier
      */
     public String getMap() {
         return map;
@@ -55,7 +55,7 @@ public class SetUpData {
     /**
      * Sets the selected map.
      *
-     * @param map the map name or identifier.
+     * @param map the map name or identifier
      */
     public void setMap(String map) {
         this.map = map;
@@ -64,7 +64,7 @@ public class SetUpData {
     /**
      * Checks if troop placement is random.
      *
-     * @return true if troop placement is random, false otherwise.
+     * @return true if troop placement is random, false otherwise
      */
     public boolean isRandomTroopPlacement() {
         return randomTroopPlacement;
@@ -73,7 +73,7 @@ public class SetUpData {
     /**
      * Sets whether troop placement is random.
      *
-     * @param randomTroopPlacement true for random placement, false for manual.
+     * @param randomTroopPlacement true for random placement, false for manual
      */
     public void setRandomTroopPlacement(boolean randomTroopPlacement) {
         this.randomTroopPlacement = randomTroopPlacement;
@@ -82,7 +82,7 @@ public class SetUpData {
     /**
      * Checks if territories are assigned randomly.
      *
-     * @return true if territories are random, false otherwise.
+     * @return true if territories are random, false otherwise
      */
     public boolean isRandomTerritories() {
         return randomTerritories;
@@ -91,7 +91,7 @@ public class SetUpData {
     /**
      * Sets whether territories are assigned randomly.
      *
-     * @param randomTerritories true for random assignment, false for manual.
+     * @param randomTerritories true for random assignment, false for manual
      */
     public void setRandomTerritories(boolean randomTerritories) {
         this.randomTerritories = randomTerritories;
@@ -100,7 +100,7 @@ public class SetUpData {
     /**
      * Gets the list of players.
      *
-     * @return the list of players in the game.
+     * @return the list of players in the game
      */
     public List<Player> getPlayers() {
         return players;
@@ -109,7 +109,7 @@ public class SetUpData {
     /**
      * Sets the list of players.
      *
-     * @param players the players participating in the game.
+     * @param players the players participating in the game
      */
     public void setPlayers(List<Player> players) {
         this.players = players;
@@ -118,7 +118,7 @@ public class SetUpData {
     /**
      * Gets the selected game mode.
      *
-     * @return the current game mode.
+     * @return the current game mode
      */
     public String getGameMode() {
         return gameMode;
@@ -127,7 +127,7 @@ public class SetUpData {
     /**
      * Sets the game mode.
      *
-     * @param gameMode the game mode to set.
+     * @param gameMode the game mode to set
      */
     public void setGameMode(String gameMode) {
         this.gameMode = gameMode;

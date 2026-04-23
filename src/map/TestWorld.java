@@ -53,23 +53,18 @@ public class TestWorld {
     }
 
     /**
-     * Wrapper class used to return both a world and its associated player.
-     */
-    private static class WorldSetupWrapper {
-        private final DummyWorld world;
-        private final Player player1;
-
+         * Wrapper class used to return both a world and its associated player.
+         */
+        private record WorldSetupWrapper(DummyWorld world, Player player1) {
         /**
          * Constructs a wrapper containing a world and player.
          *
          * @param world   the generated world
          * @param player1 the primary player
          */
-        WorldSetupWrapper(DummyWorld world, Player player1) {
-            this.world = world;
-            this.player1 = player1;
+        private WorldSetupWrapper {
         }
-    }
+        }
 
     /**
      * Generates a basic test world with:

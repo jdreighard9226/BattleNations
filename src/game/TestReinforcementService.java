@@ -25,8 +25,8 @@ import java.util.ArrayList;
  *
  * @author J.D. Reighard
  * @version 1.0
- * @since 2026-03-04
  * @see ReinforcementService
+ * @since 2026-03-04
  */
 public class TestReinforcementService {
 

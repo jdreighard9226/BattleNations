@@ -1,6 +1,6 @@
 package player;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * Represents a player in Battle Nations.
@@ -21,12 +21,12 @@ public class Player {
     /**
      * The name of the player.
      */
-    private String name;
+    private final String name;
 
     /**
      * The color used to represent the player's territories.
      */
-    private Color color;
+    private final Color color;
 
     /**
      * The name of the color to display as text
@@ -91,6 +91,11 @@ public class Player {
         return colorName;
     }
 
+    /**
+     * Sets string value of the color name of the players color
+     *
+     * @param colorName the string name of the player's color
+     */
     public void setColorName(String colorName) {
         this.colorName = colorName;
     }

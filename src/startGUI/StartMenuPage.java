@@ -84,7 +84,7 @@ public class StartMenuPage {
     /**
      * Adds the start menu panel to the main JFrame display held in the start controller.
      *
-     * @param startController the controller managing GUI navigation.
+     * @param startController the controller managing GUI navigation
      */
     public void addStartMenuPage(StartController startController) {
         // Adds the setup options panel to the main JFrame and repaints it.
