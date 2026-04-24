@@ -52,7 +52,7 @@ public class RegionPanel extends JPanel {
         this.territories = territories;
         this.regions = regions;
 
-        //Sets layout to null and gets screen size.
+        // Sets layout to null and gets screen size.
         this.setLayout(null);
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -90,12 +90,12 @@ public class RegionPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Draw all regions and their territories first
+        // Draw all regions and their territories first.
         for (Region region : regions) {
             region.draw(g);
         }
 
-        // First pass — fill all water and water route territories
+        // First pass — fill all water and water route territories.
         for (Territory[] row : territories) {
             for (Territory t : row) {
                 if (t != null && (t.getTerrain() instanceof WaterTerrain || t.getTerrain() instanceof WaterRouteTerrain)) {
@@ -104,7 +104,7 @@ public class RegionPanel extends JPanel {
             }
         }
 
-        // Second pass — redraw water borders on top so they are never covered
+        // Second pass — redraw water borders on top so they are never covered.
         for (Territory[] row : territories) {
             for (Territory t : row) {
                 if (t != null && (t.getTerrain() instanceof WaterTerrain || t.getTerrain() instanceof WaterRouteTerrain)) {

@@ -67,7 +67,7 @@ public class ClickSound {
             clickSound1 = AudioSystem.getClip();
             clickSound1.open(audio1);
 
-            // Load second clip
+            // Load second clip.
             AudioInputStream audio2 = AudioSystem.getAudioInputStream(soundFile);
             clickSound2 = AudioSystem.getClip();
             clickSound2.open(audio2);

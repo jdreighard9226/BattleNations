@@ -227,7 +227,6 @@ public class GameController {
             firstTerritoryClicked.setIsHighlighted(true);
 
         } else {
-
             // Clicking the same territory again cancels the selection
             if (firstTerritoryClicked == territory) {
                 firstTerritoryClicked.setIsHighlighted(false);

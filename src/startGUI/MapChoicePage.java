@@ -218,7 +218,7 @@ public class MapChoicePage {
      * the popup will not be shown in future calls.
      * </p>
      *
-     * @param startController the controller managing GUI navigation.
+     * @param startController the controller managing GUI navigation
      */
     public void addMapChoicePage(StartController startController) {
         // Adds the map choice panel to the main JFrame and repaints it.

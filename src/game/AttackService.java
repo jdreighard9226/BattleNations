@@ -73,6 +73,7 @@ public class AttackService {
                     // Move all but one attacker troop into the captured territory
                     territoryDefending.setPlayer(territoryAttacking.getPlayer());
                     territoryDefending.setTroopAmount(territoryAttacking.getTroopAmount() - 1);
+
                     // Leave one troop behind in the attacking territory
                     territoryAttacking.setTroopAmount(1);
                     return new ValidationResult(true, "Attacker Wins");

@@ -165,6 +165,7 @@ public class GenerateNeighborService {
     private void addingWaterRouteNeighbors(Territory[][] territories) {
         for (int i = 0; i < territories.length; i++) {
             int alternator = (i % 2 != 0) ? 1 : 0;
+
             // Row length changes depending on if territories have been shifted to fit
             // even rows = territories[i].length
             // odd rows = territories[i].length - 1

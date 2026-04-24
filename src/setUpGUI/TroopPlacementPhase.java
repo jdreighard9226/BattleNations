@@ -80,7 +80,7 @@ public class TroopPlacementPhase {
      * Starts the troop placement phase by distributing troops to all players.
      *
      * <p>If random placement is enabled, troops are distributed automatically.
-     * Otherwise the phase begins and waits for manual user input.</p>
+     * Otherwise, the phase begins and waits for manual user input.</p>
      */
     public void start() {
         // Distributes troops evenly among players.
@@ -137,12 +137,10 @@ public class TroopPlacementPhase {
 
         // Continues to place troops while there are troops to be place.
         while (playersHaveTroopsToPlace()) {
-
             // Generates a random location on the map and checks to see if it's owned by the active player.
             int row = random.nextInt(territories.length);
             int col = random.nextInt(territories[row].length);
             if (territories[row][col] != null && territories[row][col].getPlayer() == activePlayer) {
-
                 // Adds a troop to the territory and removes one from the player.
                 territories[row][col].setTroopAmount(territories[row][col].getTroopAmount() + 1);
                 activePlayer.setTroopsToPlace(activePlayer.getTroopsToPlace() - 1);
@@ -177,10 +175,8 @@ public class TroopPlacementPhase {
     public void placeTroop(Territory territory) {
         //Checks to see if the territories owner is the active player.
         if (territory.getPlayer() == activePlayer) {
-
             // Checks to make sure the player still has troops to place.
             if (activePlayer.getTroopsToPlace() > 0) {
-
                 // Places troop on the territory.
                 territory.setTroopAmount(territory.getTroopAmount() + 1);
                 activePlayer.setTroopsToPlace(activePlayer.getTroopsToPlace() - 1);
@@ -207,7 +203,6 @@ public class TroopPlacementPhase {
                 setUpController.updateGameInfoText();
             }
         } else {
-
             // Displays error if player selects a territory they do not own.
             setUpController.getErrorText().setText("Territory not owned by " + activePlayer.getName());
             setUpController.getGameInfoPanel().repaint();

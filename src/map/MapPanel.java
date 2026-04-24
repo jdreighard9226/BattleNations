@@ -85,8 +85,7 @@ public class MapPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (territories == null) return;
-
-        // First pass — draw all territories
+        // First pass — draw all territories.
         for (Territory[] row : territories) {
             for (Territory territory : row) {
                 if (territory != null) {
@@ -95,7 +94,7 @@ public class MapPanel extends JPanel {
             }
         }
 
-        // Second pass — draw water borders on top so nothing covers them
+        // Second pass — draw water borders on top so nothing covers them.
         for (Territory[] row : territories) {
             for (Territory territory : row) {
                 if (territory != null && (territory.getTerrain() instanceof WaterTerrain || territory.getTerrain() instanceof WaterRouteTerrain)) {

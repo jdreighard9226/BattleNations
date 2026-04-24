@@ -88,6 +88,7 @@ public class TestFortifyService {
                 passed = false;
                 System.err.println("During Looping iteration " + i + " Fortify result returned false, when it should have been true");
             }
+
             // Reset state after each iteration
             t1.setTroopAmount(t1TroopAmount);
             t2.setTroopAmount(1);

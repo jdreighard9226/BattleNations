@@ -261,7 +261,8 @@ public class PlayerPage {
      * </p>
      *
      * @param startController the controller managing GUI navigation
-     * */
+     *
+     */
     public void addPlayerPage(StartController startController) {
         // Adds the setup options panel to the main JFrame and repaints it.
         this.startController = startController;
@@ -294,13 +295,13 @@ public class PlayerPage {
      * two players have been added.</p>
      */
     private void addPlayer() {
-        // Gets the information from the player creation fields
+        // Gets the information from the player creation fields.
         String name = playerName.getText().trim();
         String color = (String) playerColor.getSelectedItem();
         Color playersColor = null;
         String errorMessage = "";
 
-        // Checks to see which color was selected
+        // Checks to see which color was selected.
         switch (color) {
             case "Red":
                 playersColor = Color.RED;

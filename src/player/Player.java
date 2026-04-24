@@ -40,19 +40,40 @@ public class Player {
 
 
     /**
-     * Constructs a new Player with the specified name and color.
+     * Constructs a new Player with the specified name, color, and color name.
      *
-     * <p>The player is initialized without any bonuses or troops assigned.
-     * These values are expected to be set during gameplay.</p>
+     * <p>
+     * This constructor initializes a player with both a {@link Color} object and a
+     * corresponding string representation of that color. It delegates common
+     * initialization to the two-parameter constructor.
+     * </p>
      *
-     * @param name  the name used to identify the player
-     * @param color the color used to represent the player's territories
+     * <p>
+     * The player is initialized without any bonuses or troops assigned.
+     * These values are expected to be set during gameplay.
+     * </p>
+     *
+     * @param name      the name used to identify the player
+     * @param color     the color used to represent the player's territories
+     * @param colorName the string name of the player's color (e.g., "Red", "Blue")
      */
     public Player(String name, Color color, String colorName) {
         this(name, color);
         this.colorName = colorName;
     }
 
+    /**
+     * Constructs a new Player with the specified name and color.
+     *
+     * <p>
+     * This constructor initializes the player's identity and visual representation.
+     * Additional attributes such as bonuses, troop counts, and owned territories
+     * are expected to be assigned later during gameplay.
+     * </p>
+     *
+     * @param name  the name used to identify the player
+     * @param color the color used to represent the player's territories
+     */
     public Player(String name, Color color) {
         this.name = name;
         this.color = color;

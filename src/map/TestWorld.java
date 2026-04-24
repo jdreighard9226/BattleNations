@@ -53,9 +53,9 @@ public class TestWorld {
     }
 
     /**
-         * Wrapper class used to return both a world and its associated player.
-         */
-        private record WorldSetupWrapper(DummyWorld world, Player player1) {
+     * Wrapper class used to return both a world and its associated player.
+     */
+    private record WorldSetupWrapper(DummyWorld world, Player player1) {
         /**
          * Constructs a wrapper containing a world and player.
          *
@@ -64,7 +64,7 @@ public class TestWorld {
          */
         private WorldSetupWrapper {
         }
-        }
+    }
 
     /**
      * Generates a basic test world with:
@@ -559,7 +559,6 @@ public class TestWorld {
         // Assign one territory in each region to player2 and verify player1 loses control
         Player player2 = new Player("p2", Color.RED);
         for (Region region : world.getRegions()) {
-
             // set first territory to player 2
             for (Territory territory : region.getTerritories()) {
                 territory.setPlayer(player2);
@@ -745,7 +744,7 @@ public class TestWorld {
             System.err.println("Game was marked as not won, when player 2 owned all capital territories");
         }
 
-        // Print result
+        // Print result.
         if (passed) {
             System.out.println("Passed");
         } else {

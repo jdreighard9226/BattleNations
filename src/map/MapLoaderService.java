@@ -20,9 +20,9 @@ public class MapLoaderService {
      * Takes a string filename as input and the dimensions of the screen. It then reads through the text file to
      * populate the territories list. Using the screen dimensions it grids the territories to fit the screen size.
      *
-     * @param fileName the file that holds the map information.
-     * @param screen   the dimensions of the screen that the map is being fit too.
-     * @return the MapLoaderData object that holds a doubly indexed array of territories, and a list of regions.
+     * @param fileName the file that holds the map information
+     * @param screen   the dimensions of the screen that the map is being fit too
+     * @return the MapLoaderData object that holds a doubly indexed array of territories, and a list of regions
      */
     public MapLoaderData loadTerritories(String fileName, Dimension screen) {
         //Creates an instance of a helper class that will be used later.
@@ -57,10 +57,12 @@ public class MapLoaderService {
                 int alternator = (i % 2 != 0) ? 1 : 0;
                 for (int j = 0; j < numberColumns - alternator; j++) {
                     terrainTypes[i][j] = fileReader.next();
+
                     // If the terrain type is "W" (water) or "R" water route there is no more information that needs to be associated with it,
                     // so it can go on to the next index before reading anything more from the file.
                     if (!terrainTypes[i][j].equals("W") && !terrainTypes[i][j].equals("R")) {
                         String region = fileReader.next();
+
                         // If the terrain is "C" (city) there is an extra piece of information that is associated with it,
                         // so the file reader must read one more line to collect it before going on to the next index.
                         if (terrainTypes[i][j].equals("C")) {
@@ -125,6 +127,7 @@ public class MapLoaderService {
         for (int i = 0; i < numberRows; i++) {
             // Every other row in a hexagon grid has one less column.
             int alternator = (i % 2 != 0) ? 1 : 0;
+
             // If it's on the odd column, it must position the starting x coordinate to the bottom right of the previous
             // rows starting hexagon.
             xLocation = (alternator == 0) ? 0 + offset : cosValue * length + length + offset;

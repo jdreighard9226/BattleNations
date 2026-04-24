@@ -98,13 +98,11 @@ public class TerritorySelectionPhase {
     public void assigningTerritory(Territory territory) {
         // Checks to make sure the territory isn't already owned.
         if (territory.getPlayer() == null) {
-
             // Checks to make sure that the territory can be owned and isn't a forbidden type.
             if (territory.getTerrain() instanceof WaterTerrain || territory.getTerrain() instanceof WaterRouteTerrain) {
                 setUpController.getErrorText().setText("Cannot select a water or water route Territory. Select A different one ");
                 setUpController.getGameInfoPanel().repaint();
             } else {
-
                 // Sets the active player as the territory owner and sets the territory troop amount to 1.
                 territory.setPlayer(activePlayer);
                 territory.setTroopAmount(1);
@@ -156,13 +154,11 @@ public class TerritorySelectionPhase {
     public void randomlyAssigningTerritories() {
         Random random = new Random();
         while (unownedTerritory()) {
-
             // Generates a random territory location and checks to see if the territory located
             // there is owned or can be owned.
             int row = random.nextInt(territories.length);
             int col = random.nextInt(territories[row].length);
             if (territories[row][col] != null && territories[row][col].getPlayer() == null && !(territories[row][col].getTerrain() instanceof WaterTerrain) && !(territories[row][col].getTerrain() instanceof WaterRouteTerrain)) {
-
                 // Assigns territory to the active player, and then passes the turn to the next player.
                 territories[row][col].setPlayer(activePlayer);
                 territories[row][col].setTroopAmount(1);

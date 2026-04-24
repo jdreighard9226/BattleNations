@@ -38,7 +38,7 @@ public class TotalDominationWorld extends AbstractWorld {
     @Override
     public boolean isGameWon(List<Player> players) {
         for (Player player : players) {
-            // Win condition — player controls every region on the map
+            // Win condition — player controls every region on the map.
             if (getRegionCountControlledByPlayer(player) == regions.size()) {
                 return true;
             }
@@ -54,7 +54,7 @@ public class TotalDominationWorld extends AbstractWorld {
      */
     public Player getWinningPlayer(List<Player> players) {
         for (Player player : players) {
-            // Return the first player found who owns all regions
+            // Return the first player found who owns all regions.
             if (getRegionCountControlledByPlayer(player) == regions.size()) {
                 return player;
             }
