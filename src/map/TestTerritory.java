@@ -330,7 +330,7 @@ public class TestTerritory {
         // Call Draw 1000 times and catch any exceptions that would indicate a crash
         for (int i = 0; i < 1000; i++) {
             try {
-                t1.Draw(g);
+                t1.draw(g);
             } catch (Exception any) {
                 passed = false;
                 System.err.println("Drawing has failed. Error: " + any);

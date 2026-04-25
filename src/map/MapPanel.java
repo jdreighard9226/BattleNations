@@ -89,7 +89,7 @@ public class MapPanel extends JPanel {
         for (Territory[] row : territories) {
             for (Territory territory : row) {
                 if (territory != null) {
-                    territory.Draw(g);
+                    territory.draw(g);
                 }
             }
         }

@@ -210,8 +210,8 @@ public class Territory extends Polygon {
      *
      * @param g the graphics context used for rendering
      */
-    public void Draw(Graphics g) {
-        // Set fill color — water gets blue, unowned land gets light gray
+    public void draw(Graphics g) {
+        // Set fill color — water gets blue, unowned land gets light gray.
         if (isHighlighted) {
             g.setColor(Color.WHITE);
         } else if (this.getCurrentColor() != null) {
@@ -225,7 +225,7 @@ public class Territory extends Polygon {
         }
         g.fillPolygon(super.xpoints, super.ypoints, super.xpoints.length);
 
-        // Draw the terrain image centered within the territory bounds
+        // Draw the terrain image centered within the territory bounds.
         ImageIcon watermarkIcon = new ImageIcon(this.getTerrain().getImageFile());
         Image watermark = watermarkIcon.getImage();
         int xLeft = super.xpoints[1];
@@ -234,7 +234,7 @@ public class Territory extends Polygon {
         int yBottom = super.ypoints[5];
         g.drawImage(watermark, xLeft, yTop, xRight - xLeft, yBottom - yTop, g.getColor(), null);
 
-        // Calculate the center and radius for the troop count circle
+        // Calculate the center and radius for the troop count circle.
         int xCenter = (xRight + xLeft) / 2;
         int yCenter = (yTop + yBottom) / 2;
         int radius = (xRight - xLeft) / 4;
@@ -244,14 +244,14 @@ public class Territory extends Polygon {
             drawCapitalStar(g);
         }
 
-        // Draw the troop count circle and number if the territory is owned
+        // Draw the troop count circle and number if the territory is owned.
         if (this.getPlayer() != null) {
-            // Fill the circle with a darker version of the player's color
+            // Fill the circle with a darker version of the player's color.
             g.setColor(player.getColor().darker());
             g.fillOval(xCenter - radius, yCenter - radius, 2 * radius, 2 * radius);
             g.setColor(Color.WHITE);
 
-            // Scale the font down until the troop number fits within the circle
+            // Scale the font down until the troop number fits within the circle.
             boolean smallEnough = false;
             int startingFontSize = 18;
             Graphics2D g2 = (Graphics2D) g;
@@ -269,12 +269,12 @@ public class Territory extends Polygon {
                 }
             }
 
-            // Draw the troop count centered inside the circle
+            // Draw the troop count centered inside the circle.
             g.setFont(numberFont);
             g.drawString(troopCount, xCenter - (int) (dimentions.getWidth() / 2), yCenter + (int) (dimentions.getHeight() / 4));
         }
 
-        // Draw outline on top of everything so it is never covered by fills or images
+        // Draw outline on top of everything so it is never covered by fills or images.
         if (isHighlighted) {
             g.setColor(Color.WHITE);
             g.drawPolygon(super.xpoints, super.ypoints, super.xpoints.length);
@@ -304,7 +304,7 @@ public class Territory extends Polygon {
         int[] insideHexegonX = new int[5];
         int[] insideHexegonY = new int[5];
 
-        // Calculate the bounds and center of the territory
+        // Calculates the center of the territory and the radius of the circle that holds the troop counts.
         int xLeft = super.xpoints[1];
         int xRight = super.xpoints[2];
         int yTop = super.ypoints[2];
@@ -315,40 +315,47 @@ public class Territory extends Polygon {
 
         g.setColor(Color.BLACK);
 
-        // Draw 5 triangles evenly spaced around the center to form the star points
+        // This draws 5 triangles evenly spaced around the center to form the star points. The math is based around finding
+        // the largest pentagon that can fit within the given circle and then using each side of the pentagon
+        // as a base for one of the triangles. The next step then is to find the middle point of the base and its difference
+        // from the center so that we can then draw the third point of the triangle perpendicular to the base and also away
+        // from the center of the pentago/circle.
         for (int i = 0; i < 5; i++) {
-            // Calculate the two outer points of this triangle using polar coordinates
+            // Calculates the two inner points of this triangle by finding the largest pentagon that fits within the circle
+            // two points at a time.
             xStarPoints[0] = xCenter + radius * Math.cos(((2 * Math.PI * i) / 5) - (3 * Math.PI / 10));
             xStarPoints[1] = xCenter + radius * Math.cos(((2 * Math.PI * (i + 1)) / 5) - (3 * Math.PI / 10));
             yStarPoints[0] = yCenter + radius * Math.sin(((2 * Math.PI * (i)) / 5) - (3 * Math.PI / 10));
             yStarPoints[1] = yCenter + radius * Math.sin(((2 * Math.PI * (i + 1)) / 5) - (3 * Math.PI / 10));
 
-            // Find the midpoint between the two outer points
+            // Finds the mid-point between the two inner points.
             double middleX = (xStarPoints[0] + xStarPoints[1]) / 2;
             double middleY = (yStarPoints[0] + yStarPoints[1]) / 2;
 
-            // Reflect the midpoint through the center to get the inward tip of the star
+            // Finds the difference between the middle values and the center of the circle values and then multiplies the
+            // difference by negative two to find the outer point of the triangle.
             double changeX = (xCenter - middleX);
             double changeY = (yCenter - middleY);
             xStarPoints[2] = changeX * (-2) + middleX;
             yStarPoints[2] = changeY * (-2) + middleY;
 
-            // Convert to int for drawing
+            // Convert the points to integers for drawing.
             int[] xPoints = new int[3];
             int[] yPoints = new int[3];
             for (int k = 0; k < 3; k++) {
-                // Converts the double values into int values by rounding so that the values can be used for drawing in java swing
+                // Converts the double values into int values by rounding so that the values can be used for drawing in java swing.
                 xPoints[k] = (int) Math.round(xStarPoints[k]);
                 yPoints[k] = (int) Math.round(yStarPoints[k]);
             }
 
-            // Store the outer point for the inner pentagon fill
+            // Stores the first of the two points that represent the inner pentagon, and the inner two points of the triangle,
+            // so that it can be filled after drawing all five triangles.
             insideHexegonX[i] = xPoints[0];
             insideHexegonY[i] = yPoints[0];
             g.fillPolygon(xPoints, yPoints, 3);
         }
 
-        // Fill the inner pentagon if the territory has no owner
+        // Fill the inner pentagon if the territory has no owner.
         if (this.getPlayer() == null) {
             g.fillPolygon(insideHexegonX, insideHexegonY, 5);
         }
