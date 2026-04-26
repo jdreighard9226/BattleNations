@@ -247,13 +247,14 @@ public class Territory extends Polygon {
         // Draw the troop count circle and number if the territory is owned.
         if (this.getPlayer() != null) {
             // Fill the circle with a darker version of the player's color.
-            g.setColor(player.getColor().darker());
+            g.setColor(player.getColor().darker().darker());
             g.fillOval(xCenter - radius, yCenter - radius, 2 * radius, 2 * radius);
             g.setColor(Color.WHITE);
 
             // Scale the font down until the troop number fits within the circle.
             boolean smallEnough = false;
             int startingFontSize = 18;
+            int fontBuffer = 4;
             Graphics2D g2 = (Graphics2D) g;
             String troopCount = String.valueOf(this.troopAmount);
             Font numberFont = null;
@@ -262,7 +263,7 @@ public class Territory extends Polygon {
                 numberFont = new Font("Arial", Font.BOLD, startingFontSize);
                 FontRenderContext fontRenderContext = g2.getFontRenderContext();
                 dimentions = numberFont.getStringBounds(troopCount, fontRenderContext);
-                if (dimentions.getWidth() < 2 * radius) {
+                if (dimentions.getWidth() + fontBuffer < 2 * radius) {
                     smallEnough = true;
                 } else {
                     startingFontSize--;
