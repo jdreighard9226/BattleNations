@@ -99,14 +99,14 @@ public class MapLoaderService {
         // The last - length is present because each columns width is calculated by taking a hexagons width, and that of
         // the one bellow it diagonally to the right, but the last column does not have a hexagon bellow it to the right diagonally,
         // thus one length must be subtracted.
-        double length1 = (screen.getWidth() / (2 * numberColumns * (cosValue + 1) - 1));
+        double widthLength = (screen.getWidth() / (2 * numberColumns * (cosValue + 1) - 1));
 
         // Calculates what the length of each side would be if the height was the restraining dimension.
         // The equation is derived from the equation
-        double length2 = (screen.getHeight() / (sinValue * (numberRows + 1))) * 0.8;
+        double heightLength = (screen.getHeight() / (sinValue * (numberRows + 1))) * 0.8;
 
         // Takes the smaller length value, the restraining value and sets it as the length value for all sides of the hexagons.
-        double length = Math.min(length1, length2);
+        double length = Math.min(widthLength, heightLength);
 
         // Finds how much extra room there is in the x direction and centers it, by using the previous width dimension
         // used, plugging in length, subtracting that value from the screens width, and then dividing it by two, so that
