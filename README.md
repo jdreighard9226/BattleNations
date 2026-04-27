@@ -137,6 +137,12 @@ src/
 
 
 - Oracle Javadocs on Swing Components were used extensively for research on our project.
+
+
+- HitsLab on pixabay.com created the music for the game, originally titled the_mountain-war-481763.
+
+
+- Dragoon-Studio on pixabay.com created the click sound affect for the game, originally titled button press.
 ---
 
 ## Authors
