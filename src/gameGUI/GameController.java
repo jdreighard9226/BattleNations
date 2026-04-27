@@ -667,14 +667,14 @@ public class GameController {
                   - Troop Bonus:    +1
                 
                 Water:
-                  - Image: A massive crashing wave — uncrossable.
+                  - Image: A massive crashing wave. Uncrossable.
                   - Not ownable or attackable
                 
                 Water Route
                   - Image: A sailing boat navigating the seas between territories.
                   - Connects non-adjacent territories
                   - Not ownable or attackable
-                
+                ________________________________________________________________________
                 Capital (Star on Map)
                   - No combat bonuses
                   - Must be captured to win in Capital Domination
