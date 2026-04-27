@@ -229,6 +229,30 @@ public class GameLogic {
     }
 
     /**
+     * Checks if any player has been eliminated from the game.
+     *
+     * <p>A player is considered eliminated if they no longer own any territories.
+     * If such a player is found, they are removed from the players list and a
+     * message indicating their elimination is returned.</p>
+     *
+     * <p><b>Note:</b> This method removes at most one player per call. If multiple
+     * players are eliminated simultaneously, this method must be called repeatedly
+     * to remove all eliminated players.</p>
+     *
+     * @return a message indicating which player was eliminated, or an empty string
+     *         if no players were eliminated
+     */
+    public String checkPlayerEliminated() {
+        for (Player p: players) {
+            if (world.getTerritoryCountOwnedByPlayer(p) <= 0) {
+                players.remove(p);
+                return "Eliminated: " + p.getName();
+            }
+        }
+        return "";
+    }
+
+    /**
      * Returns the player who has won the game.
      *
      * @return the winning player, or null if the game is still in progress

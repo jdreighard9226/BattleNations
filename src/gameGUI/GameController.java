@@ -246,6 +246,13 @@ public class GameController {
                 errorText.setText(result.message());
                 return;
             }
+
+            // Checks to see if a player was eliminated
+            String eliminationMessage = gameLogic.checkPlayerEliminated();
+            if (!eliminationMessage.isEmpty()){
+                errorText.setText(eliminationMessage);
+            }
+
             successText.setText(result.message());
 
             // Clear the selected territory after the attack completes
