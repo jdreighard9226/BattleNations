@@ -253,16 +253,20 @@ public class SetUpController {
         setPhase("Troop");
 
         if (!gameSetUpData.isRandomTroopPlacement()) {
-            JOptionPane.showMessageDialog(display, "Welcome to the troop placement phase.\n" +
-                    "You will take turns placing three troops at a time on your territories until\n" +
-                    "no players have any troops left to place.\n" +
-                    "You can refer to the bottom left of the screen to see\n" +
-                    "which players turn it is, their color, and how many troops\n" +
-                    "they have to place.", "Place Troops", JOptionPane.INFORMATION_MESSAGE);
-            startController.makeSound();
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    JOptionPane.showMessageDialog(display, "Welcome to the troop placement phase.\n" +
+                            "You will take turns placing three troops at a time on your territories until\n" +
+                            "no players have any troops left to place.\n" +
+                            "You can refer to the bottom left of the screen to see\n" +
+                            "which players turn it is, their color, and how many troops\n" +
+                            "they have to place.", "Place Troops", JOptionPane.INFORMATION_MESSAGE);
+                    startController.makeSound();
+                }
+            });
         }
     }
-
     /**
      * Transitions from setup to the main game controller.
      *
