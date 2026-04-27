@@ -16,12 +16,17 @@ There are two game modes:
 
 ---
 
-## How to Run
+# How to Run Battle Nations
 
-Make sure you have **Java 17 or later** installed. You can check with:
+## Requirements
+- Java JDK 21 installed
+- Git installed
+
+Check Java version:
 ```
 java -version
 ```
+---
 
 ### Mac / Linux
 
